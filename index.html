@@ -137,37 +137,21 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
 
   <div style="width: 100%; max-width: 800px; box-sizing: border-box; border-radius: 20px; background: #0E1419; border: 1px solid #22303A">
     <button type="button" aria-expanded="{{ notesOpen }}" aria-controls="build-notes" onClick="{{ toggleNotes }}" style="width: 100%; min-height: 56px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 24px; border: 0; background: transparent; color: #F2F6F8; cursor: pointer; text-align: left; font-family: 'Sora', system-ui, sans-serif; font-size: 16px; font-weight: 600">
-      <span style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: {{accent}}">Build 6</span>What's new in build 6</span>
+      <span style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: {{accent}}">Build 7</span>What's new in build 7</span>
       <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; transform: {{ notesChevron }}; transition: transform 0.25s ease"><path d="M6 9l6 6 6-6"></path></svg>
     </button>
     <sc-if value="{{ notesOpen }}" hint-placeholder-val="{{ false }}">
       <div id="build-notes" style="padding: 20px 24px 28px; border-top: 1px solid #1C2830; display: flex; flex-direction: column; gap: 28px">
-        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; color: #8A9AA4">November 23, 2026</span>
-        <div style="display: flex; flex-direction: column; gap: 12px">
-          <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: {{accent}}; color: #0A0E11">New</span>
-          <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
-            <li>Triton Update: check for, download and install new builds from inside Triton (Settings › System › Triton Update, or the Control Center). If a new build fails to start, Triton goes back to the previous one by itself, and you can go back by hand too.</li>
-            <li>The update check in setup is now real: it says whether a newer build is out.</li>
-            <li>Coming from build 5? Download build 6 once from this page. Builds after that install from Triton Update.</li>
-          </ul>
-        </div>
+        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; color: #8A9AA4">Quick patch · November 24, 2026</span>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #A3B1BA">On build 6, Triton Update offers this build by itself. On build 5, download it from this page.</p>
         <div style="display: flex; flex-direction: column; gap: 12px">
           <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid #A9CFDB; color: #A9CFDB">Fixed</span>
           <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
-            <li>Fixed the status icon on Security Updates and Triton Update being slightly cut off.</li>
-            <li>Folder shortcuts in Folder Explorer now show a folder icon instead of a letter.</li>
-            <li>User folders on the desktop now use Triton's folder icon instead of the Windows one.</li>
-            <li>Opening a user-folder shortcut in Folder Explorer now stays in the same tab, so Back works.</li>
-            <li>Dropping a folder into itself is now ignored instead of creating a shortcut to itself and showing an error.</li>
-            <li>New Folder inside a folder now creates a real folder there instead of a shortcut to a folder elsewhere.</li>
-            <li>The Properties window now shows a folder's real size, including everything its shortcuts point to, instead of just the size of its shortcut list.</li>
-            <li>Right-click menus can now extend past the window edge instead of covering the item you clicked.</li>
-            <li>CameraHub no longer shows repeated "grab failed" popups when the camera drops out after sleep or screen-off.</li>
-            <li>Every Terminal window now gets its own dock button, however it was opened (dock, launcher, Win+T, Troy, <code style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #E8EEF1">codex</code>, <code style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #E8EEF1">sys</code>, <code style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #E8EEF1">hollywood</code>).</li>
-            <li>Closing a terminal now removes its dock button. Before, a leftover button stayed and clicking it opened a new terminal.</li>
-            <li>Closing a terminal from the dock's Close item now also ends its shells.</li>
-            <li>Troy no longer repeats one sentence forever when the audio output disappears (for example monitor speakers going off with the screens). A sentence that can't be played is dropped instead of replayed.</li>
-            <li>Speech no longer stays off until restart after a single audio error, such as a failed notification sound.</li>
+            <li>Folder Explorer: open folder windows now reload after a store install, so a newly installed app's red "X" clears without reopening the folder.</li>
+            <li>Speech: after a line fails to play, Troy now waits longer before the next one, from 2 s up to 30 s, instead of retrying straight away.</li>
+            <li>Speech: a single error report could switch speech off. These errors, and stuck audio lines, now count toward the kill switch's limit of 3 faults in 30 seconds.</li>
+            <li>The Qwen voice could be shut down after 10 minutes even while it was working. Triton now checks that it's still running before shutting it down.</li>
+            <li>Troy no longer says "You're welcome." out of nowhere. While Troy listened for a follow-up, speech recognition sometimes heard silence as "Thank you." That phrase is now ignored when it comes from a voice Troy doesn't recognise.</li>
           </ul>
         </div>
         <div style="display: flex; flex-direction: column; gap: 16px">
@@ -175,79 +159,132 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
           <div style="display: flex; flex-direction: column; gap: 8px">
             <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Store</span>
             <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
-              <li>Corrected publishers for Ghidra, Geo Sleuth, JD-GUI, God's Eye View and Autopsy (store updates: Ghidra, Geo Sleuth, JD-GUI, Autopsy 1.0.1; God's Eye View 1.0.3)</li>
+              <li>After sign-in, missing Utilities apps (Contacts, Calendar, Phone, Terminal, TTS, SoundBoard and others) now download automatically as a second wave after the required apps.</li>
             </ul>
           </div>
           <div style="display: flex; flex-direction: column; gap: 8px">
-            <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Control Center: Programs page rebuilt</span>
+            <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">App history</span>
             <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
-              <li>Now lists all installed applications (previously only desktop add-ons and loose files showed)</li>
-              <li>New columns: publisher, install date, size, version</li>
-              <li>Search, type filter and a details pane for the selected program</li>
-              <li>Open, Open file location and Uninstall (moves to the Recycle Bin)</li>
-              <li>Programs tile now has an icon</li>
-            </ul>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 8px">
-            <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Folder Explorer</span>
-            <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
-              <li>Replaced the folder icon with our own outline design</li>
-              <li>On Windows, Folder Explorer and the file picker now show files and folders whose names start with a dot, matching Windows Explorer</li>
-              <li>Added "Open in Native Explorer" to the View menu</li>
-              <li>Quick Access and Desktop Folders in the sidebar can now be collapsed (Desktop Folders starts collapsed)</li>
-              <li>Folders can be pinned to the sidebar from their right-click menu</li>
-              <li>Sidebar folder entries show small folder icons, and pinned folders show a pin marker</li>
-            </ul>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 8px">
-            <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Open file location</span>
-            <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
-              <li>"Open at File Location" now opens Triton's own Folder Explorer with the item selected, instead of the system file manager</li>
-              <li>Added an "Open file location" button to the Location row in the Properties window</li>
-            </ul>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 8px">
-            <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Terminal</span>
-            <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
-              <li>Several terminals now group under one dock button with a count badge and the hover preview</li>
-            </ul>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 8px">
-            <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Speech: kill switch for repeating errors</span>
-            <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
-              <li>3 audio faults in 30 seconds switch speech off with one notification. While off, Triton checks every 5 seconds whether sound works again and switches speech back on by itself</li>
-              <li>When speech is switched off, queued speech is cleared instead of being spoken later</li>
-              <li>Speech lock messages no longer raise their own error pop-ups</li>
-              <li>New "Glitch Breaker" stability monitor runs the kill switches and reports any component that prints the same error 5 times in 10 seconds</li>
-              <li>Only speech has a kill switch so far; other components that loop on errors are announced, not stopped</li>
-            </ul>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 8px">
-            <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Install From URL</span>
-            <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
-              <li>New Install From URL node, which can take its link from the Fire box</li>
-              <li>UrlInstaller methods: install, download, installAndWait</li>
-              <li>Paths accept folder forms, including placeholders like &lt;applications&gt;/MyApp</li>
-              <li>Downloads show progress in Download Center, with a notification when they finish or fail</li>
-              <li>Sample Install_From_URL graph included</li>
-            </ul>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 8px">
-            <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Atlas Invoke</span>
-            <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
-              <li>Now uses @Wireable port names, so UrlInstaller's ports show as url and path instead of arg0 and arg1. Existing graphs keep their arg0… ports.</li>
+              <li>Triton now records every app it opens: when, who launched it, the result (started, failed, missing, already open…), and when it closed and how long it stayed open</li>
+              <li>Apps that run inside another app record their host. DOOM records JPC as its emulator, with one entry per boot (game, WAD, how it ended)</li>
+              <li>Programs opened outside Triton, system-run and portable apps are recorded too</li>
+              <li>New App History page in Control Center, with a filter box and a details pane (for DOOM it shows each JPC boot). It can open in its own window and refreshes by itself</li>
+              <li>History can be turned off with a checkbox (on by default). Reset history needs a second click to confirm, and Open folder shows where the log is kept</li>
+              <li>Only the newest 1000 entries are kept. An app still open when Triton stopped shows its closing time as "unknown"</li>
             </ul>
           </div>
         </div>
       </div>
     </sc-if>
     <div style="border-top: 1px solid #1C2830">
-      <button type="button" aria-expanded="{{ oldNotesOpen }}" aria-controls="build-notes-5" onClick="{{ toggleOldNotes }}" style="width: 100%; min-height: 56px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 24px; border: 0; background: transparent; color: #A3B1BA; cursor: pointer; text-align: left; font-family: 'Sora', system-ui, sans-serif; font-size: 14px; font-weight: 600">
-        <span style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A9AA4">Earlier builds</span>Build 5</span>
+      <button type="button" aria-expanded="{{ oldNotesOpen }}" aria-controls="build-notes-earlier" onClick="{{ toggleOldNotes }}" style="width: 100%; min-height: 56px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 24px; border: 0; background: transparent; color: #A3B1BA; cursor: pointer; text-align: left; font-family: 'Sora', system-ui, sans-serif; font-size: 14px; font-weight: 600">
+        <span style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A9AA4">Earlier builds</span>Build 6 · Build 5</span>
         <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; transform: {{ oldNotesChevron }}; transition: transform 0.25s ease"><path d="M6 9l6 6 6-6"></path></svg>
       </button>
       <sc-if value="{{ oldNotesOpen }}" hint-placeholder-val="{{ false }}">
+        <div id="build-notes-earlier">
+        <div id="build-notes-6" style="padding: 20px 24px 28px; border-top: 1px solid #1C2830; display: flex; flex-direction: column; gap: 28px">
+          <span style="font-size: 15px; font-weight: 700; color: #F2F6F8">Build 6</span>
+            <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; color: #8A9AA4">November 23, 2026</span>
+          <div style="display: flex; flex-direction: column; gap: 12px">
+            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: {{accent}}; color: #0A0E11">New</span>
+            <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
+              <li>Triton Update: check for, download and install new builds from inside Triton (Settings › System › Triton Update, or the Control Center). If a new build fails to start, Triton goes back to the previous one by itself, and you can go back by hand too.</li>
+              <li>The update check in setup is now real: it says whether a newer build is out.</li>
+              <li>Coming from build 5? Download build 6 once from this page. Builds after that install from Triton Update.</li>
+            </ul>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px">
+            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid #A9CFDB; color: #A9CFDB">Fixed</span>
+            <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
+              <li>Fixed the status icon on Security Updates and Triton Update being slightly cut off.</li>
+              <li>Folder shortcuts in Folder Explorer now show a folder icon instead of a letter.</li>
+              <li>User folders on the desktop now use Triton's folder icon instead of the Windows one.</li>
+              <li>Opening a user-folder shortcut in Folder Explorer now stays in the same tab, so Back works.</li>
+              <li>Dropping a folder into itself is now ignored instead of creating a shortcut to itself and showing an error.</li>
+              <li>New Folder inside a folder now creates a real folder there instead of a shortcut to a folder elsewhere.</li>
+              <li>The Properties window now shows a folder's real size, including everything its shortcuts point to, instead of just the size of its shortcut list.</li>
+              <li>Right-click menus can now extend past the window edge instead of covering the item you clicked.</li>
+              <li>CameraHub no longer shows repeated "grab failed" popups when the camera drops out after sleep or screen-off.</li>
+              <li>Every Terminal window now gets its own dock button, however it was opened (dock, launcher, Win+T, Troy, <code style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #E8EEF1">codex</code>, <code style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #E8EEF1">sys</code>, <code style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #E8EEF1">hollywood</code>).</li>
+              <li>Closing a terminal now removes its dock button. Before, a leftover button stayed and clicking it opened a new terminal.</li>
+              <li>Closing a terminal from the dock's Close item now also ends its shells.</li>
+              <li>Troy no longer repeats one sentence forever when the audio output disappears (for example monitor speakers going off with the screens). A sentence that can't be played is dropped instead of replayed.</li>
+              <li>Speech no longer stays off until restart after a single audio error, such as a failed notification sound.</li>
+            </ul>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 16px">
+            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid {{accent}}; color: {{accent}}">Changed</span>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Store</span>
+              <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
+                <li>Corrected publishers for Ghidra, Geo Sleuth, JD-GUI, God's Eye View and Autopsy (store updates: Ghidra, Geo Sleuth, JD-GUI, Autopsy 1.0.1; God's Eye View 1.0.3)</li>
+              </ul>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Control Center: Programs page rebuilt</span>
+              <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
+                <li>Now lists all installed applications (previously only desktop add-ons and loose files showed)</li>
+                <li>New columns: publisher, install date, size, version</li>
+                <li>Search, type filter and a details pane for the selected program</li>
+                <li>Open, Open file location and Uninstall (moves to the Recycle Bin)</li>
+                <li>Programs tile now has an icon</li>
+              </ul>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Folder Explorer</span>
+              <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
+                <li>Replaced the folder icon with our own outline design</li>
+                <li>On Windows, Folder Explorer and the file picker now show files and folders whose names start with a dot, matching Windows Explorer</li>
+                <li>Added "Open in Native Explorer" to the View menu</li>
+                <li>Quick Access and Desktop Folders in the sidebar can now be collapsed (Desktop Folders starts collapsed)</li>
+                <li>Folders can be pinned to the sidebar from their right-click menu</li>
+                <li>Sidebar folder entries show small folder icons, and pinned folders show a pin marker</li>
+              </ul>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Open file location</span>
+              <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
+                <li>"Open at File Location" now opens Triton's own Folder Explorer with the item selected, instead of the system file manager</li>
+                <li>Added an "Open file location" button to the Location row in the Properties window</li>
+              </ul>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Terminal</span>
+              <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
+                <li>Several terminals now group under one dock button with a count badge and the hover preview</li>
+              </ul>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Speech: kill switch for repeating errors</span>
+              <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
+                <li>3 audio faults in 30 seconds switch speech off with one notification. While off, Triton checks every 5 seconds whether sound works again and switches speech back on by itself</li>
+                <li>When speech is switched off, queued speech is cleared instead of being spoken later</li>
+                <li>Speech lock messages no longer raise their own error pop-ups</li>
+                <li>New "Glitch Breaker" stability monitor runs the kill switches and reports any component that prints the same error 5 times in 10 seconds</li>
+                <li>Only speech has a kill switch so far; other components that loop on errors are announced, not stopped</li>
+              </ul>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Install From URL</span>
+              <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
+                <li>New Install From URL node, which can take its link from the Fire box</li>
+                <li>UrlInstaller methods: install, download, installAndWait</li>
+                <li>Paths accept folder forms, including placeholders like &lt;applications&gt;/MyApp</li>
+                <li>Downloads show progress in Download Center, with a notification when they finish or fail</li>
+                <li>Sample Install_From_URL graph included</li>
+              </ul>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Atlas Invoke</span>
+              <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
+                <li>Now uses @Wireable port names, so UrlInstaller's ports show as url and path instead of arg0 and arg1. Existing graphs keep their arg0… ports.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
         <div id="build-notes-5" style="padding: 20px 24px 28px; border-top: 1px solid #1C2830; display: flex; flex-direction: column; gap: 28px">
+          <span style="font-size: 15px; font-weight: 700; color: #F2F6F8">Build 5</span>
           <div style="display: flex; flex-direction: column; gap: 12px">
             <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: {{accent}}; color: #0A0E11">New</span>
             <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
@@ -271,6 +308,7 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
               <li>Triton could hang while shutting down.</li>
             </ul>
           </div>
+        </div>
         </div>
       </sc-if>
     </div>
