@@ -567,7 +567,7 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
 
   <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
     <h2 style="margin: 0; font-size: 36px; font-weight: 800; letter-spacing: -0.03em; color: #F2F6F8">How to start Triton</h2>
-    <sc-if value="{{ rJar }}" hint-placeholder-val="{{ true }}"><p style="margin: 0; max-width: 560px; font-size: 16px; line-height: 1.5; color: #A3B1BA">Triton runs on Java 21 or higher, either installed on the machine or carried in a folder next to triton.jar. triton.jar itself opens with a double-click, even where only Java 8 is installed. Pick whichever way suits you — there's nothing else to install.</p></sc-if>
+    <sc-if value="{{ rJar }}" hint-placeholder-val="{{ true }}"><p style="margin: 0; max-width: 560px; font-size: 16px; line-height: 1.5; color: #A3B1BA">Triton runs on Java 21 or higher, either installed on the machine or carried in a folder next to triton.jar. triton.jar itself opens with a double-click, even where only Java 8 is installed. Pick whichever way suits you.</p></sc-if>
     <sc-if value="{{ rIso }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; max-width: 560px; font-size: 16px; line-height: 1.5; color: #A3B1BA">Triton OS is a live system: write the image to a USB stick once, then boot your computer from it.</p></sc-if>
   </div>
 
@@ -590,9 +590,9 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
         <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 12px; border: 1px solid #22303A; background: #0C1318">
           <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: {{accent}}">Only Java 8 on this machine?</span>
           <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #C9D6DD">The jar still opens. A small Java 8 launcher looks for Java 21 or higher and moves Triton onto it. It checks a <code>jdk…</code> or <code>jre…</code> folder right next to triton.jar first, then any Java 21+ installed on the machine. If it finds none, it tells you what to install.</p>
-          <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">Easiest fix: unzip a JDK 21 (for example Eclipse Temurin) into a folder next to triton.jar. The Demo Bundle will come with the runtime included, so this step goes away.</p>
+          <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">To fix it, pick one of the three ways under <a href="#java" style="text-decoration: none">Get Java 21 or higher</a> below.</p>
         </div>
-        <sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">Right-click triton.jar and choose <strong style="font-weight: 600; color: #F2F6F8">Open With → OpenJDK Java Runtime</strong>. If Java isn't listed, install it first or use the terminal option below.</p><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">Start it from your desktop session: Triton needs a graphical desktop (tested on Ubuntu Desktop).</p></sc-if>
+        <sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">Right-click triton.jar and choose <strong style="font-weight: 600; color: #F2F6F8">Open With → OpenJDK Java Runtime</strong>. If Java isn't listed, see <a href="#java" style="text-decoration: none">Get Java 21 or higher</a> below.</p><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">Start it from your desktop session: Triton needs a graphical desktop (tested on Ubuntu Desktop).</p></sc-if>
       </div>
     </li>
     <li style="box-sizing: border-box; padding: 28px; border-radius: 24px; background: #10181E; border: 1px solid #22303A; display: flex; flex-wrap: wrap; gap: 14px 40px; align-items: flex-start">
@@ -602,26 +602,79 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
         <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">Open a terminal in the folder where you saved triton.jar. Handy for seeing startup messages or passing launch options.</p>
       </div>
       <div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
-        <sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 8px"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #8A9AA4">Install Java · Ubuntu</span><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>sudo apt install openjdk-21-jre</code></pre></div></sc-if>
         <div style="display: flex; flex-direction: column; gap: 8px">
           <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #8A9AA4">Java on your PATH</span>
           <pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>java -jar triton.jar</code></pre>
+          <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">This uses whichever <code>java</code> comes first. Check it with <code>java -version</code>: it must say 21 or higher. If it doesn't, use way 3 under <a href="#java" style="text-decoration: none">Get Java 21 or higher</a>.</p>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 8px">
-          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #8A9AA4">A specific Java install</span>
-          <sc-if value="{{ rWin }}" hint-placeholder-val="{{ true }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>"C:\Program Files\Java\jdk-21\bin\java.exe" -jar triton.jar</code></pre></sc-if>
-          <sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>/usr/lib/jvm/java-21-openjdk-amd64/bin/java -jar triton.jar</code></pre></sc-if>
-          <sc-if value="{{ rMac }}" hint-placeholder-val="{{ false }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>$(/usr/libexec/java_home -v 21)/bin/java -jar triton.jar</code></pre></sc-if>
-          <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">For when <code>java</code> isn't on your PATH or you have several versions. Swap the path for wherever yours lives.</p>
+      </div>
+    </li>
+    <li id="java" style="box-sizing: border-box; padding: 28px; border-radius: 24px; background: #10181E; border: 1px solid #22303A; display: flex; flex-wrap: wrap; gap: 14px 40px; align-items: flex-start; scroll-margin-top: 24px">
+      <div style="flex: 0 1 220px; display: flex; flex-direction: column; gap: 10px">
+        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: {{accent}}">Java · three ways</span>
+        <h3 style="margin: 0; font-size: 20px; font-weight: 600; color: #F2F6F8">Get Java 21 or higher</h3>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">Triton needs Java 21 or higher. Java 8 or 17 is not enough. Any one of these ways works.</p>
+      </div>
+      <div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #8A9AA4"><span style="color: {{accent}}">1</span> · Simplest</span>
+          <h4 style="margin: 0; font-size: 17px; font-weight: 600; color: #F2F6F8">Install a newer Java</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">Download and install a JDK 21 or newer from one of these official pages:</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <a href="https://adoptium.net/temurin/releases/?version=21" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; box-sizing: border-box; border-radius: 999px; border: 1px solid #3A4A56; font-size: 14px; font-weight: 600; text-decoration: none">Eclipse Temurin 21 <span style="font-weight: 400; color: #8A9AA4">· Adoptium</span></a>
+            <a href="https://www.oracle.com/java/technologies/downloads/" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; box-sizing: border-box; border-radius: 999px; border: 1px solid #3A4A56; font-size: 14px; font-weight: 600; text-decoration: none">Oracle Java <span style="font-weight: 400; color: #8A9AA4">· JDK 21</span></a>
+            <a href="https://learn.microsoft.com/java/openjdk/download" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; box-sizing: border-box; border-radius: 999px; border: 1px solid #3A4A56; font-size: 14px; font-weight: 600; text-decoration: none">Microsoft Build of OpenJDK</a>
+          </div>
+          <sc-if value="{{ rWin }}" hint-placeholder-val="{{ true }}"><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">On Windows, pick the x64 installer (.msi or .exe).</p></sc-if>
+          <sc-if value="{{ rMac }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">On a Mac, pick the <strong style="font-weight: 600; color: #F2F6F8">aarch64 / arm64</strong> (Apple silicon) .pkg. Triton on macOS needs an arm64 JDK; the x64 one won't do.</p></sc-if>
+          <sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">On Ubuntu, the package manager is quicker:</p><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>sudo apt install openjdk-21-jre</code></pre></sc-if>
+          <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">Then double-click triton.jar again. It finds the new Java by itself.</p>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 8px">
-          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #8A9AA4">Portable · Java on the USB drive</span>
-          <sc-if value="{{ rWin }}" hint-placeholder-val="{{ true }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>jdk\bin\java.exe -jar triton.jar</code></pre></sc-if>
-          <sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>./jdk/bin/java -jar triton.jar</code></pre></sc-if>
-          <sc-if value="{{ rMac }}" hint-placeholder-val="{{ false }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>./jdk/Contents/Home/bin/java -jar triton.jar</code></pre></sc-if>
-          <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">Put a Java 21+ folder (named <code>jdk…</code> or <code>jre…</code>) next to triton.jar and the drive carries its own runtime — no Java 21 needed on the host machine. Where Java 8 is installed, a double-click finds that folder too.</p>
-          <sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">If the jdk folder came out of a zip, run <code>chmod +x jdk/bin/java</code> once first.</p></sc-if>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 24px; border-top: 1px solid #1C2830">
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #8A9AA4"><span style="color: {{accent}}">2</span> · No install</span>
+          <h4 style="margin: 0; font-size: 17px; font-weight: 600; color: #F2F6F8">Put a portable JDK next to triton.jar</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">From the same pages, download the archive (<sc-if value="{{ rWin }}" hint-placeholder-val="{{ true }}">.zip</sc-if><sc-if value="{{ rNotWin }}" hint-placeholder-val="{{ false }}">.tar.gz</sc-if>) instead of the installer and unpack it into the folder that holds triton.jar:</p>
+          <sc-if value="{{ rWin }}" hint-placeholder-val="{{ true }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>Triton\
+├─ triton.jar
+└─ jdk-21.0.5+11\
+   ├─ release
+   └─ bin\
+      └─ java.exe</code></pre></sc-if>
+          <sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>Triton/
+├─ triton.jar
+└─ jdk-21.0.5+11/
+   ├─ release
+   └─ bin/
+      └─ java</code></pre></sc-if>
+          <sc-if value="{{ rMac }}" hint-placeholder-val="{{ false }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>Triton/
+├─ triton.jar
+└─ jdk-21.0.5+11/
+   └─ Contents/
+      └─ Home/
+         ├─ release
+         └─ bin/
+            └─ java</code></pre></sc-if>
+          <ul style="margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 1.5; color: #C9D6DD">
+            <li>Put it right next to triton.jar, not in a subfolder.</li>
+            <li>Its name must start with <code>jdk</code> or <code>jre</code>. The name it unpacks with is fine.</li>
+            <li>This file must exist inside it: <sc-if value="{{ rWin }}" hint-placeholder-val="{{ true }}"><code>bin\java.exe</code></sc-if><sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><code>bin/java</code></sc-if><sc-if value="{{ rMac }}" hint-placeholder-val="{{ false }}"><code>Contents/Home/bin/java</code></sc-if>.</li>
+            <li>It must be built for your system (<sc-if value="{{ rWin }}" hint-placeholder-val="{{ true }}">Windows x64</sc-if><sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}">Linux x64 or aarch64</sc-if><sc-if value="{{ rMac }}" hint-placeholder-val="{{ false }}">macOS aarch64</sc-if>). Keep its <code>release</code> file: the launcher reads it to check.</li>
+          </ul>
+          <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">A double-click uses this folder even when the machine only has Java 8, so a USB drive can carry its own Java. The Demo Bundle will include one later.</p>
         </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 24px; border-top: 1px solid #1C2830">
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #8A9AA4"><span style="color: {{accent}}">3</span> · Terminal</span>
+          <h4 style="margin: 0; font-size: 17px; font-weight: 600; color: #F2F6F8">Start it with a specific Java</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">Open a terminal in the triton.jar folder and use the full path to that Java's <code>java</code>:</p>
+          <sc-if value="{{ rWin }}" hint-placeholder-val="{{ true }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>&amp; "C:\Program Files\Java\jdk-21\bin\java.exe" -jar triton.jar</code></pre><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">That's PowerShell; in Command Prompt, leave out the <code>&amp;</code>. With the portable folder from way 2:</p><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>.\jdk-21.0.5+11\bin\java.exe -jar triton.jar</code></pre></sc-if>
+          <sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>/usr/lib/jvm/java-21-openjdk-amd64/bin/java -jar triton.jar</code></pre><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">With the portable folder from way 2 (if it came out of a zip, run <code>chmod +x jdk-21.0.5+11/bin/java</code> once first):</p><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>./jdk-21.0.5+11/bin/java -jar triton.jar</code></pre></sc-if>
+          <sc-if value="{{ rMac }}" hint-placeholder-val="{{ false }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home/bin/java -jar triton.jar</code></pre><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">With the portable folder from way 2:</p><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>./jdk-21.0.5+11/Contents/Home/bin/java -jar triton.jar</code></pre></sc-if>
+          <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">Swap the path for wherever your Java 21 lives. To see which version a <code>java</code> is, run it with <code>-version</code> instead of <code>-jar triton.jar</code>.</p>
+        </div>
+
       </div>
     </li>
     </sc-if>
@@ -779,6 +832,7 @@ class Component extends DCLogic {
       rIso: runOs === 'iso',
       rJar: runOs !== 'iso',
       rNotLinux: runOs !== 'linux' && runOs !== 'iso',
+      rNotWin: runOs !== 'windows' && runOs !== 'iso',
       current: { num: '0' + (step + 1), title: cur.title, desc: cur.desc },
       fadeTransition: reduce ? 'none' : 'opacity 0.6s ease',
       moreOpacity: atEnd ? 1 : 0,
