@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terminal — Triton Docs</title>
+<meta name="description" content="All Triton Terminal commands.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="../../">Strombos</a>
+  <nav aria-label="Site">
+    <a href="../">Docs</a>
+    <a href="../../#download">Download</a>
+  </nav>
+</header>
+
+<main>
+  <div class="page-head">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Docs</a><span aria-hidden="true">/</span><span aria-current="page">Terminal</span></nav>
+    <h1>Terminal<span class="dot">.</span></h1>
+    <p class="lead">All Triton Terminal commands</p>
+  </div>
+
+  <!-- On-page contents: one <li> per <h2 id="..."> below. -->
+  <nav class="toc" aria-label="On this page">
+    <span class="eyebrow">On this page</span>
+    <ol>
+      <li><a href="#built-ins">Triton Shell built-ins</a></li>
+      <li><a href="#codex">codex</a></li>
+      <li><a href="#sys">sys</a></li>
+      <li><a href="#package">package</a></li>
+      <li><a href="#synapse">synapse</a></li>
+      <li><a href="#demo">demo</a></li>
+      <li><a href="#admin">admin</a></li>
+      <li><a href="#layout">layout</a></li>
+      <li><a href="#hollywood">hollywood</a></li>
+      <li><a href="#from-packages">From installed packages and apps</a></li>
+    </ol>
+  </nav>
+
+  <article class="doc">
+
+    <h2 id="built-ins">Triton Shell built-ins</h2>
+    <p class="h-note">Triton Shell tab only; a leading <code>/</code> also works.</p>
+    <div class="table-wrap"><table class="cmds"><tbody>
+      <tr><td><code>help</code></td><td>this text</td></tr>
+      <tr><td><code>commands</code></td><td>registered bridge commands</td></tr>
+      <tr><td><code>clear</code></td><td>clear screen</td></tr>
+      <tr><td><code>pwd / cd</code></td><td>working directory (used as each command's cwd)</td></tr>
+      <tr><td><code>hollywood</code></td><td>hacker eye candy in this tab (q quits)</td></tr>
+      <tr><td><code>exit / quit</code></td><td>close this tab</td></tr>
+    </tbody></table></div>
+
+    <h2 id="codex" class="cmd-h">codex</h2>
+    <div class="table-wrap"><table class="cmds"><tbody>
+      <tr><td><code>codex list</code></td><td>guides, internal libraries, scripts, script imports</td></tr>
+      <tr><td><code>codex run &lt;name.script&gt;</code></td><td>run a .script file via ScriptRunner</td></tr>
+      <tr><td><code>codex eval &lt;script text...&gt;</code></td><td>run inline script text</td></tr>
+      <tr><td><code>codex call &lt;library&gt; &lt;method&gt; [args]</code></td><td>invoke a @CodexRegister library method</td></tr>
+      <tr><td><code>codex tui</code></td><td>open the Codex browser tab</td></tr>
+      <tr><td><code>codex &lt;guide&gt; [target]</code></td><td>launch a guide tool (e.g. <code>codex jdgui App.jar</code>)</td></tr>
+      <tr><td colspan="2"><code>codex help</code></td></tr>
+    </tbody></table></div>
+
+    <h2 id="sys" class="cmd-h">sys</h2>
+    <div class="table-wrap"><table class="cmds">
+      <tbody>
+        <tr><td colspan="2"><code>sys help [branch]</code></td></tr>
+      </tbody>
+      <tbody>
+        <tr><td colspan="2"><code>sys attr list [prefix]</code></td></tr>
+        <tr><td colspan="2"><code>sys attr get &lt;name&gt;</code></td></tr>
+        <tr><td colspan="2"><code>sys attr set &lt;name&gt; &lt;value&gt; [--save | --session]</code></td></tr>
+        <tr><td colspan="2"><code>sys attr reset &lt;name&gt; [--save | --session]</code></td></tr>
+      </tbody>
+      <tbody>
+        <tr><td><code>sys tui [section]</code></td><td>System Console tab, optionally on a section such as dev</td></tr>
+      </tbody>
+      <tbody>
+        <tr><td><code>sys dev</code></td><td>status: what's on, watched, reloaded</td></tr>
+        <tr><td colspan="2"><code>sys dev on | off [--save]</code></td></tr>
+        <tr><td colspan="2"><code>sys dev guard [on | off] [--save]</code></td></tr>
+        <tr><td colspan="2"><code>sys dev pick</code></td></tr>
+        <tr><td colspan="2"><code>sys dev open &lt;class&gt;</code></td></tr>
+        <tr><td colspan="2"><code>sys dev reload &lt;file.java&gt; [more.java ...]</code></td></tr>
+        <tr><td colspan="2"><code>sys dev revert &lt;class&gt;</code></td></tr>
+        <tr><td colspan="2"><code>sys dev tui</code></td></tr>
+      </tbody>
+      <tbody>
+        <tr><td colspan="2"><code>sys workspace</code></td></tr>
+        <tr><td colspan="2"><code>sys workspace sync</code></td></tr>
+        <tr><td colspan="2"><code>sys workspace open</code></td></tr>
+        <tr><td colspan="2"><code>sys workspace conflicts</code></td></tr>
+        <tr><td colspan="2"><code>sys workspace keep &lt;class|path&gt;</code></td></tr>
+        <tr><td colspan="2"><code>sys workspace take &lt;class|path&gt;</code></td></tr>
+      </tbody>
+    </table></div>
+
+    <h2 id="package" class="cmd-h">package</h2>
+    <p class="h-note"><code>tools</code> is the older name and takes the same subcommands.</p>
+    <div class="table-wrap"><table class="cmds">
+      <tbody>
+        <tr><td><code>package list</code></td><td>every package: number, status, commands</td></tr>
+        <tr><td><code>package whatis &lt;id|name&gt;</code></td><td>source, pin, commands, state</td></tr>
+        <tr><td><code>package install &lt;id|name&gt;|--all</code></td><td>download the pinned source + dependencies</td></tr>
+        <tr><td><code>package install &lt;source&gt;/*</code></td><td>install every package a source offers (e.g. <code>cyber/*</code>)</td></tr>
+        <tr><td><code>package update &lt;id|name&gt;|--all</code></td><td>reinstall at the manifest's ref</td></tr>
+        <tr><td><code>package uninstall &lt;id|name&gt;</code></td><td>delete the installed files (stays in the list)</td></tr>
+      </tbody>
+      <tbody>
+        <tr><td colspan="2"><code>package repo add &lt;link&gt; [--ref &lt;tag|branch|sha&gt;] [--name &lt;name&gt;] [--entry &lt;file.py&gt;] [--category &lt;word&gt;] [--no-confirm]</code></td></tr>
+        <tr><td><code>package repo remove &lt;id|name&gt;</code></td><td>uninstall and forget it completely</td></tr>
+        <tr><td><code>package repo list</code></td><td>where every package comes from</td></tr>
+      </tbody>
+      <tbody>
+        <tr><td colspan="2"><code>package source add &lt;link|folder|file.source|name&gt; [--ref &lt;tag|branch|sha&gt;]</code></td></tr>
+        <tr><td><code>package source remove &lt;id|name&gt;</code></td><td>forget a catalog (added packages stay)</td></tr>
+        <tr><td><code>package source update [id|name]</code></td><td>re-fetch catalogs</td></tr>
+        <tr><td><code>package source list</code></td><td>registered catalogs</td></tr>
+      </tbody>
+      <tbody>
+        <tr><td><code>package search [text]</code></td><td>packages offered by the catalogs</td></tr>
+        <tr><td><code>package reload</code></td><td>rescan the packages folder</td></tr>
+        <tr><td><code>package doctor</code></td><td>runtime + per-package health</td></tr>
+      </tbody>
+    </table></div>
+    <span class="ex-label">Example</span>
+    <pre><code>package repo add https://github.com/mvt-project/mvt
+package install mvt</code></pre>
+
+    <h2 id="synapse" class="cmd-h">synapse</h2>
+    <p class="h-note">Only while the Synapse app is installed.</p>
+    <div class="table-wrap"><table class="cmds"><tbody>
+      <tr><td><code>synapse list</code></td><td>saved graphs and their entry gates</td></tr>
+      <tr><td><code>synapse execute &lt;graph&gt; [arg ...]</code></td><td>fire the graph's entry gate with the args as payload</td></tr>
+      <tr><td colspan="2"><code>synapse help</code></td></tr>
+    </tbody></table></div>
+
+    <h2 id="demo" class="cmd-h">demo</h2>
+    <pre><code>demo [status]
+demo on | off
+demo reset [--cancel]
+demo start [--cancel]
+demo stop [--cancel]</code></pre>
+
+    <h2 id="admin" class="cmd-h">admin</h2>
+    <pre><code>admin [status]
+admin on | off</code></pre>
+
+    <h2 id="layout" class="cmd-h">layout</h2>
+    <pre><code>layout [status]
+layout save-default</code></pre>
+
+    <h2 id="hollywood" class="cmd-h">hollywood</h2>
+    <div class="table-wrap"><table class="cmds"><tbody>
+      <tr><td><code>hollywood</code></td><td>opens the Hollywood tab (q, Esc or Ctrl+C quits, Space reshuffles)</td></tr>
+    </tbody></table></div>
+
+    <h2 id="from-packages">From installed packages and apps</h2>
+    <div class="table-wrap"><table class="cmds"><tbody>
+      <tr><td><code>mvt [args]  /  mvt-ios [args]  /  mvt-android [args]</code></td><td>package: Mobile Verification Toolkit</td></tr>
+      <tr><td><code>cloakquest3r &lt;domain&gt;</code> (alias <code>cq3r</code>)</td><td>package: origin IP behind Cloudflare</td></tr>
+    </tbody></table></div>
+    <span class="ex-label">Example · when Autopsy is installed</span>
+    <pre><code>autopsy &lt;case.aut&gt;
+autopsy --createCase --caseName=&lt;name&gt; --caseBaseDir=&lt;folder&gt;
+autopsy --caseName=&lt;name&gt; --caseBaseDir=&lt;folder&gt; --addDataSource --dataSourcePath=&lt;path&gt; --runIngest --generateReports
+autopsy --listAllDataSources --caseName=&lt;name&gt; --caseBaseDir=&lt;folder&gt;
+autopsy --listAllIngestProfiles</code></pre>
+
+  </article>
+
+  <div class="back-top"><a href="../">← All docs</a><a href="#top">Back to top ↑</a></div>
+</main>
+
+<footer class="site-footer">
+  <span>Triton is a project by Strombos</span>
+  <span>© 2026 Strombos</span>
+</footer>
+
+</body>
+</html>
