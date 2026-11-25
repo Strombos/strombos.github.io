@@ -66,6 +66,21 @@ main { width: 100%; max-width: 832px; margin: 0 auto; padding: 48px 16px 112px; 
 .toc a { display: flex; gap: 10px; align-items: baseline; padding: 6px 0; text-decoration: none; font-size: 15px; line-height: 1.4; }
 .toc a::before { content: counter(toc, decimal-leading-zero); font-family: var(--mono); font-size: 11px; color: var(--fg-muted); }
 
+/* ---- Side menu (main.with-side): the .toc becomes a sticky left column on wide screens ---- */
+.doc h2[id] { scroll-margin-top: 24px; }
+@media (min-width: 1100px) {
+  main.with-side { max-width: 1132px; display: grid; grid-template-columns: 236px minmax(0, 800px); column-gap: 64px; align-items: start; }
+  main.with-side > * { grid-column: 2; }
+  main.with-side > .toc { grid-column: 1; grid-row: 1 / span 3; position: sticky; top: 24px; max-height: calc(100vh - 48px); overflow-y: auto; margin: 0; padding: 4px 0; border: 0; border-radius: 0; background: none; }
+  main.with-side > .toc .eyebrow { margin-bottom: 10px; padding-left: 14px; }
+  main.with-side > .toc ol { display: flex; flex-direction: column; gap: 0; border-left: 1px solid var(--line); }
+  main.with-side > .toc a { margin-left: -1px; padding: 7px 0 7px 14px; border-left: 2px solid transparent; font-size: 14px; color: var(--fg-dim); }
+  main.with-side > .toc a:hover { color: #FFFFFF; }
+  main.with-side > .toc a.cmd { font-family: var(--mono); font-size: 13px; }
+  main.with-side > .toc a::before { display: none; }
+  main.with-side > .toc a.active { border-left-color: var(--accent); color: var(--fg-strong); }
+}
+
 /* ---- Long-form doc content ---- */
 .doc { font-size: 16px; line-height: 1.65; color: var(--fg-body); }
 .doc > * { margin: 0 0 16px; }
