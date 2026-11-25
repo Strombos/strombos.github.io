@@ -1,20 +1,143 @@
-// Highlights the side-menu link for the section being read (docs pages with a .toc).
+// Shared script for strombos.dev/docs/.
+// To add a doc: create docs/<name>/index.html (copy docs/terminal/index.html) and add ONE line to DOCS below.
+// The sidebar, the docs overview cards and the previous/next links are all built from this list.
+var DOCS = [
+  { title: 'Terminal', href: 'terminal/', tag: 'App', desc: 'All Triton Terminal commands.' }
+];
+
 (function () {
-  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a[href^="#"]'));
-  if (!links.length) return;
-  var sections = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
-  function update() {
-    var current = 0;
-    for (var i = 0; i < sections.length; i++) {
-      if (sections[i] && sections[i].getBoundingClientRect().top <= 120) current = i;
-    }
-    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) current = sections.length - 1;
-    links.forEach(function (a, i) {
-      a.classList.toggle('active', i === current);
-      if (i === current) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
+  var script = document.currentScript;
+  var base = script.src.replace(/docs\.js(\?.*)?$/, '');   // URL of docs/
+  var root = base + '../';                                  // URL of the homepage
+  var norm = function (u) { return u.split('#')[0].split('?')[0].replace(/index\.html$/, '').replace(/\/$/, ''); };
+  var here = norm(location.href);
+  var pages = [{ title: 'Overview', href: '' }].concat(DOCS);
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+
+  // ---- Sidebar ----
+  var side = document.getElementById('sidebar');
+  if (side) {
+    var item = function (p) {
+      var url = base + p.href, cur = norm(url) === here;
+      return '<li><a href="' + esc(url) + '"' + (cur ? ' aria-current="page"' : '') + '>' + esc(p.title) + (p.tag ? '<small>' + esc(p.tag) + '</small>' : '') + '</a></li>';
+    };
+    var ext = [['Triton homepage', ''], ['Download', '#download'], ['How to start', '#run'], ['Get Java 21 or higher', '#java']];
+    side.innerHTML =
+      '<nav aria-label="Docs">' +
+      '<div class="group"><span class="group-title">Documentation</span><ul>' + item(pages[0]) + '</ul></div>' +
+      '<div class="group"><span class="group-title">Apps</span><ul>' + DOCS.map(item).join('') + '</ul></div>' +
+      '<div class="group"><span class="group-title">Get Triton</span><ul>' + ext.map(function (e) {
+        return '<li><a class="ext" href="' + esc(root + e[1]) + '">' + esc(e[0]) + '</a></li>';
+      }).join('') + '</ul></div></nav>';
+  }
+
+  // ---- Overview cards ----
+  var list = document.getElementById('doc-list');
+  if (list) {
+    list.innerHTML = DOCS.map(function (d) {
+      return '<li><a class="doc-card" href="' + esc(base + d.href) + '"><span class="tag">' + esc(d.tag) + '</span><strong>' + esc(d.title) + '</strong><span class="desc">' + esc(d.desc) + '</span><span class="go">Read →</span></a></li>';
+    }).join('');
+  }
+
+  // ---- Previous / next ----
+  var pager = document.getElementById('pager');
+  if (pager) {
+    var i = -1;
+    pages.forEach(function (p, n) { if (norm(base + p.href) === here) i = n; });
+    var html = '';
+    if (i > 0) html += '<a class="prev" href="' + esc(base + pages[i - 1].href) + '"><small>← Previous</small><span>' + esc(pages[i - 1].title) + '</span></a>';
+    if (i >= 0 && i < pages.length - 1) html += '<a class="next" href="' + esc(base + pages[i + 1].href) + '"><small>Next →</small><span>' + esc(pages[i + 1].title) + '</span></a>';
+    if (html) pager.innerHTML = html; else pager.hidden = true;
+  }
+
+  // ---- Mobile menu ----
+  var btn = document.querySelector('.menu-btn');
+  var setNav = function (open) { document.body.classList.toggle('nav-open', open); if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false'); };
+  if (btn) btn.addEventListener('click', function () { setNav(!document.body.classList.contains('nav-open')); });
+  var scrim = document.querySelector('.scrim');
+  if (scrim) scrim.addEventListener('click', function () { setNav(false); });
+
+  // ---- Heading links ----
+  Array.prototype.forEach.call(document.querySelectorAll('.doc h2[id]'), function (h) {
+    var a = document.createElement('a');
+    a.className = 'anchor'; a.href = '#' + h.id; a.textContent = '#';
+    a.setAttribute('aria-label', 'Link to ' + h.textContent);
+    h.appendChild(a);
+  });
+
+  // ---- Copy buttons on code blocks ----
+  Array.prototype.forEach.call(document.querySelectorAll('.doc pre'), function (pre) {
+    var wrap = document.createElement('div');
+    wrap.className = 'code';
+    pre.parentNode.insertBefore(wrap, pre);
+    wrap.appendChild(pre);
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'copy'; b.textContent = 'Copy';
+    b.addEventListener('click', function () {
+      var text = pre.innerText.replace(/\n$/, '');
+      var ok = function () { b.textContent = 'Copied'; b.classList.add('done'); setTimeout(function () { b.textContent = 'Copy'; b.classList.remove('done'); }, 1600); };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok, function () {});
+      else { var t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); ok(); } catch (e) {} t.remove(); }
+    });
+    wrap.appendChild(b);
+  });
+
+  // ---- Filter this page ----
+  var input = document.getElementById('filter');
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.doc section'));
+  var cards = list ? Array.prototype.slice.call(list.children) : [];
+  var none = document.getElementById('no-results');
+  if (input) {
+    input.addEventListener('input', function () {
+      var q = input.value.trim().toLowerCase(), any = false;
+      sections.forEach(function (s) {
+        var title = (s.querySelector('h2') || s).textContent.toLowerCase();
+        var whole = !q || title.indexOf(q) >= 0, shown = whole;
+        Array.prototype.forEach.call(s.querySelectorAll('.cmds tbody tr, .code'), function (el) {
+          var hit = whole || el.textContent.toLowerCase().indexOf(q) >= 0;
+          el.hidden = !hit; if (hit) shown = true;
+        });
+        Array.prototype.forEach.call(s.querySelectorAll('.cmds tbody'), function (tb) {
+          tb.hidden = !Array.prototype.some.call(tb.rows, function (r) { return !r.hidden; });
+        });
+        Array.prototype.forEach.call(s.querySelectorAll('.table-wrap'), function (w) {
+          w.hidden = !w.querySelector('tbody tr:not([hidden])');
+        });
+        Array.prototype.forEach.call(s.querySelectorAll('.ex-label'), function (l) {
+          var next = l.nextElementSibling; l.hidden = !!(next && next.hidden);
+        });
+        s.hidden = !shown; if (shown) any = true;
+      });
+      var first = sections.filter(function (s) { return !s.hidden; })[0];
+      sections.forEach(function (s) { s.classList.toggle('first', s === first); });
+      cards.forEach(function (c) { var hit = !q || c.textContent.toLowerCase().indexOf(q) >= 0; c.hidden = !hit; if (hit) any = true; });
+      if (none) none.hidden = any;
+      document.querySelectorAll('.toc a[href^="#"]').forEach(function (a) {
+        var t = document.getElementById(a.getAttribute('href').slice(1));
+        a.parentNode.hidden = !!(t && t.closest('section') && t.closest('section').hidden);
+      });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === '/' && document.activeElement !== input && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); input.focus(); }
+      else if (e.key === 'Escape') {
+        if (document.activeElement === input && input.value) { input.value = ''; input.dispatchEvent(new Event('input')); }
+        setNav(false);
+      }
     });
   }
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
-  update();
+
+  // ---- Highlight the section being read in "On this page" ----
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if (links.length) {
+    var targets = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+    var update = function () {
+      var cur = 0;
+      targets.forEach(function (t, n) { if (t && !t.closest('[hidden]') && t.getBoundingClientRect().top <= 140) cur = n; });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) cur = targets.length - 1;
+      links.forEach(function (a, n) { a.classList.toggle('active', n === cur); if (n === cur) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
 })();
