@@ -146,19 +146,27 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
         <div style="display: flex; flex-direction: column; gap: 12px">
           <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid #A9CFDB; color: #A9CFDB">Fixed</span>
           <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
-            <li>Troy no longer answers on top of himself with "Always re-listen after a reply" on. The mic now waits until a multi-step answer (for example "let me check" and then the result) is finished before it opens again.</li>
-            <li>A long sentence cut by a pause or the buffer limit no longer splits into two turns.</li>
-            <li>Troy can now close, focus and select apps such as Vortex. Before, "Close Vortex" said "Closing it." and then that it never opened. Asking to open an app that is already running now offers to focus it or open another.</li>
-            <li>Troy can now open apps whose tile sits right on the desktop, such as Games, Meridian and Folder Explorer.</li>
-            <li>A per-screen background now changes straight away when you pick a new picture. The main background picker had the same problem.</li>
-            <li>Per-screen wallpapers stay on the right monitor after a monitor drops out and comes back, for example over a flaky HDMI cable.</li>
+            <li>Choosing a new per-screen background sometimes kept showing the old picture. The main background picker had the same problem.</li>
+            <li>Per-screen wallpapers no longer move to a different monitor when a monitor drops out and comes back (for example over a loose HDMI cable). Your current per-screen setup is carried over automatically on first start.</li>
+            <li>Troy can now close, switch to, minimize, maximize and move apps like Vortex. Before, "close Vortex" said "Closing it." and then claimed the app never opened, with its window still on screen.</li>
+            <li>Troy can now open apps whose icon sits directly on the desktop, such as Games, Meridian and Folder Explorer. Before, "open Games" said "Opening Games." and then couldn't find it.</li>
+            <li>With "Always re-listen after a reply" on, Troy no longer answers on top of himself. The mic now waits until Troy has finished his whole answer, including anything he's still looking up, before it reopens.</li>
+            <li>A long sentence cut off by the buffer limit or a pause no longer splits into two separate requests.</li>
           </ul>
         </div>
         <div style="display: flex; flex-direction: column; gap: 12px">
           <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid {{accent}}; color: {{accent}}">Changed</span>
           <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
-            <li>triton.jar no longer contains Triton's source code, so dev mode and Live reload report that the build has no sources. Build 7, which has them, stays available below.</li>
-            <li>Existing per-screen wallpaper settings are converted on first start, keeping what each screen shows now.</li>
+            <li>Asking Troy to open an app that's already running now offers to switch to it or open another.</li>
+            <li>triton.jar no longer includes Triton's source code, so dev mode and Live reload report that the build has no sources. Build 7, which has them, stays available below.</li>
+          </ul>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid #8A9AA4; color: #8A9AA4">Known limits</span>
+          <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
+            <li>Troy can't control Windows programs on the dock yet.</li>
+            <li>Saying "Troy" while he's still thinking still queues a second request.</li>
+            <li>If something Troy looks up never finishes, automatic re-listen stays paused. The wake word still works.</li>
           </ul>
         </div>
       </div>
