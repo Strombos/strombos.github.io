@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bottom-bar menu — Triton Docs</title>
+<meta name="description" content="How a Triton App adds its own items to the right-click menu of its bottom-bar button with BottomBarMenuProvider and BottomBarMenuItem.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../docs.css?v=7">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <div class="brand"><a href="../../" style="text-decoration:none"><b>Strombos</b></a><a href="../" style="text-decoration:none"><span>Docs</span></a></div>
+  <label class="search"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="filter" type="search" placeholder="Filter the menu guide" aria-label="Filter the menu guide" autocomplete="off" spellcheck="false"><kbd>/</kbd></label>
+  <nav class="links" aria-label="Site"><a href="../">Docs</a><a href="../../#download">Download</a></nav>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="scrim"></div>
+
+  <main class="content" id="main">
+  <div class="page has-toc">
+
+    <div class="page-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Docs</a><span aria-hidden="true">/</span><span>Guides</span><span aria-hidden="true">/</span><span aria-current="page">Bottom-bar menu</span></nav>
+      <h1>Bottom-bar menu<span class="dot">.</span></h1>
+      <p class="lead">Add your app's own items to the menu that opens when someone right-clicks its bottom-bar button: one interface, one method that returns a list.</p>
+      <p class="tip">New to Triton Apps? Start with <a href="../making-apps/">Making apps</a>. This page assumes you already have a <code>Main</code> that extends <code>AbstractModule</code>.</p>
+    </div>
+
+    <!-- On this page: one <li> per <h2 id="..."> below (class="cmd" shows it in mono). -->
+    <nav class="toc" aria-label="On this page">
+      <span class="eyebrow">On this page</span>
+      <ol>
+        <li><a href="#what">What the menu is</a></li>
+        <li><a href="#example">Adding items</a></li>
+        <li><a class="cmd" href="#provider">BottomBarMenuProvider</a></li>
+        <li><a class="cmd" href="#item">BottomBarMenuItem</a></li>
+        <li><a href="#building">Building the list</a></li>
+        <li><a href="#when">When Triton asks</a></li>
+        <li><a href="#meridian">A real app: Meridian</a></li>
+        <li><a href="#mistakes">Common mistakes</a></li>
+      </ol>
+    </nav>
+
+    <article class="doc">
+
+      <section>
+        <h2 id="what">What the menu is</h2>
+        <p>Every open app has a button on Triton's bottom bar. Right-click it and a menu opens. Without any work from you, it has Triton's <strong>standard items</strong>:</p>
+        <ul>
+          <li><strong>Bring to Front</strong></li>
+          <li><strong>Bring To</strong>, a submenu of screens, only when there are two or more</li>
+          <li><strong>Hide</strong></li>
+          <li><strong>Pin</strong> or <strong>Unpin</strong></li>
+          <li><strong>Close</strong></li>
+        </ul>
+        <p>Your app can put its own items <strong>above</strong> those: shortcuts to things people do often, like opening a new tab or starting a recording, without opening the window first. Triton adds a divider line between your items and its own. For a browser with three tabs open, the person sees:</p>
+        <span class="ex-label">What the person sees</span>
+        <pre><code>New Tab
+New Incognito Tab
+──────────────────
+Open Tab         ›
+──────────────────
+Close All Tabs (3)
+──────────────────   added by Triton
+Bring to Front
+Hide
+Pin
+Close</code></pre>
+        <p>Your items can be clickable actions, greyed-out actions, divider lines and submenus that open on hover. You describe them as plain data; Triton draws the menu, in the same style as every other menu on the desktop.</p>
+      </section>
+
+      <section>
+        <h2 id="example">Adding items</h2>
+        <p>Implement <code>shared.BottomBarMenuProvider</code> on your <code>Main</code> and return the items from <code>bottomBarMenuItems()</code>. Here is the Hello app from <a href="../making-apps/#first-app">Making apps</a> with a menu of its own:</p>
+        <span class="ex-label">Hello/Main.java</span>
+        <pre><code class="lang-java">import shared.AbstractModule;
+import shared.BottomBarMenuItem;
+import shared.BottomBarMenuProvider;
+import shared.ModProtection;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.List;
+
+@ModProtection(ModProtection.Policy.ALLOW_MOD)
+public class Main extends AbstractModule implements BottomBarMenuProvider {
+
+    private final JFrame frame;
+    private final JLabel label = new JLabel("Hello", SwingConstants.CENTER);
+    private String greeting = "Hello";
+    private int count;
+
+    public Main() {
+        frame = echelon.ui.WindowFactory.create("Hello");
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.add(label);
+        frame.setSize(480, 320);
+        frame.setLocationRelativeTo(null);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override public void windowClosing(WindowEvent e) { close(); }
+        });
+    }
+
+    // Runs on every right-click, so "Reset count" stays greyed out at zero.
+    @Override
+    public List&lt;BottomBarMenuItem&gt; bottomBarMenuItems() {
+        return List.of(
+                BottomBarMenuItem.action("Say hello", this::sayHello),
+                BottomBarMenuItem.action("Reset count", count &gt; 0, this::reset),
+                BottomBarMenuItem.separator(),
+                BottomBarMenuItem.submenu("Greeting", List.of(
+                        BottomBarMenuItem.action("Hello", () -&gt; setGreeting("Hello")),
+                        BottomBarMenuItem.action("Hola", () -&gt; setGreeting("Hola")))));
+    }
+
+    private void sayHello() { count++; update(); showModule(); bringToFront(); }
+    private void reset() { count = 0; update(); }
+    private void setGreeting(String g) { greeting = g; update(); }
+    private void update() {
+        label.setText(count == 0 ? greeting : greeting + " ×" + count);
+    }
+
+    @Override public void start()        { frame.setVisible(true); }
+    @Override public void bringToFront() { frame.toFront(); }
+    @Override public void hideModule()   { frame.setVisible(false); }
+    @Override public void showModule()   { frame.setVisible(true); }
+    @Override public boolean isVisible() { return frame.isVisible(); }
+
+    @Override protected void onClose()   { frame.dispose(); }
+}</code></pre>
+        <p>Right-click the Hello button and the menu now starts with <strong>Say hello</strong>, <strong>Reset count</strong>, a line, and a <strong>Greeting</strong> submenu, followed by Triton's standard items.</p>
+        <ol>
+          <li>Each item is made with one of the static helpers on <code>BottomBarMenuItem</code>: <code>action</code>, <code>separator</code> or <code>submenu</code>.</li>
+          <li>The <code>Runnable</code> you pass is what happens when the item is clicked. It runs after the menu has closed.</li>
+          <li>Clicking an item does not raise your window. If the action should show the app, call <code>showModule()</code> and <code>bringToFront()</code> yourself, as <code>sayHello</code> does.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2 id="provider" class="cmd-h">BottomBarMenuProvider</h2>
+        <p class="h-note">Interface in package <code>shared</code>, in Triton's jar. Optional: implement it on your <code>Main</code> to add items.</p>
+        <span class="ex-label">shared/BottomBarMenuProvider.java</span>
+        <pre><code class="lang-java">package shared;
+
+import java.util.List;
+
+/**
+ * Optional interface for modules that want extra items in the right-click
+ * menu of their bottom bar button. Modules that don't implement this get the
+ * standard menu (Bring to Front, Bring To when there are several screens,
+ * Hide, Pin, Close).
+ *
+ * &lt;p&gt;The module returns DATA ({@link BottomBarMenuItem}), never a menu
+ * component. The bar builds a fresh {@code DesktopPopupMenu} from the list on
+ * every right-click and appends the standard items after a separator, so:
+ * &lt;ul&gt;
+ *   &lt;li&gt;Returning the same cached list every time is safe — the host never
+ *       mutates it, so items can't pile up across right-clicks.&lt;/li&gt;
+ *   &lt;li&gt;If an item's label or enabled state depends on live state, build the
+ *       list inside this method so it reflects that state at click time.&lt;/li&gt;
+ * &lt;/ul&gt;
+ *
+ * &lt;p&gt;Replaces the old {@code JPopupMenu buildBottomBarMenu()} contract.
+ * JPopupMenu is not used anywhere in Echelon: it renders unreliably on the
+ * non-focusable desktop frame.
+ */
+public interface BottomBarMenuProvider {
+
+    /**
+     * Custom items for this module's bottom bar menu, shown above the
+     * standard items. Return an empty list or {@code null} for none.
+     */
+    List&lt;BottomBarMenuItem&gt; bottomBarMenuItems();
+}</code></pre>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Method</th><th scope="col">What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code>List&lt;BottomBarMenuItem&gt; bottomBarMenuItems()</code></td><td>Your items, top to bottom. Shown above Triton's standard items, with a line in between. Return an empty list or <code>null</code> for no items; the menu then has the standard items only.</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section>
+        <h2 id="item" class="cmd-h">BottomBarMenuItem</h2>
+        <p class="h-note">Sealed interface in package <code>shared</code>. Its three record types are the only kinds of item there are.</p>
+        <span class="ex-label">shared/BottomBarMenuItem.java</span>
+        <pre><code class="lang-java">package shared;
+
+import java.util.List;
+import java.util.Objects;
+
+/**
+ * One entry in a module's bottom-bar right-click menu.
+ *
+ * &lt;p&gt;Plain immutable data — no Swing types. Modules describe WHAT the menu
+ * contains; the bottom bar builds a brand-new {@code DesktopPopupMenu} from
+ * these on every right-click. Because nothing here is a live menu component,
+ * a module that caches its item list cannot make the menu grow, and no
+ * {@code JPopupMenu} can leak in through the module API.
+ */
+public sealed interface BottomBarMenuItem
+        permits BottomBarMenuItem.Action, BottomBarMenuItem.Separator, BottomBarMenuItem.Submenu {
+
+    /** A clickable item. {@code onSelect} runs on the EDT after the menu closes. */
+    record Action(String label, boolean enabled, Runnable onSelect) implements BottomBarMenuItem {
+        public Action {
+            Objects.requireNonNull(label, "label");
+            Objects.requireNonNull(onSelect, "onSelect");
+        }
+    }
+
+    /** A divider line. Leading, trailing and doubled separators are dropped by the host. */
+    record Separator() implements BottomBarMenuItem {}
+
+    /** A hover-to-expand submenu. */
+    record Submenu(String label, List&lt;BottomBarMenuItem&gt; items) implements BottomBarMenuItem {
+        public Submenu {
+            Objects.requireNonNull(label, "label");
+            items = List.copyOf(items);
+        }
+    }
+
+    Separator SEPARATOR = new Separator();
+
+    static BottomBarMenuItem action(String label, Runnable onSelect) {
+        return new Action(label, true, onSelect);
+    }
+
+    static BottomBarMenuItem action(String label, boolean enabled, Runnable onSelect) {
+        return new Action(label, enabled, onSelect);
+    }
+
+    static BottomBarMenuItem separator() {
+        return SEPARATOR;
+    }
+
+    static BottomBarMenuItem submenu(String label, List&lt;BottomBarMenuItem&gt; items) {
+        return new Submenu(label, items);
+    }
+}</code></pre>
+        <h3>Helpers (use these)</h3>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Method</th><th scope="col">What it makes</th></tr></thead>
+          <tbody>
+            <tr><td><code>action(String label, Runnable onSelect)</code></td><td>A clickable item. Clicking it closes the menu, then runs <code>onSelect</code>.</td></tr>
+            <tr><td><code>action(String label, boolean enabled, Runnable onSelect)</code></td><td>The same, but greyed out and not clickable when <code>enabled</code> is <code>false</code>. <code>onSelect</code> is still required; pass <code>() -&gt; {}</code> for an item that is only ever a label.</td></tr>
+            <tr><td><code>separator()</code></td><td>A divider line. Always returns the same <code>SEPARATOR</code> object.</td></tr>
+            <tr><td><code>submenu(String label, List&lt;BottomBarMenuItem&gt; items)</code></td><td>An item that opens a second menu on hover. The list is copied when you call this, so later changes to your list don't show.</td></tr>
+          </tbody>
+        </table></div>
+        <h3>Types and fields</h3>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Member</th><th scope="col">What it is</th></tr></thead>
+          <tbody>
+            <tr><td><code>record Action(String label, boolean enabled, Runnable onSelect)</code></td><td>A clickable item. <code>label</code> is the text shown. <code>enabled = false</code> shows it greyed out. <code>onSelect</code> runs on the Swing thread after the menu closes. <code>label</code> and <code>onSelect</code> must not be <code>null</code>.</td></tr>
+            <tr><td><code>record Separator()</code></td><td>A divider line. Triton drops one at the start or end of a list, and turns two in a row into one.</td></tr>
+            <tr><td><code>record Submenu(String label, List&lt;BottomBarMenuItem&gt; items)</code></td><td>A submenu. <code>label</code> must not be <code>null</code>. <code>items</code> is copied with <code>List.copyOf</code>, so it must not be <code>null</code> or contain <code>null</code>.</td></tr>
+            <tr><td><code>Separator SEPARATOR</code></td><td>The shared divider instance that <code>separator()</code> returns.</td></tr>
+          </tbody>
+        </table></div>
+        <p class="after-note">There is no item type for icons, check marks, keyboard shortcuts or hidden items. To hide an item, leave it out of the list (see <a href="#building">Building the list</a>). To show on/off state, put it in the label, for example <code>"● Recording"</code>.</p>
+      </section>
+
+      <section>
+        <h2 id="building">Building the list</h2>
+        <ul>
+          <li><strong>Order</strong>: the menu shows your items in list order, top to bottom. Submenus show theirs in their own list's order.</li>
+          <li><strong>Greyed out</strong>: an <code>action</code> with <code>enabled = false</code> is shown but can't be clicked. Use it when the item makes sense but can't run right now, like <strong>Reset count</strong> at zero.</li>
+          <li><strong>Hidden</strong>: an item that doesn't apply right now is simply not added. Build the list with <code>if</code>s, as below.</li>
+          <li><strong>Lines</strong>: put <code>separator()</code> between groups. Triton removes a line at the start or end and turns two in a row into one, so a line next to an item you left out does no harm.</li>
+          <li><strong>Submenus</strong>: a submenu with no items (or only lines) isn't shown. Submenus can go three levels deep; a submenu nested deeper than that is dropped.</li>
+          <li><strong>Live or cached</strong>: Triton never changes your list and builds a new menu each time, so returning the same fixed list on every call is fine. If a label or <code>enabled</code> depends on what the app is doing, build the list inside <code>bottomBarMenuItems()</code> so it is current at the moment of the right-click.</li>
+        </ul>
+        <span class="ex-label">Example · items that come and go</span>
+        <pre><code class="lang-java">@Override
+public List&lt;BottomBarMenuItem&gt; bottomBarMenuItems() {
+    List&lt;BottomBarMenuItem&gt; items = new ArrayList&lt;&gt;();
+    String label = recording ? "Stop recording" : "Start recording";
+    items.add(BottomBarMenuItem.action(label, this::toggleRecording));
+    if (lastFile != null) {
+        items.add(BottomBarMenuItem.separator());
+        String name = lastFile.getName();
+        items.add(BottomBarMenuItem.action("Open " + name, this::openLast));
+    }
+    return items;
+}</code></pre>
+        <p>The label of the first item follows <code>recording</code>, and the second item only appears once there is a <code>lastFile</code>. Use <code>ArrayList</code> rather than <code>List.of</code> when the list is built step by step.</p>
+      </section>
+
+      <section>
+        <h2 id="when">When Triton asks</h2>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">When</th><th scope="col">What happens</th></tr></thead>
+          <tbody>
+            <tr><td>Someone right-clicks your app's bottom-bar button</td><td>Triton calls <code>bottomBarMenuItems()</code>, on the Swing thread, right before the menu appears. It asks again on every right-click and never keeps your items between menus.</td></tr>
+            <tr><td>Your method returns</td><td>Triton builds a new menu: your items, a line, then the standard items. With no items (or only lines), there's no extra line.</td></tr>
+            <tr><td>Someone clicks one of your items</td><td>The menu closes, then <code>onSelect</code> runs on the Swing thread.</td></tr>
+            <tr><td>The menu is closed without a click</td><td>Nothing. None of your code runs.</td></tr>
+          </tbody>
+        </table></div>
+        <p>Because <code>bottomBarMenuItems()</code> runs on the Swing thread while the person waits for the menu, keep it fast: read fields, don't read files or go to the network. Do the work in <code>onSelect</code> instead, and start a thread there for anything slow.</p>
+        <h3>When something goes wrong</h3>
+        <ul>
+          <li>If <code>bottomBarMenuItems()</code> throws, Triton writes the error to its log and opens the menu with the standard items only.</li>
+          <li>If an <code>onSelect</code> throws, Triton writes the error to its log. The bottom bar and the rest of the desktop keep working.</li>
+        </ul>
+        <h3>When your items don't appear</h3>
+        <p>When one app has two or more buttons on the bar, for example its <strong>Dock pin and an open window</strong>, or <strong>two open windows</strong>, Triton folds them into one group button. Right-clicking a group button shows the group's own menu (<strong>Launch new instance</strong>, <strong>Pin to Dock</strong> or <strong>Unpin from Dock</strong>, <strong>Close window</strong>) and doesn't ask your app for items. Your items show again once the app is back to a single button.</p>
+      </section>
+
+      <section>
+        <h2 id="meridian">A real app: Meridian</h2>
+        <p>Meridian, Triton's web browser, uses this menu. Its <code>bottomBarMenuItems()</code> builds the list fresh on every right-click:</p>
+        <ul>
+          <li>While the browser engine is still starting, it returns a single greyed-out <strong>Browser is loading…</strong> item and nothing else.</li>
+          <li>After that: <strong>New Tab</strong> and <strong>New Incognito Tab</strong>, a line, an <strong>Open Tab</strong> submenu with one item per tab (the current one marked with <code>●</code>), and <strong>Close All Tabs (3)</strong> with the live count.</li>
+          <li>With no tabs open, the submenu is replaced by a greyed-out <strong>No open tabs</strong>.</li>
+          <li>The actions that need the window call <code>bringToFront()</code> after doing their work.</li>
+        </ul>
+        <p>That's the pattern to copy: a few common actions at the top, live state in the labels, and greyed-out items to explain why something isn't available.</p>
+      </section>
+
+      <section>
+        <h2 id="mistakes">Common mistakes</h2>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Mistake</th><th scope="col">What happens · fix</th></tr></thead>
+          <tbody>
+            <tr><td>Still using the old <code>JPopupMenu buildBottomBarMenu()</code></td><td>Ignored: the menu has the standard items only, and the Triton log says <em>still has buildBottomBarMenu() (JPopupMenu) — ignored</em>. Implement <code>BottomBarMenuProvider</code> instead.</td></tr>
+            <tr><td>Building the list once in the constructor when a label depends on state</td><td>The menu keeps showing the old label or count. Build the list inside <code>bottomBarMenuItems()</code>.</td></tr>
+            <tr><td>Slow work inside <code>bottomBarMenuItems()</code></td><td>The menu opens late and the desktop stops responding meanwhile. Only read fields there; do the work in <code>onSelect</code>.</td></tr>
+            <tr><td>Long work inside <code>onSelect</code></td><td>It runs on the Swing thread, so the desktop freezes until it ends. Start a thread or a <code>SwingWorker</code> for it.</td></tr>
+            <tr><td>A <code>null</code> label or action, or a <code>null</code> inside a submenu's list</td><td><code>NullPointerException</code> while building the list, so none of your items appear. Use <code>() -&gt; {}</code> for an action that does nothing, and leave out items you don't want.</td></tr>
+            <tr><td>Expecting <code>enabled = false</code> to hide an item</td><td>It shows greyed out. To hide it, don't add it.</td></tr>
+            <tr><td>An empty submenu</td><td>Not shown at all. Leave the submenu out, or put a greyed-out item in it that says why it's empty.</td></tr>
+            <tr><td>Expecting a click to bring the window forward</td><td>Clicking your item only runs <code>onSelect</code>. Call <code>showModule()</code> and <code>bringToFront()</code> in it when the action needs the window.</td></tr>
+            <tr><td>Testing with the app pinned to the Dock, or with two windows open</td><td>The bar shows a group button, and its menu has no app items (see <a href="#when">When Triton asks</a>). Test with one window and no Dock pin.</td></tr>
+            <tr><td>Adding your own Close, Hide or Pin items</td><td>Triton always adds those below yours, so they'd appear twice. Add only what is specific to your app.</td></tr>
+            <tr><td>Changing a list after passing it to <code>submenu(…)</code></td><td>The submenu keeps the copy made at that moment. Finish the list first, then call <code>submenu</code>.</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+    </article>
+
+    <p class="no-results" id="no-results" hidden>Nothing in this guide matches that filter.</p>
+    <nav class="pager" id="pager" aria-label="More docs"></nav>
+
+  </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <span>Triton is a project by Strombos</span>
+  <span>© 2026 Strombos</span>
+</footer>
+
+<script src="../docs.js?v=7"></script>
+</body>
+</html>
