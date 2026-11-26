@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Key Interception — Triton Docs</title>
+<meta name="description" content="How Triton's Desktop intercepts keys: every built-in key binding, the Win key, desktop-only keys, and how to add, remap, block or give back keys in Keybinds or settings.properties.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../docs.css?v=12">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <div class="brand"><a href="../../../../" style="text-decoration:none"><b>Strombos</b></a><a href="../../../" style="text-decoration:none"><span>Triton Docs</span></a></div>
+  <label class="search"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="filter" type="search" placeholder="Filter keys" aria-label="Filter keys" autocomplete="off" spellcheck="false"><kbd>/</kbd></label>
+  <nav class="links" aria-label="Site"><a href="../../../">Docs</a><a href="../../../../#download">Download</a></nav>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="scrim"></div>
+
+  <main class="content" id="main">
+  <div class="page has-toc">
+
+    <div class="page-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../../../">Docs</a><span aria-hidden="true">/</span><span>Module</span><span aria-hidden="true">/</span><a href="../">Desktop</a><span aria-hidden="true">/</span><span aria-current="page">Key Interception</span></nav>
+      <h1>Key Interception<span class="dot">.</span></h1>
+      <p class="lead">Triton sees every key you press before your operating system or any app does. That is how the Desktop takes over the Windows key, the keyboard's Home button and other shortcuts, and how you can add, remap or block keys of your own.</p>
+      <p class="tip"><strong>This list may be out of date.</strong> Triton changes often, and the keys on this page may not match your build yet. <strong>Echelon Center → Keybinds</strong> always shows the keys your Triton uses.</p>
+    </div>
+
+    <!-- On this page: one <li> per <h2 id="..."> below (class="cmd" shows it in mono). -->
+    <nav class="toc" aria-label="On this page">
+      <span class="eyebrow">On this page</span>
+      <ol>
+        <li><a href="#what">What it does</a></li>
+        <li><a href="#all">All operating systems</a></li>
+        <li><a href="#win-linux">Windows and Linux</a></li>
+        <li><a href="#windows">Windows only</a></li>
+        <li><a href="#blocked">Blocked keys</a></li>
+        <li><a href="#win-key">The Win key</a></li>
+        <li><a href="#actions">Actions</a></li>
+        <li><a href="#keybinds">Keybinds</a></li>
+        <li><a href="#settings">Your own keys in settings.properties</a></li>
+        <li><a href="#key-names">Key names</a></li>
+        <li><a href="#platforms">Per operating system</a></li>
+        <li><a href="#pause">Pause or turn it off</a></li>
+      </ol>
+    </nav>
+
+    <article class="doc">
+
+      <section>
+        <h2 id="what">What it does</h2>
+        <p>Key Interception starts with the Desktop. For every key you press, Triton checks its list of bindings. A binding can do one of four things:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Binding</th><th scope="col">What happens</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Action</strong></td><td>Triton runs one of its actions, such as opening the launcher. The key goes no further.</td></tr>
+            <tr><td><strong>Remap</strong></td><td>Triton sends a different key or shortcut instead.</td></tr>
+            <tr><td><strong>Block</strong></td><td>The key does nothing.</td></tr>
+            <tr><td><strong>Pass</strong></td><td>The key goes to your operating system as usual. Use it to give a key back.</td></tr>
+          </tbody>
+        </table></div>
+        <p>Keys with no binding always go straight through to the operating system and your apps.</p>
+        <p>A binding can be limited to the <strong>Desktop</strong>: it then only works while the Triton Desktop is in front, so the same key still works as usual inside app windows. The tables below say <em>Desktop only</em> for these.</p>
+        <p class="after-note">In the tables, <kbd>Win</kbd> means the Windows key, the Command key on macOS and the Super key on Linux.</p>
+      </section>
+
+      <section>
+        <h2 id="all">All operating systems</h2>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Key</th><th scope="col">Does</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>Win</kbd> (tap it on its own)</td><td>Open Triton home: shows the Desktop if it was hidden and opens the launcher. Action <code>triton.home</code>.</td></tr>
+            <tr><td>Keyboard <kbd>Home</kbd> button (<code>BROWSER_HOME</code>)</td><td>Open Triton home. Action <code>triton.home</code>.</td></tr>
+            <tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>F12</kbd></td><td>Pause or resume Key Interception: while paused, every key goes back to the operating system. Locked: you can't change or remove this one. Action <code>triton.keys.pause</code>.</td></tr>
+            <tr><td><kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd></td><td><em>Desktop only.</em> Move the tile selection. Actions <code>triton.desktop.select.up</code>, <code>.down</code>, <code>.left</code>, <code>.right</code>.</td></tr>
+            <tr><td><kbd>Enter</kbd></td><td><em>Desktop only.</em> Open the selected tile or tiles. Action <code>triton.desktop.open</code>.</td></tr>
+            <tr><td><kbd>Esc</kbd></td><td><em>Desktop only.</em> Clear the tile selection. Action <code>triton.desktop.select.clear</code>.</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section>
+        <h2 id="win-linux">Windows and Linux</h2>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Key</th><th scope="col">Does</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>Win</kbd>+<kbd>T</kbd></td><td>Open the Triton <a href="../../../terminal/">Terminal</a>. Action <code>triton.terminal</code>.</td></tr>
+            <tr><td><kbd>Win</kbd>+<kbd>M</kbd></td><td>Move the active window to another screen. Replaces Windows' own "minimize all". Action <code>triton.window.moveToScreen</code>.</td></tr>
+            <tr><td><kbd>Win</kbd>+<kbd>D</kbd></td><td>Hide all apps and show the Desktop; press again to bring them back. The Desktop then takes the arrow keys and <kbd>Enter</kbd>. Action <code>triton.desktop.hideApps</code>.</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section>
+        <h2 id="windows">Windows only</h2>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Key</th><th scope="col">Does</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>Ctrl</kbd>+<kbd>Esc</kbd></td><td>Open Triton home, like the <kbd>Win</kbd> tap. Action <code>triton.home</code>.</td></tr>
+            <tr><td><kbd>Win</kbd>+<kbd>S</kbd>, <kbd>Win</kbd>+<kbd>Q</kbd></td><td>Open or close the launcher, for search. Action <code>triton.launcher</code>.</td></tr>
+            <tr><td><kbd>Win</kbd>+<kbd>N</kbd>, <kbd>Win</kbd>+<kbd>A</kbd></td><td>Open or close the notification centre. Action <code>triton.notifications</code>.</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section>
+        <h2 id="blocked">Blocked keys</h2>
+        <p>On Windows only, these do nothing in Triton, because Windows would bring up its own taskbar or one of its panels over the Desktop:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Key</th><th scope="col">Windows would open</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>Win</kbd>+<kbd>0</kbd> … <kbd>Win</kbd>+<kbd>9</kbd></td><td>A taskbar app</td></tr>
+            <tr><td><kbd>Win</kbd>+<kbd>B</kbd></td><td>The taskbar's notification area</td></tr>
+            <tr><td><kbd>Win</kbd>+<kbd>X</kbd></td><td>The Start button's menu</td></tr>
+            <tr><td><kbd>Win</kbd>+<kbd>Tab</kbd></td><td>Task View</td></tr>
+            <tr><td><kbd>Win</kbd>+<kbd>W</kbd></td><td>Widgets</td></tr>
+            <tr><td><kbd>Win</kbd>+<kbd>,</kbd></td><td>Desktop peek</td></tr>
+          </tbody>
+        </table></div>
+        <p class="after-note">Every other <kbd>Win</kbd> shortcut still goes to the operating system. To get a blocked key back, give it <code>pass</code> (see <a href="#settings">settings.properties</a>).</p>
+      </section>
+
+      <section>
+        <h2 id="win-key">The Win key</h2>
+        <p>Triton lets the <kbd>Win</kbd> key go down as normal, so shortcuts it doesn't take over keep working. When you tap <kbd>Win</kbd> on its own, or use it in a shortcut Triton takes, Triton stops the operating system from reacting to it: Windows' Start menu and the GNOME or KDE overview don't open.</p>
+        <p><strong>Shift gives Win back.</strong> When <kbd>Shift</kbd> is held with <kbd>Win</kbd>, Triton leaves that press to the operating system, so its own <kbd>Win</kbd>+<kbd>Shift</kbd> shortcuts work. Shortcuts you bind yourself with <code>WIN+SHIFT+…</code> still work. Turn this off in Keybinds or with:</p>
+        <pre><code class="lang-properties">triton.keys.shiftPassesWin=false</code></pre>
+      </section>
+
+      <section>
+        <h2 id="actions">Actions</h2>
+        <p>These are the actions you can bind a key to, with <code>action:&lt;id&gt;</code>:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Action id</th><th scope="col">Does</th></tr></thead>
+          <tbody>
+            <tr><td><code>triton.home</code></td><td>Show the Desktop if it was hidden, and open or close the launcher</td></tr>
+            <tr><td><code>triton.launcher</code></td><td>Open or close the launcher</td></tr>
+            <tr><td><code>triton.notifications</code></td><td>Open or close the notification centre</td></tr>
+            <tr><td><code>triton.desktop.show</code></td><td>Show the Desktop if it was hidden</td></tr>
+            <tr><td><code>triton.desktop.hideApps</code></td><td>Hide all apps and show the Desktop; again to bring them back</td></tr>
+            <tr><td><code>triton.terminal</code></td><td>Open the Triton Terminal</td></tr>
+            <tr><td><code>triton.window.moveToScreen</code></td><td>Move the active window to another screen</td></tr>
+            <tr><td><code>triton.keys.pause</code></td><td>Pause or resume Key Interception</td></tr>
+            <tr><td><code>triton.desktop.select.up</code></td><td>Select the tile above</td></tr>
+            <tr><td><code>triton.desktop.select.down</code></td><td>Select the tile below</td></tr>
+            <tr><td><code>triton.desktop.select.left</code></td><td>Select the tile to the left</td></tr>
+            <tr><td><code>triton.desktop.select.right</code></td><td>Select the tile to the right</td></tr>
+            <tr><td><code>triton.desktop.open</code></td><td>Open the selected tile or tiles</td></tr>
+            <tr><td><code>triton.desktop.select.clear</code></td><td>Clear the tile selection</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section>
+        <h2 id="keybinds">Keybinds</h2>
+        <p>Open <strong>Echelon Center → Keybinds</strong> to see and change every binding. It has four tabs:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Tab</th><th scope="col">What's there</th></tr></thead>
+          <tbody>
+            <tr><td><strong>General</strong></td><td>Turn Key Interception on or off, pause it, give <kbd>Win</kbd> to the OS when <kbd>Shift</kbd> is held, and whether the engine is running.</td></tr>
+            <tr><td><strong>Shortcuts</strong></td><td>Keys that run an action. <strong>Add shortcut</strong> records a new one.</td></tr>
+            <tr><td><strong>Remaps</strong></td><td>Keys that send another key. <strong>Add remap</strong>.</td></tr>
+            <tr><td><strong>Blocked</strong></td><td>Keys that do nothing, and keys given back to the OS. <strong>Block keys</strong>.</td></tr>
+          </tbody>
+        </table></div>
+        <p>A change you make there is saved as a line in <code>settings.properties</code>, below.</p>
+      </section>
+
+      <section>
+        <h2 id="settings">Your own keys in settings.properties</h2>
+        <p>Your bindings are lines in <code>settings.properties</code>, in Triton's main folder <code>echelon</code>. Each line is one key:</p>
+        <pre><code class="lang-properties">triton.keys.map.&lt;KEY&gt;=&lt;what it does&gt;</code></pre>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">What it does</th><th scope="col">Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><code>action:&lt;id&gt;</code></td><td>Run an <a href="#actions">action</a></td></tr>
+            <tr><td><code>key:&lt;KEY&gt;</code></td><td>Send this key or shortcut instead</td></tr>
+            <tr><td><code>block</code></td><td>Do nothing</td></tr>
+            <tr><td><code>pass</code></td><td>Give the key back to the operating system</td></tr>
+          </tbody>
+        </table></div>
+        <p>Add <code>@desktop</code> to the key to make the binding <em>Desktop only</em>.</p>
+        <span class="ex-label">Example · settings.properties</span>
+        <pre><code class="lang-properties"># Give the Win key back to the Start menu
+triton.keys.map.WIN=pass
+
+# Win+E opens the launcher
+triton.keys.map.WIN+E=action\:triton.launcher
+
+# Caps Lock becomes Ctrl
+triton.keys.map.CAPSLOCK=key\:LCTRL
+
+# F5 runs an action, but only while the Desktop is in front
+triton.keys.map.F5@desktop=action\:my.refresh</code></pre>
+        <ul>
+          <li>Your line replaces Triton's own binding for the same key, except the locked pause key.</li>
+          <li>Triton saves the <code>:</code> after <code>action</code> or <code>key</code> as <code>\:</code>, as <code>.properties</code> files do. Writing a plain <code>:</code> works too.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="key-names">Key names</h2>
+        <p>Write a key as <code>MOD+MOD+KEY</code>, in any case, with the modifiers in any order: <code>WIN+E</code>, <code>CTRL+ALT+T</code>. A modifier on its own, such as <code>WIN</code>, means tapping it alone.</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Kind</th><th scope="col">Names</th></tr></thead>
+          <tbody>
+            <tr><td>Modifiers</td><td><code>CTRL</code> (<code>CONTROL</code>), <code>ALT</code>, <code>SHIFT</code>, <code>WIN</code> (<code>META</code>, <code>SUPER</code>)</td></tr>
+            <tr><td>Letters and digits</td><td><code>A</code> … <code>Z</code>, <code>0</code> … <code>9</code></td></tr>
+            <tr><td>Function keys</td><td><code>F1</code> … <code>F24</code></td></tr>
+            <tr><td>Number pad</td><td><code>NUMPAD0</code> … <code>NUMPAD9</code>, <code>MULTIPLY</code>, <code>ADD</code>, <code>SUBTRACT</code>, <code>DECIMAL</code>, <code>DIVIDE</code>, <code>NUMLOCK</code></td></tr>
+            <tr><td>Editing and moving</td><td><code>BACKSPACE</code>, <code>TAB</code>, <code>ENTER</code>, <code>ESC</code> (<code>ESCAPE</code>), <code>SPACE</code>, <code>INSERT</code>, <code>DELETE</code> (<code>DEL</code>), <code>HOME</code>, <code>END</code>, <code>PGUP</code>, <code>PGDN</code>, <code>UP</code>, <code>DOWN</code>, <code>LEFT</code>, <code>RIGHT</code></td></tr>
+            <tr><td>Locks and system</td><td><code>CAPSLOCK</code>, <code>SCROLLLOCK</code>, <code>PAUSE</code>, <code>PRINTSCREEN</code>, <code>APPS</code> (<code>MENU</code>), <code>SLEEP</code></td></tr>
+            <tr><td>Punctuation</td><td><code>SEMICOLON</code>, <code>EQUALS</code>, <code>COMMA</code>, <code>MINUS</code>, <code>PERIOD</code>, <code>SLASH</code>, <code>BACKTICK</code>, <code>LBRACKET</code>, <code>BACKSLASH</code>, <code>RBRACKET</code>, <code>QUOTE</code></td></tr>
+            <tr><td>Browser keys</td><td><code>BROWSER_BACK</code>, <code>BROWSER_FORWARD</code>, <code>BROWSER_REFRESH</code>, <code>BROWSER_STOP</code>, <code>BROWSER_SEARCH</code>, <code>BROWSER_FAVORITES</code>, <code>BROWSER_HOME</code></td></tr>
+            <tr><td>Media keys</td><td><code>VOLUME_MUTE</code>, <code>VOLUME_DOWN</code>, <code>VOLUME_UP</code>, <code>MEDIA_NEXT</code>, <code>MEDIA_PREV</code>, <code>MEDIA_STOP</code>, <code>MEDIA_PLAY</code>, <code>LAUNCH_MAIL</code>, <code>LAUNCH_MEDIA</code>, <code>LAUNCH_APP1</code>, <code>LAUNCH_APP2</code></td></tr>
+            <tr><td>One side only</td><td><code>LWIN</code>, <code>RWIN</code>, <code>LSHIFT</code>, <code>RSHIFT</code>, <code>LCTRL</code>, <code>RCTRL</code>, <code>LALT</code>, <code>RALT</code></td></tr>
+            <tr><td>Any other key</td><td>Its Windows virtual-key code, for example <code>VK_0x5B</code></td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section>
+        <h2 id="platforms">Per operating system</h2>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">System</th><th scope="col">Needs</th><th scope="col">Built-in keys</th></tr></thead>
+          <tbody>
+            <tr><td>Windows</td><td>Nothing extra.</td><td>All of them.</td></tr>
+            <tr><td>macOS</td><td>Allow Triton under Accessibility in System Settings.</td><td>Only the keys for all systems: Command shortcuts like <kbd>⌘</kbd>+<kbd>Q</kbd> and <kbd>⌘</kbd>+<kbd>T</kbd> stay with macOS.</td></tr>
+            <tr><td>Linux</td><td>Your user in the <code>input</code> group, and access to <code>/dev/uinput</code>. Works on X11 and Wayland.</td><td>The keys for all systems, plus <kbd>Super</kbd>+<kbd>T</kbd>, <kbd>Super</kbd>+<kbd>M</kbd> and <kbd>Super</kbd>+<kbd>D</kbd>.</td></tr>
+          </tbody>
+        </table></div>
+        <p class="after-note">If your system can't run it, Key Interception stays off and the rest of Triton works as usual. The <strong>Engine</strong> row in Keybinds then says <strong>Needs setup</strong>.</p>
+      </section>
+
+      <section>
+        <h2 id="pause">Pause or turn it off</h2>
+        <ul>
+          <li><strong>Pause:</strong> press <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>F12</kbd>. Every key goes back to the operating system until you press it again.</li>
+          <li><strong>Turn off:</strong> switch off <strong>Intercept keys</strong> in Keybinds, or add this line to <code>settings.properties</code>:</li>
+        </ul>
+        <pre><code class="lang-properties">triton.keys.enabled=false</code></pre>
+      </section>
+
+    </article>
+
+    <p class="no-results" id="no-results" hidden>Nothing on this page matches that filter.</p>
+    <nav class="pager" id="pager" aria-label="More docs"></nav>
+
+  </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <span>Triton is a project by Strombos</span>
+  <span>© 2026 Strombos</span>
+</footer>
+
+<script src="../../../docs.js?v=12"></script>
+</body>
+</html>

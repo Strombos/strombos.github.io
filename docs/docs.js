@@ -14,6 +14,7 @@ var DOCS = [
   { title: 'Vortex Loading', href: 'vortex-loading/', tag: 'Guide', desc: 'Override Triton’s own classes or add new ones from vortex-module/, with sources Triton compiles and @Vortexable to seal a class.' },
   // A Desktop component: docs/module/desktop/<name>/index.html, with tag: 'Module', parent: 'module/desktop/'.
   { title: 'Desktop', href: 'module/desktop/', tag: 'Module', desc: 'Triton’s Desktop: the tile grid, bottom bar, launcher, widgets, wallpaper, Snap Assist and screens.' },
+  { title: 'Key Interception', href: 'module/desktop/key-interception/', tag: 'Module', parent: 'module/desktop/', desc: 'Every key Triton takes over, on each operating system, and how to add, remap, block or give back keys.' },
   // An Accessibility setting: docs/triton/accessibility/<name>/index.html, with tag: 'Triton', parent: 'triton/accessibility/'.
   { title: 'Accessibility', href: 'triton/accessibility/', tag: 'Triton', desc: 'Triton’s accessibility settings: what each one does, how to open them and where they are saved.' },
   { title: 'Anti Motion Sickness', href: 'triton/accessibility/anti-motion-sickness/', tag: 'Triton', parent: 'triton/accessibility/', desc: 'Keep the sign-in camera still, stop the Media Player’s reels, or calm every animation with Enable all.' },
