@@ -1,4 +1,5 @@
 // Shared script for strombos.dev/docs/.
+// When you change docs.css or docs.js, bump the ?v= number where every page loads them.
 // To add a doc: create docs/<name>/index.html (copy docs/terminal/index.html) and add ONE line to DOCS below.
 // The sidebar, the docs overview cards and the previous/next links are all built from this list.
 var DOCS = [
@@ -75,9 +76,20 @@ var DOCS = [
     b.type = 'button'; b.className = 'copy'; b.textContent = 'Copy';
     b.addEventListener('click', function () {
       var text = pre.innerText.replace(/\n$/, '');
-      var ok = function () { b.textContent = 'Copied'; b.classList.add('done'); setTimeout(function () { b.textContent = 'Copy'; b.classList.remove('done'); }, 1600); };
-      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok, function () {});
-      else { var t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); ok(); } catch (e) {} t.remove(); }
+      var show = function (label, done) { b.textContent = label; b.classList.toggle('done', done); setTimeout(function () { b.textContent = 'Copy'; b.classList.remove('done'); }, 2200); };
+      var legacy = function () {
+        var t = document.createElement('textarea'); t.value = text; t.style.position = 'fixed'; t.style.opacity = '0';
+        document.body.appendChild(t); t.select(); var ok = false; try { ok = document.execCommand('copy'); } catch (e) {} t.remove();
+        return ok;
+      };
+      var fail = function () {   // the browser refused: select the text so Ctrl+C / long-press works
+        var r = document.createRange(); r.selectNodeContents(pre.querySelector('code') || pre);
+        var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+        show(/Mac|iPhone|iPad/.test(navigator.platform) ? 'Press ⌘C' : 'Press Ctrl+C', false);
+      };
+      var after = function () { if (legacy()) show('Copied', true); else fail(); };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(function () { show('Copied', true); }, after);
+      else after();
     });
     wrap.appendChild(b);
   });
