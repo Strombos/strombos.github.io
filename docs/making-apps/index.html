@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Making apps — Triton Docs</title>
+<meta name="description" content="How to make a Triton App: extend AbstractModule, tag it with ModProtection, add its metadata files and drop the folder into Triton.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../docs.css?v=6">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <div class="brand"><a href="../../" style="text-decoration:none"><b>Strombos</b></a><a href="../" style="text-decoration:none"><span>Docs</span></a></div>
+  <label class="search"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="filter" type="search" placeholder="Filter this guide" aria-label="Filter this guide" autocomplete="off" spellcheck="false"><kbd>/</kbd></label>
+  <nav class="links" aria-label="Site"><a href="../">Docs</a><a href="../../#download">Download</a></nav>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="scrim"></div>
+
+  <main class="content" id="main">
+  <div class="page has-toc">
+
+    <div class="page-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Docs</a><span aria-hidden="true">/</span><span>Guides</span><span aria-hidden="true">/</span><span aria-current="page">Making apps</span></nav>
+      <h1>Making apps<span class="dot">.</span></h1>
+      <p class="lead">Build a Triton App: one Java class that extends <code>AbstractModule</code>, a couple of small settings files, and a folder Triton picks up on its own.</p>
+      <p class="tip">No build tool needed. Triton compiles your app's <code>.java</code> files itself every time the app opens.</p>
+    </div>
+
+    <!-- On this page: one <li> per <h2 id="..."> below (class="cmd" shows it in mono). -->
+    <nav class="toc" aria-label="On this page">
+      <span class="eyebrow">On this page</span>
+      <ol>
+        <li><a href="#what">What a Triton App is</a></li>
+        <li><a href="#first-app">Your first app</a></li>
+        <li><a class="cmd" href="#abstract-module">AbstractModule</a></li>
+        <li><a href="#lifecycle">Lifecycle</a></li>
+        <li><a class="cmd" href="#mod-protection">@ModProtection</a></li>
+        <li><a href="#annotations">Other annotations</a></li>
+        <li><a href="#folder">The app folder</a></li>
+        <li><a class="cmd" href="#directory-properties">directory.properties</a></li>
+        <li><a class="cmd" href="#module-properties">module.properties</a></li>
+        <li><a href="#opening-files">Opening files</a></li>
+        <li><a href="#loading">How Triton loads an app</a></li>
+        <li><a href="#sharing">Installing and sharing</a></li>
+        <li><a href="#mistakes">Common mistakes</a></li>
+      </ol>
+    </nav>
+
+    <article class="doc">
+
+      <section>
+        <h2 id="what">What a Triton App is</h2>
+        <p>A Triton App is a folder inside Triton's <code>desktop/container/applications/</code> folder. Every folder there becomes a tile on the desktop, named after the folder.</p>
+        <p>When someone opens the tile, Triton compiles the folder's Java sources, loads the class <code>Main</code> and starts it. <code>Main</code> must extend <code>shared.AbstractModule</code>, the base class for every app. It gives Triton one way to start, show, hide, raise and close any app.</p>
+        <p>Your app runs inside Triton's own Java process, so it can use Triton's classes and Swing directly. That also means it must never call <code>System.exit</code> or close the window with <code>EXIT_ON_CLOSE</code>: that would close Triton too.</p>
+      </section>
+
+      <section>
+        <h2 id="first-app">Your first app</h2>
+        <p>Make a folder named after your app, for example <code>Hello</code>, in <code>desktop/container/applications/</code>, and add one file, <code>Main.java</code>:</p>
+        <span class="ex-label">Hello/Main.java</span>
+        <pre><code>import shared.AbstractModule;
+import shared.ModProtection;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+@ModProtection(ModProtection.Policy.ALLOW_MOD)
+public class Main extends AbstractModule {
+
+    // Keep the name "frame": the bottom bar and window snapping look for it.
+    private final JFrame frame;
+
+    public Main() {
+        frame = echelon.ui.WindowFactory.create("Hello");
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.add(new JLabel("Hello from Triton", SwingConstants.CENTER));
+        frame.setSize(480, 320);
+        frame.setLocationRelativeTo(null);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override public void windowClosing(WindowEvent e) { close(); }
+        });
+    }
+
+    @Override public void start()        { frame.setVisible(true); }
+    @Override public void bringToFront() { frame.toFront(); }
+    @Override public void hideModule()   { frame.setVisible(false); }
+    @Override public void showModule()   { frame.setVisible(true); }
+    @Override public boolean isVisible() { return frame.isVisible(); }
+
+    @Override protected void onClose()   { frame.dispose(); }
+}</code></pre>
+        <p>That's the whole app. Open the <strong>Hello</strong> tile on the desktop and the window appears. The first open takes a moment while Triton compiles the app.</p>
+        <ol>
+          <li><code>Main.java</code> has <strong>no <code>package</code> line</strong>. Triton looks for <code>Main</code> in the default package.</li>
+          <li><code>echelon.ui.WindowFactory.create(title)</code> gives you a window in Triton's style. A plain <code>new JFrame(title)</code> works too.</li>
+          <li>Closing the window calls <code>close()</code>, and <code>close()</code> calls your <code>onClose()</code>. Triton then removes the app's bottom-bar button.</li>
+        </ol>
+        <p class="after-note">To change the app, edit the files, close the app and open it again. Triton recompiles on every open. If the code doesn't compile, a popup shows the compiler's error message.</p>
+      </section>
+
+      <section>
+        <h2 id="abstract-module" class="cmd-h">AbstractModule</h2>
+        <p class="h-note">Package <code>shared</code>, in Triton's jar. Every app's <code>Main</code> extends it.</p>
+        <p>The full class, for reference:</p>
+        <span class="ex-label">shared/AbstractModule.java</span>
+        <pre><code>package shared;
+
+import echelon.module.vortex.Vortexable;
+import triton.core.atlas.AtlasTag;
+
+import static shared.ModProtection.Policy.DISALLOW_MOD;
+
+@ModProtection(DISALLOW_MOD) // Reject Modded Compile (Already blocked)
+@Vortexable(value = Vortexable.Policy.LOCKED) // Prevent Modification
+@AtlasTag(
+        category = "Core",
+        subsystem = "shared",
+        description = "Base class for all Echelon modules providing atomic close lifecycle, on-close listener, and abstract start/visibility contract",
+        dependencies = {
+                "echelon.module.vortex.Vortexable"
+        }
+)
+public abstract class AbstractModule {
+    private final java.util.concurrent.atomic.AtomicBoolean closed = new java.util.concurrent.atomic.AtomicBoolean(false);
+    private Runnable onCloseListener;
+
+    private String registeredName;
+
+    public void setRegisteredName(String name) {
+        this.registeredName = name;
+    }
+
+    public String getRegisteredName() {
+        return registeredName;
+    }
+
+    /**
+     * Final close method ensures consistent cleanup.
+     */
+    public final void close() {
+        if (!closed.compareAndSet(false, true)) return; // already closing
+        onClose();
+        if (onCloseListener != null) onCloseListener.run();
+    }
+
+    /**
+     * Override this method for module-specific cleanup (e.g., disposing windows, stopping threads).
+     */
+    protected abstract void onClose();
+
+    // Other abstract methods
+    public abstract void start();
+    public abstract void bringToFront();
+    public abstract void hideModule();
+    public abstract void showModule();
+    public abstract boolean isVisible();
+
+    public void setOnCloseListener(Runnable listener) {
+        this.onCloseListener = listener;
+    }
+
+    /**
+     * The currently registered on-close listener, or null. Enables safe
+     * CHAINING (wrap-and-delegate) instead of clobbering — required by
+     * BottomBarPanel's button lifecycle closure.
+     */
+    public Runnable getOnCloseListener() {
+        return onCloseListener;
+    }
+
+    public String getVersion() {
+        return "R1";
+    }
+}</code></pre>
+        <h3>What you write</h3>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Method</th><th scope="col">What it should do</th></tr></thead>
+          <tbody>
+            <tr><td><code>public Main()</code></td><td>Build your window and state. Don't show anything yet. Triton needs this public, no-argument constructor.</td></tr>
+            <tr><td><code>void start()</code></td><td>Show the app. Called once, right after Triton registers it.</td></tr>
+            <tr><td><code>void bringToFront()</code></td><td>Raise your window above the others.</td></tr>
+            <tr><td><code>void showModule()</code></td><td>Make your window visible again.</td></tr>
+            <tr><td><code>void hideModule()</code></td><td>Hide your window without closing the app.</td></tr>
+            <tr><td><code>boolean isVisible()</code></td><td>Whether your window is showing.</td></tr>
+            <tr><td><code>protected void onClose()</code></td><td>Clean up: dispose windows, stop threads and timers, close files.</td></tr>
+          </tbody>
+        </table></div>
+        <h3>What Triton gives you</h3>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Method</th><th scope="col">What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code>final void close()</code></td><td>Closes the app: runs <code>onClose()</code> once, then Triton's close listener. A second call does nothing. You can't override it.</td></tr>
+            <tr><td><code>String getRegisteredName()</code></td><td>The name Triton registered this instance under (the tile name, made unique when a second copy is open).</td></tr>
+            <tr><td><code>Runnable getOnCloseListener()</code><br><code>void setOnCloseListener(Runnable)</code></td><td>The listener Triton sets to clean up the bottom bar. If you need one of your own, wrap Triton's, don't replace it (see <a href="#mistakes">Common mistakes</a>).</td></tr>
+            <tr><td><code>String getVersion()</code></td><td>Returns <code>"R1"</code>. You can override it.</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section>
+        <h2 id="lifecycle">Lifecycle</h2>
+        <p>What happens, in order, from a click on the tile to a closed window:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">When</th><th scope="col">Triton calls</th></tr></thead>
+          <tbody>
+            <tr><td>The tile is opened</td><td>Compiles the app, then <code>new Main()</code>, then <code>setRegisteredName(…)</code> and <code>setOnCloseListener(…)</code></td></tr>
+            <tr><td>Right after that</td><td><code>start()</code>. The app now has a bottom-bar button.</td></tr>
+            <tr><td>The bottom-bar button is clicked</td><td><code>showModule()</code>, then <code>bringToFront()</code></td></tr>
+            <tr><td>The app is hidden or shown from Triton</td><td><code>hideModule()</code> / <code>showModule()</code>, checked with <code>isVisible()</code></td></tr>
+            <tr><td>Your code calls <code>close()</code></td><td><code>onClose()</code>, then Triton removes the bottom-bar button and unregisters the app</td></tr>
+          </tbody>
+        </table></div>
+        <p>Opening the tile again while the app is open starts a <strong>second instance</strong>: a new <code>Main</code>. To keep one window, set <code>limit_instance=["onlyOne"]</code> in <a href="#directory-properties"><code>directory.properties</code></a>. Triton then brings the open window forward instead.</p>
+        <p class="after-note">Nothing calls <code>close()</code> for you when the window closes. Call it from your window's closing handler, as in <a href="#first-app">Your first app</a>. If you only dispose the window, the app stays registered and its bottom-bar button stays behind.</p>
+      </section>
+
+      <section>
+        <h2 id="mod-protection" class="cmd-h">@ModProtection</h2>
+        <p class="h-note">Annotation <code>shared.ModProtection</code>. Goes on a class.</p>
+        <p><code>@ModProtection</code> says whether a class may be replaced by a <strong>mod</strong>: an app's own copy of one of Triton's classes. Built-in apps put it on their <code>Main</code>:</p>
+        <pre><code>import shared.ModProtection;
+
+@ModProtection(ModProtection.Policy.ALLOW_MOD)
+public class Main extends AbstractModule { … }</code></pre>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Value</th><th scope="col">Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><code>ModProtection.Policy.ALLOW_MOD</code></td><td>The class may be replaced. Triton loads the replacement silently.</td></tr>
+            <tr><td><code>ModProtection.Policy.DISALLOW_MOD</code></td><td>The class may not be replaced. Triton refuses the replacement, keeps its own copy and shows a <strong>Mod Blocked</strong> notice.</td></tr>
+            <tr><td><em>no annotation</em></td><td>The class may be replaced, and Triton shows a <strong>Class Modded</strong> notice when it is.</td></tr>
+          </tbody>
+        </table></div>
+        <h3>How mods work</h3>
+        <p>An app can change one of Triton's classes, for itself only, by putting its own version in a <code>mod/</code> folder at the class's package path:</p>
+        <pre><code>Hello/mod/echelon/desktop/util/SomeTritonClass.java</code></pre>
+        <p>Triton compiles <code>mod/</code> into <code>mod-bin/</code> and loads those classes before its own, but only inside your app. Other apps and Triton itself keep the original. Before compiling, Triton reads <code>@ModProtection</code> on <strong>its own copy</strong> of each class, so removing the annotation from your copy changes nothing.</p>
+        <p>Some packages can never be replaced, whatever the annotation says: <code>shared.*</code>, <code>echelon.module.vortex.*</code>, <code>echelon.auth.*</code>, <code>echelon.desktop.core.*</code> and <code>triton.boot.*</code>. Your app can't define classes in them either.</p>
+        <h3>Which value to use on your Main</h3>
+        <ul>
+          <li><code>ALLOW_MOD</code> is the usual choice. Most built-in apps use it.</li>
+          <li><code>DISALLOW_MOD</code> says the class must not be replaced. Use it for a class that guards something, the way Triton marks its core classes.</li>
+        </ul>
+        <p class="after-note">Triton checks <code>@ModProtection</code> on <strong>Triton's</strong> classes. Your <code>Main</code> is always your app's own class, so the tag on it records what you intend; it doesn't change how your app loads. It's still worth adding, so every app says the same thing in the same place.</p>
+      </section>
+
+      <section>
+        <h2 id="annotations">Other annotations</h2>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Annotation</th><th scope="col">Use in an app</th></tr></thead>
+          <tbody>
+            <tr><td><code>@AtlasTag</code> (<code>triton.core.atlas.AtlasTag</code>)</td><td>Optional. Describes the class for Atlas, Triton's map of its classes. Built-in apps tag <code>Main</code> with <code>category = "Application"</code>, a <code>subsystem</code> such as <code>"apps.hello"</code> and a one-line <code>description</code>.</td></tr>
+            <tr><td><code>@Vortexable</code> (<code>echelon.module.vortex.Vortexable</code>)</td><td>Not for apps. It controls Vortex, which patches Triton's own classes. Leave it off your app's classes.</td></tr>
+          </tbody>
+        </table></div>
+        <span class="ex-label">Example · Main with both tags</span>
+        <pre><code>import shared.AbstractModule;
+import shared.ModProtection;
+import triton.core.atlas.AtlasTag;
+
+@AtlasTag(
+        category = "Application",
+        subsystem = "apps.hello",
+        description = "Hello: a one-window example app"
+)
+@ModProtection(ModProtection.Policy.ALLOW_MOD)
+public class Main extends AbstractModule { … }</code></pre>
+      </section>
+
+      <section>
+        <h2 id="folder">The app folder</h2>
+        <p>Only <code>Main.java</code> is required. Everything else is optional:</p>
+        <pre><code>desktop/container/applications/
+└── Hello/                     the folder name is the app's name
+    ├── Main.java              entry point: default package, extends AbstractModule
+    ├── hello/ui/Panel.java    more classes, in packages under the app folder
+    ├── desktop_logo.png       tile picture (desktop_icon.png also works)
+    ├── icon.java              tile icon drawn in code (optional)
+    ├── directory.properties   tile and window settings
+    ├── module.properties      search words and Java version
+    ├── lib/                   .jar libraries the app needs
+    ├── mod/                   your versions of Triton classes (see @ModProtection)
+    ├── bin/                   written by Triton: compiled classes
+    └── mod-bin/               written by Triton: compiled mods</code></pre>
+        <ul>
+          <li>Put extra classes in packages that match their folders, e.g. <code>hello/ui/Panel.java</code> starts with <code>package hello.ui;</code>. Only <code>Main</code> stays in the default package.</li>
+          <li>Every <code>.jar</code> in <code>lib/</code> is on the classpath when your app compiles and runs.</li>
+          <li><code>icon.java</code> is compiled on its own to draw the tile, not as part of your app. Keep <code>desktop_logo.png</code> too: it's the fallback if the icon script fails, and the bottom bar uses it.</li>
+          <li>Don't edit <code>bin/</code> or <code>mod-bin/</code>. Triton rewrites them every time the app opens.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="directory-properties" class="cmd-h">directory.properties</h2>
+        <p class="h-note">Tile and window settings. Optional; leave out any key you don't need.</p>
+        <p>Each line is <code>key=value</code>, where the value is a list in brackets, like <code>["onlyOne"]</code>. A single value without brackets also works. Lines starting with <code>#</code> are comments.</p>
+        <span class="ex-label">Example · Hello/directory.properties</span>
+        <pre><code># Tile picture
+icon=["desktop_logo.png"]
+
+# One window: opening the app again brings it forward
+limit_instance=["onlyOne"]</code></pre>
+        <div class="table-wrap"><table class="cmds ref">
+          <thead><tr><th scope="col">Key</th><th scope="col">What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code>icon=["desktop_logo.png"]</code></td><td>The tile picture, relative to the app folder. <code>desktop_logo.png</code> is found without it.</td></tr>
+            <tr><td><code>icon_script=["icon.java"]</code></td><td>A tile icon drawn in code. <code>icon.java</code> is found without it.</td></tr>
+            <tr><td><code>override_iconColor="#6FB3CC"</code></td><td>A fixed colour for the drawn icon, instead of the theme's accent colour.</td></tr>
+            <tr><td><code>launch_effect=["spin"]</code></td><td>Tile animation on launch: <code>none</code>, <code>spin</code>, <code>spin:N</code>, <code>pulse</code> or <code>custom</code>. Leave it out to use the icon script's own effect.</td></tr>
+            <tr><td><code>limit_instance=["onlyOne"]</code></td><td><code>onlyOne</code>: never a second window; opening the app again brings the open one forward. <code>allowMultiplePerRequest</code>: the same, but the tile's right-click <strong>Launch Another Instance</strong> opens one more.</td></tr>
+            <tr><td><code>bottombar=["separate"]</code></td><td><code>grouped</code> (default): one bottom-bar button for all the app's windows. <code>separate</code>: one button per window.</td></tr>
+            <tr><td><code>bar_button=["false"]</code></td><td>No bottom-bar button when the app launches. For launcher apps that only open something else and close.</td></tr>
+            <tr><td><code>opens=["txt","md"]</code></td><td>File types this app opens from anywhere in Triton. Needs <code>FileOpenable</code> (see <a href="#opening-files">Opening files</a>).</td></tr>
+            <tr><td><code>tag=["Beta"]</code></td><td>The first entry is shown as a badge on the tile. <code>"Shortcut=App"</code> shows <code>App</code> and marks the app this tile opens through. <code>"NotMain"</code> marks the app as not made by Triton in its Properties window.</td></tr>
+            <tr><td><code>override_badge="New"</code></td><td>Badge text that wins over <code>tag</code>.</td></tr>
+            <tr><td><code>override_badgeColor="#2F6F8F"</code></td><td>Badge colour.</td></tr>
+            <tr><td><code>disallow=["nameChanges"]</code></td><td>Stops people renaming the tile.</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section>
+        <h2 id="module-properties" class="cmd-h">module.properties</h2>
+        <p class="h-note">Plain Java properties: <code>key=value</code>, no brackets. Optional.</p>
+        <span class="ex-label">Example · Hello/module.properties</span>
+        <pre><code># Words that find this app in the start menu, comma separated
+tags=hello, example, greeting
+
+# Java version to compile for (capped at the Java Triton runs on)
+java.version=21</code></pre>
+        <div class="table-wrap"><table class="cmds ref">
+          <thead><tr><th scope="col">Key</th><th scope="col">What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code>tags=hello, example</code></td><td>Search words for the start menu, comma separated.</td></tr>
+            <tr><td><code>java.version=21</code></td><td>The Java version Triton compiles the app for. Leave it out to use the Java Triton is running on; a higher number is lowered to that.</td></tr>
+            <tr><td><code>triton.min=p156-b1</code></td><td>The oldest Triton release the app works on. Package installs give an older Triton an older version of the app, or none. Read by Triton Prototype 156 and newer.</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section>
+        <h2 id="opening-files">Opening files</h2>
+        <p>To make your app open files clicked anywhere in Triton (the desktop, Folder Explorer, open-file), list the file types in <code>directory.properties</code> and implement <code>shared.files.FileOpenable</code> on <code>Main</code>:</p>
+        <span class="ex-label">directory.properties</span>
+        <pre><code>opens=["txt","md"]</code></pre>
+        <span class="ex-label">Main.java</span>
+        <pre><code>import shared.AbstractModule;
+import shared.files.FileOpenRequest;
+import shared.files.FileOpenable;
+
+public class Main extends AbstractModule implements FileOpenable {
+    …
+    @Override
+    public void openFile(FileOpenRequest request) {
+        java.io.File file = request.file();
+        // show it in your window
+    }
+}</code></pre>
+        <ul>
+          <li><code>openFile</code> runs on the Swing thread, after <code>start()</code>. Your window already exists.</li>
+          <li>When the app is already open, Triton calls <code>showModule()</code> and <code>bringToFront()</code> first, then hands the file to that window.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="loading">How Triton loads an app</h2>
+        <p>Useful to know when something doesn't start:</p>
+        <ol>
+          <li>The desktop lists every folder in <code>desktop/container/applications/</code> as a tile.</li>
+          <li>On open, Triton checks <code>limit_instance</code>. If the app may only run once and is open, it brings that window forward and stops here.</li>
+          <li>Triton collects every <code>.java</code> file in the folder and its subfolders, except <code>mod/</code>, <code>bin/</code>, <code>mod-bin/</code> and the icon script. If there's no <code>Main.java</code>, it stops with <strong>has no Main.java</strong>.</li>
+          <li>It compiles them into <code>bin/</code> against Triton's classes plus the jars in <code>lib/</code>. Errors stop the launch and show the compiler output.</li>
+          <li>It compiles <code>mod/</code> into <code>mod-bin/</code>, after removing mods that <code>@ModProtection</code> blocks.</li>
+          <li>It loads <code>Main</code> from your app (<code>mod-bin/</code>, then <code>bin/</code>, then <code>lib/</code>) and checks that it extends <code>AbstractModule</code>.</li>
+          <li>It calls <code>new Main()</code>, registers the app, and calls <code>start()</code>.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2 id="sharing">Installing and sharing</h2>
+        <p><strong>To install</strong> an app by hand, copy its folder into <code>desktop/container/applications/</code>. The tile appears on the desktop under the folder's name.</p>
+        <p><strong>To share</strong> an app, zip its folder without the files Triton writes:</p>
+        <ul>
+          <li>Leave out <code>bin/</code> and <code>mod-bin/</code>. The other person's Triton compiles the app again.</li>
+          <li>Leave out <code>.package</code> if the folder has one. It's the receipt Triton writes when it installs an app from a package.</li>
+        </ul>
+        <p>Apps from the Triton Store and Package Manager arrive the same way: Triton unpacks the zip into <code>desktop/container/applications/</code>, keeps the old copy until the install succeeds, and writes the <code>.package</code> receipt.</p>
+        <p class="after-note">The folder name is the app's name: it's the tile's label and the name Triton registers the app under. Pick it before you share the app, because renaming the folder renames the app.</p>
+      </section>
+
+      <section>
+        <h2 id="mistakes">Common mistakes</h2>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Mistake</th><th scope="col">What happens · fix</th></tr></thead>
+          <tbody>
+            <tr><td>A <code>package</code> line in <code>Main.java</code></td><td>"has no Main class". Remove the line: <code>Main</code> lives in the default package.</td></tr>
+            <tr><td><code>Main</code> doesn't extend <code>AbstractModule</code></td><td>"The module's main class does not extend AbstractModule." Extend it.</td></tr>
+            <tr><td>No public no-argument constructor</td><td>Triton can't create the app. Add <code>public Main()</code>.</td></tr>
+            <tr><td><code>EXIT_ON_CLOSE</code> or <code>System.exit</code></td><td>Closes all of Triton. Use <code>DO_NOTHING_ON_CLOSE</code> and call <code>close()</code>.</td></tr>
+            <tr><td>Disposing the window without calling <code>close()</code></td><td>The bottom-bar button stays and the app stays registered. Call <code>close()</code> and dispose in <code>onClose()</code>.</td></tr>
+            <tr><td>Showing the window in the constructor</td><td>Show it in <code>start()</code>, which runs after Triton has registered the app.</td></tr>
+            <tr><td>Calling <code>setOnCloseListener</code> with your own listener</td><td>Replaces Triton's, so the bottom bar never cleans up. Put cleanup in <code>onClose()</code>, or wrap Triton's: read <code>getOnCloseListener()</code> in <code>start()</code> and call it from yours.</td></tr>
+            <tr><td>Threads or timers left running</td><td>They keep running after the window closes, inside Triton. Stop them in <code>onClose()</code>.</td></tr>
+            <tr><td>Classes in <code>shared.*</code>, <code>echelon.auth.*</code> or another protected package</td><td>Never loaded from your app; Triton always uses its own. Use your own package name.</td></tr>
+            <tr><td>A mod of a <code>DISALLOW_MOD</code> class</td><td>"Mod Blocked", and Triton keeps its own class. Only classes without the annotation, or with <code>ALLOW_MOD</code>, can be modded.</td></tr>
+            <tr><td>A jar in <code>lib/</code> that Triton also ships</td><td>Your copy is used, unless Triton's copy is marked <code>DISALLOW_MOD</code>. Check the Triton log if a library behaves differently than expected.</td></tr>
+            <tr><td>Using classes from <code>icon.java</code> in your app</td><td><code>icon.java</code> is compiled separately, only to draw the tile. Keep app code in other files.</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+    </article>
+
+    <p class="no-results" id="no-results" hidden>Nothing in this guide matches that filter.</p>
+    <nav class="pager" id="pager" aria-label="More docs"></nav>
+
+  </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <span>Triton is a project by Strombos</span>
+  <span>© 2026 Strombos</span>
+</footer>
+
+<script src="../docs.js?v=6"></script>
+</body>
+</html>

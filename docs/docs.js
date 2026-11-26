@@ -2,8 +2,10 @@
 // When you change docs.css or docs.js, bump the ?v= number where every page loads them.
 // To add a doc: create docs/<name>/index.html (copy docs/terminal/index.html) and add ONE line to DOCS below.
 // The sidebar, the docs overview cards and the previous/next links are all built from this list.
+// The sidebar groups entries by tag (App → "Apps", Guide → "Guides"), in the order tags first appear.
 var DOCS = [
-  { title: 'Terminal', href: 'terminal/', tag: 'App', desc: 'All Triton Terminal commands.' }
+  { title: 'Terminal', href: 'terminal/', tag: 'App', desc: 'All Triton Terminal commands.' },
+  { title: 'Making apps', href: 'making-apps/', tag: 'Guide', desc: 'Build a Triton App: extend AbstractModule, add @ModProtection and the app’s settings files.' }
 ];
 
 (function () {
@@ -12,7 +14,16 @@ var DOCS = [
   var root = base + '../';                                  // URL of the homepage
   var norm = function (u) { return u.split('#')[0].split('?')[0].replace(/index\.html$/, '').replace(/\/$/, ''); };
   var here = norm(location.href);
-  var pages = [{ title: 'Overview', href: '' }].concat(DOCS);
+  // Group by tag, in the order each tag first appears; the sidebar and previous/next follow this order.
+  var GROUP_NAMES = { App: 'Apps', Guide: 'Guides' };
+  var groups = [];
+  DOCS.forEach(function (d) {
+    var g = groups.filter(function (x) { return x.tag === d.tag; })[0];
+    if (!g) groups.push(g = { tag: d.tag, title: GROUP_NAMES[d.tag] || d.tag, items: [] });
+    g.items.push(d);
+  });
+  var pages = [{ title: 'Overview', href: '' }];
+  groups.forEach(function (g) { pages = pages.concat(g.items); });
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
 
   // ---- Sidebar ----
@@ -26,7 +37,9 @@ var DOCS = [
     side.innerHTML =
       '<nav aria-label="Docs">' +
       '<div class="group"><span class="group-title">Documentation</span><ul>' + item(pages[0]) + '</ul></div>' +
-      '<div class="group"><span class="group-title">Apps</span><ul>' + DOCS.map(item).join('') + '</ul></div>' +
+      groups.map(function (g) {
+        return '<div class="group"><span class="group-title">' + esc(g.title) + '</span><ul>' + g.items.map(item).join('') + '</ul></div>';
+      }).join('') +
       '<div class="group"><span class="group-title">Get Triton</span><ul>' + ext.map(function (e) {
         return '<li><a class="ext" href="' + esc(root + e[1]) + '">' + esc(e[0]) + '</a></li>';
       }).join('') + '</ul></div></nav>';

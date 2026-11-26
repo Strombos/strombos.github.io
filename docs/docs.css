@@ -154,6 +154,7 @@ h2:hover .anchor, .anchor:focus { opacity: 1; }
 .doc .cmds td:first-child code { white-space: normal; overflow-wrap: anywhere; padding: 0; background: none; border: 0; color: var(--fg-strong); }
 .doc .cmds td + td { min-width: 180px; color: var(--fg-body); }
 .doc .cmds td:only-child { width: auto; }
+.doc .cmds.ref td:first-child { width: 40%; }   /* settings-key tables: a bit more room for the description */
 mark { background: rgba(111, 179, 204, 0.28); color: inherit; border-radius: 3px; }
 .no-results { padding: 32px 24px; border-radius: 16px; border: 1px dashed #3A4A56; text-align: center; color: var(--fg-muted); font-family: var(--mono); font-size: 13px; }
 
@@ -196,6 +197,7 @@ mark { background: rgba(111, 179, 204, 0.28); color: inherit; border-radius: 3px
   .doc .cmds, .doc .cmds tbody, .doc .cmds tr, .doc .cmds td { display: block; width: auto; }
   .doc .cmds tr { padding: 10px 14px; }
   .doc .cmds td { padding: 0; min-width: 0; }
+  .doc .cmds td:first-child, .doc .cmds.ref td:first-child { width: auto; min-width: 0; }
   .doc .cmds td + td { padding-top: 4px; font-size: 14px; color: var(--fg-dim); }
   .doc .cmds thead { display: none; }
 }
