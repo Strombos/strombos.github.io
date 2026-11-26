@@ -44,6 +44,7 @@
         <li><a href="#protected">Protected packages</a></li>
         <li><a href="#loading">How Triton loads mods</a></li>
         <li><a href="#scope">What a mod changes</a></li>
+        <li><a href="#class-loading">Jars and class loading</a></li>
         <li><a href="#mistakes">Common mistakes</a></li>
       </ol>
     </nav>
@@ -227,6 +228,35 @@ public final class ThemeMode {
       </section>
 
       <section>
+        <h2 id="class-loading">Jars and class loading</h2>
+        <p>Each app gets its own class loader. When your app's code needs a class, Triton looks for it in this order:</p>
+        <div class="table-wrap"><table class="cmds ref">
+          <thead><tr><th scope="col">The class is</th><th scope="col">Where it comes from</th></tr></thead>
+          <tbody>
+            <tr><td><code>java.*</code>, <code>javax.*</code>, <code>shared.*</code> or a protected package</td><td>Always Java or Triton. Your app can't have its own copy.</td></tr>
+            <tr><td>In your app: <code>mod-bin/</code>, then <code>bin/</code>, then the jars in <code>lib/</code></td><td>Your app's copy, the first one found. If Triton has the same class and marks it <code>DISALLOW_MOD</code>, Triton's copy is used instead.</td></tr>
+            <tr><td>Not in your app</td><td>Triton's copy.</td></tr>
+          </tbody>
+        </table></div>
+
+        <h3>Library jars go in <code>lib/</code></h3>
+        <p>Only the jars in your app's <code>lib/</code> folder are used, both to compile your app and to run it. A jar at the top of the app folder is not:</p>
+        <ul>
+          <li>If the folder has a <code>Main.java</code>, Triton ignores the jar. Code that uses it doesn't compile: <em>package … does not exist</em>.</li>
+          <li>If the folder has <strong>no</strong> <code>Main.java</code>, Triton runs the first <code>.jar</code> it finds as a program, instead of compiling the folder. That's how a folder holding a ready-made jar becomes a tile. It isn't an <code>AbstractModule</code> app, so <code>mod/</code> and everything on this page don't apply to it.</li>
+        </ul>
+
+        <h3>Two copies of one class</h3>
+        <p>When your app and Triton both have a class with the same name, Java treats them as <strong>two different classes</strong>: one loaded by Triton, one loaded by your app. Each side works on its own, but passing an object from one side to the other fails with a <code>ClassCastException</code> such as <em>Foo cannot be cast to Foo</em>, or a <code>LinkageError</code> saying <em>loader constraint violation</em>.</p>
+        <p>This can happen two ways:</p>
+        <ul>
+          <li><strong>A library Triton already has, in your <code>lib/</code>.</strong> Your app uses its copy and Triton uses its own, so their objects don't mix. Leave the jar out and use Triton's: if your app compiles without the jar in <code>lib/</code>, Triton already provides that library.</li>
+          <li><strong>A mod of a class whose objects Triton hands to your app.</strong> Triton makes objects of its own class, and your code expects your version. Mod classes your app uses directly, like <code>ThemeMode</code>, whose static methods your code calls itself.</li>
+        </ul>
+        <p class="after-note">The same goes the other way: Triton's classes can't see your app's classes. Triton finds your app through <code>Main</code>, which it loads from your app itself.</p>
+      </section>
+
+      <section>
         <h2 id="mistakes">Common mistakes</h2>
         <div class="table-wrap"><table class="cmds">
           <thead><tr><th scope="col">Mistake</th><th scope="col">What happens · fix</th></tr></thead>
@@ -238,6 +268,9 @@ public final class ThemeMode {
             <tr><td>A mod in <code>shared.*</code> or another protected package</td><td><strong>Modification Blocked</strong>. These packages can't be modded.</td></tr>
             <tr><td>A compile error in one mod file</td><td><strong>Mod Compilation Failed</strong>, and the app opens with no mods at all. Fix the error.</td></tr>
             <tr><td>Expecting the desktop or other apps to change</td><td>A mod only affects your app. Triton and other apps keep the original class.</td></tr>
+            <tr><td>A library jar at the top of the app folder</td><td>It isn't used. With a <code>Main.java</code>, code that needs it doesn't compile; without one, Triton runs the jar instead of your app. Move it into <code>lib/</code>.</td></tr>
+            <tr><td>A jar in <code>lib/</code> with a library Triton already has</td><td>Two copies of the same classes. Objects passed between Triton and your app fail with <em>Foo cannot be cast to Foo</em>. Leave the jar out and use Triton's.</td></tr>
+            <tr><td>Modding a class whose objects Triton gives your app</td><td><code>ClassCastException</code> or <code>LinkageError</code> when your code gets Triton's object. Mod classes your own code calls directly.</td></tr>
             <tr><td>Editing or adding files in <code>mod-bin/</code></td><td>Triton writes that folder and deletes blocked classes from it. Change <code>mod/</code> instead.</td></tr>
           </tbody>
         </table></div>
