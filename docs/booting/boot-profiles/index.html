@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boot profiles — Triton Docs</title>
+<meta name="description" content="How Triton boots: boot profiles, how to choose one on the boot screen, the default profile, writing a boot.bsp, and how booting leads to the Desktop.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../docs.css?v=11">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <div class="brand"><a href="../../../" style="text-decoration:none"><b>Strombos</b></a><a href="../../" style="text-decoration:none"><span>Triton Docs</span></a></div>
+  <label class="search"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="filter" type="search" placeholder="Filter this page" aria-label="Filter this page" autocomplete="off" spellcheck="false"><kbd>/</kbd></label>
+  <nav class="links" aria-label="Site"><a href="../../">Docs</a><a href="../../../#download">Download</a></nav>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="scrim"></div>
+
+  <main class="content" id="main">
+  <div class="page has-toc">
+
+    <div class="page-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Docs</a><span aria-hidden="true">/</span><span>Booting Triton</span><span aria-hidden="true">/</span><span aria-current="page">Boot profiles</span></nav>
+      <h1>Boot profiles<span class="dot">.</span></h1>
+      <p class="lead">Every time Triton starts, it boots a <strong>profile</strong>. The profile decides which parts of Triton load and what opens when booting is done. The default profile ends on the Desktop.</p>
+      <p class="tip">New to Triton? Leave the defaults alone: Triton boots the Desktop on its own. This page explains what happens on the way there, and how to pick something else.</p>
+    </div>
+
+    <!-- On this page: one <li> per <h2 id="..."> below (class="cmd" shows it in mono). -->
+    <nav class="toc" aria-label="On this page">
+      <span class="eyebrow">On this page</span>
+      <ol>
+        <li><a href="#what">What a boot profile is</a></li>
+        <li><a href="#phases">How Triton boots</a></li>
+        <li><a href="#choose">Choosing a profile</a></li>
+        <li><a href="#default">The default profile</a></li>
+        <li><a href="#bsp">Writing a boot.bsp</a></li>
+        <li><a href="#desktop">From boot to the Desktop</a></li>
+      </ol>
+    </nav>
+
+    <article class="doc">
+
+      <section>
+        <h2 id="what">What a boot profile is</h2>
+        <p>A boot profile is a folder in <code>echelon/boot/profiles/</code> with two files in it:</p>
+        <ul>
+          <li><strong><code>boot.bsp</code></strong>, the Boot Script Profile. It names the profile, lists the components it loads and says what to open at the end.</li>
+          <li><strong><code>logo.png</code></strong>, the icon shown on the boot screen.</li>
+        </ul>
+        <p>Triton ships with three profiles:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Profile</th><th scope="col">Opens</th><th scope="col">What it loads</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Triton Desktop</strong><br><code>triton_desktop_lite</code></td><td>Desktop</td><td>The Desktop essentials: the bottom bar, theme, launcher, widgets and control center. The default.</td></tr>
+            <tr><td><strong>Triton Desktop (MAX)</strong><br><code>triton_desktop_max</code></td><td>Desktop</td><td>The full desktop environment, with the Troy Assistant.</td></tr>
+            <tr><td><strong>Triton Terminal</strong><br><code>triton_terminal</code></td><td>Terminal</td><td>A lightweight, terminal-only session: no Desktop, no widgets. See <a href="../../terminal/">Terminal</a>.</td></tr>
+          </tbody>
+        </table></div>
+        <p class="after-note">The two Desktop profiles are <strong>variants</strong> in one group, <code>desktop</code>. A group shows as one icon on the boot screen. Hold <kbd>Shift</kbd> to see all its variants.</p>
+      </section>
+
+      <section>
+        <h2 id="phases">How Triton boots</h2>
+        <p>Booting runs in four phases, in this order:</p>
+        <ol>
+          <li><strong>Core.</strong> Triton's core services start. They are the same for every profile.</li>
+          <li><strong>Select profile.</strong> You pick a profile, or Triton picks the default for you.</li>
+          <li><strong>Components.</strong> The components the profile lists load. On a Desktop profile, the Desktop is built behind the boot screen.</li>
+          <li><strong>Launch.</strong> The profile's module opens: the Desktop, or the Terminal.</li>
+        </ol>
+        <p class="after-note">Press <kbd>F12</kbd> on the boot screen to open the diagnostics drawer: the console, security checks and a report of everything that booted.</p>
+      </section>
+
+      <section>
+        <h2 id="choose">Choosing a profile</h2>
+        <p>The boot screen has two styles:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Style</th><th scope="col">What you see</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Fast Loading</strong></td><td>The default. A full-screen loader boots the profile you used last, with no questions. To choose another one, press <kbd>Esc</kbd> while the loader shows <code>ESC · BOOT OPTIONS</code>.</td></tr>
+            <tr><td><strong>Modern Boot</strong></td><td>A window with the row of profile icons. The default profile counts down, 5 seconds unless its <code>boot.bsp</code> says otherwise, then starts on its own. Any key or click stops the countdown.</td></tr>
+          </tbody>
+        </table></div>
+        <p>On the row of profile icons:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>←</kbd> <kbd>→</kbd> or <kbd>↑</kbd> <kbd>↓</kbd> or <kbd>Tab</kbd></td><td>Move to the previous or next profile.</td></tr>
+            <tr><td><kbd>1</kbd> … <kbd>9</kbd></td><td>Jump straight to that profile.</td></tr>
+            <tr><td><kbd>Home</kbd> <kbd>End</kbd></td><td>Jump to the first or last profile.</td></tr>
+            <tr><td><kbd>Enter</kbd>, <kbd>Space</kbd> or a click</td><td>Start the selected profile.</td></tr>
+            <tr><td>Hold <kbd>Shift</kbd></td><td>Show the variants of the selected group. <kbd>←</kbd> <kbd>→</kbd> picks one; release <kbd>Shift</kbd> to close them.</td></tr>
+            <tr><td><kbd>F12</kbd></td><td>Open or close the diagnostics drawer.</td></tr>
+          </tbody>
+        </table></div>
+        <p class="after-note">After you shut down the Desktop, Triton goes back to the row of profiles in a window and waits for you to pick. There is no countdown then, so it never reopens what you just closed.</p>
+      </section>
+
+      <section>
+        <h2 id="default">The default profile</h2>
+        <p>The profile you started last becomes the default the next time Triton boots. Triton keeps it in <code>echelon/boot/last_use.properties</code>.</p>
+        <ul>
+          <li>On the very first boot, the profile with <code>default = true</code> in its <code>boot.bsp</code> is the default: <strong>Triton Desktop</strong>.</li>
+          <li>To always start from the <code>boot.bsp</code> defaults instead, set <code>remember = false</code> in <code>last_use.properties</code>.</li>
+        </ul>
+        <p>To switch between Fast Loading and Modern Boot, open <strong>Echelon Center → System → Boot Options</strong> and pick a Boot Screen. Or edit <code>echelon/boot/boot.properties</code>:</p>
+        <span class="ex-label">echelon/boot/boot.properties</span>
+        <pre><code class="lang-properties">style = modern     # or: fast</code></pre>
+        <p class="after-note">The style applies the next time Triton boots.</p>
+      </section>
+
+      <section>
+        <h2 id="bsp">Writing a boot.bsp</h2>
+        <p>To add a profile, make a folder in <code>echelon/boot/profiles/</code> and put a <code>boot.bsp</code> and a <code>logo.png</code> in it. The folder name is the profile's id. This is the shipped Triton Desktop profile, shortened:</p>
+        <span class="ex-label">echelon/boot/profiles/triton_desktop_lite/boot.bsp</span>
+        <pre><code class="lang-properties">[profile]
+id          = triton_desktop_lite
+name        = Triton Desktop
+description = Desktop essentials — chrome, theme, launcher, control center
+module      = Desktop
+group       = desktop
+logo        = logo.png
+default     = true
+order       = 0
+countdown   = 5
+
+required_component = [
+    desktop.component.*,
+    desktop.theme.*,
+    desktop.widget.*,
+    !desktop.component.dock,
+]</code></pre>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Key</th><th scope="col">Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><code>id</code></td><td>The profile's id. Defaults to the folder name.</td></tr>
+            <tr><td><code>name</code></td><td>The name on the boot screen.</td></tr>
+            <tr><td><code>description</code></td><td>One line shown under the selected icon.</td></tr>
+            <tr><td><code>module</code></td><td>What opens at the end: <code>Desktop</code> or <code>Terminal</code>.</td></tr>
+            <tr><td><code>group</code></td><td>Profiles with the same group share one icon. Optional.</td></tr>
+            <tr><td><code>logo</code></td><td>The icon file, next to <code>boot.bsp</code>. Defaults to <code>logo.png</code>.</td></tr>
+            <tr><td><code>default</code></td><td><code>true</code> on the one profile to start on the first boot.</td></tr>
+            <tr><td><code>order</code></td><td>Where the profile sits in the row, lowest first.</td></tr>
+            <tr><td><code>countdown</code></td><td>Seconds before the default starts on its own. <code>0</code> waits for a click.</td></tr>
+            <tr><td><code>accent</code></td><td>A highlight colour, for example <code>#FF4D12</code>. Optional.</td></tr>
+            <tr><td><code>required_component</code></td><td>The components to load. See below.</td></tr>
+          </tbody>
+        </table></div>
+        <p>Each <code>required_component</code> is an exact component id, or a pattern like <code>desktop.*</code> for a whole subtree:</p>
+        <ul>
+          <li>Triton's core components, <code>core.*</code>, always load. You never need to list them.</li>
+          <li>A <code>!</code> in front excludes a component, for example <code>!desktop.component.dock</code>. Exclusions always win.</li>
+          <li>Write one per line, separate them with commas, or use a <code>[ … ]</code> block. They all add up.</li>
+        </ul>
+        <p class="after-note">Lines starting with <code>#</code> or <code>//</code> are comments. To remove a profile, delete its folder or add <code>disabled = true</code>. If the folder holds no profile at all, Triton puts the shipped ones back on the next boot.</p>
+        <div class="callout">
+          <p>Don't load <code>desktop.*</code> components in a profile that opens the Terminal. They need the Desktop, and they fail without it.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="desktop">From boot to the Desktop</h2>
+        <p>With a Desktop profile, the last phases lead straight into the Desktop:</p>
+        <ol>
+          <li>While the components load, Triton builds the Desktop out of sight. Modern Boot shows a live preview of it.</li>
+          <li>At launch, the sign-in screen rises over the boot screen.</li>
+          <li>Once you sign in, the Desktop fills the screen. Each extra screen gets a Desktop of its own.</li>
+        </ol>
+        <p>Closing the Desktop asks you to confirm a shutdown, then takes you back to the row of profiles.</p>
+        <div class="callout">
+          <p><strong>Next: the Desktop.</strong> You're booted and signed in. Read <a href="../../module/desktop/">Desktop</a> for the tiles, the bottom bar, the launcher and the rest of Triton's main screen.</p>
+        </div>
+      </section>
+
+    </article>
+
+    <p class="no-results" id="no-results" hidden>Nothing on this page matches that filter.</p>
+    <nav class="pager" id="pager" aria-label="More docs"></nav>
+
+  </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <span>Triton is a project by Strombos</span>
+  <span>© 2026 Strombos</span>
+</footer>
+
+<script src="../../docs.js?v=11"></script>
+</body>
+</html>

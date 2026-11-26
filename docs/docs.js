@@ -5,6 +5,8 @@
 // The sidebar groups entries by tag, in the order of GROUPS below (a tag not listed there goes last, under its own name).
 // An entry with parent: '<href>' is listed indented under that page, and comes right after it in previous/next.
 var DOCS = [
+  // A boot page: docs/booting/<name>/index.html, with tag: 'Boot' (sidebar group "Booting Triton").
+  { title: 'Boot profiles', href: 'booting/boot-profiles/', tag: 'Boot', desc: 'How Triton boots: pick a boot profile on the boot screen, write your own boot.bsp, and boot into the Desktop.' },
   { title: 'Terminal', href: 'terminal/', tag: 'App', desc: 'All Triton Terminal commands.' },
   { title: 'Making apps', href: 'making-apps/', tag: 'Guide', desc: 'Build a Triton App: extend AbstractModule, add @ModProtection and the app’s settings files.' },
   { title: 'Modding', href: 'making-apps/modding/', tag: 'Guide', parent: 'making-apps/', desc: 'Replace one of Triton’s classes inside your app with a mod in its mod/ folder.' },
