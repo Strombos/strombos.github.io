@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desktop — Triton Docs</title>
+<meta name="description" content="Triton's Desktop module: the tile grid, the bottom bar, the launcher, widgets, wallpaper, Snap Assist and several screens, and where the Desktop keeps its files.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../docs.css?v=9">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <div class="brand"><a href="../../../" style="text-decoration:none"><b>Strombos</b></a><a href="../../" style="text-decoration:none"><span>Triton Docs</span></a></div>
+  <label class="search"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="filter" type="search" placeholder="Filter this page" aria-label="Filter this page" autocomplete="off" spellcheck="false"><kbd>/</kbd></label>
+  <nav class="links" aria-label="Site"><a href="../../">Docs</a><a href="../../../#download">Download</a></nav>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="scrim"></div>
+
+  <main class="content" id="main">
+  <div class="page has-toc">
+
+    <div class="page-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Docs</a><span aria-hidden="true">/</span><span>Module</span><span aria-hidden="true">/</span><span aria-current="page">Desktop</span></nav>
+      <h1>Desktop<span class="dot">.</span></h1>
+      <p class="lead">The Desktop is Triton's main screen: the grid of app and file tiles, the bottom bar, the launcher, widgets and the wallpaper. Every app you open in Triton starts from here.</p>
+      <p class="tip">This page is an overview of the Desktop module. Pages for each Desktop component will be listed under Desktop in the sidebar.</p>
+    </div>
+
+    <!-- On this page: one <li> per <h2 id="..."> below (class="cmd" shows it in mono). -->
+    <nav class="toc" aria-label="On this page">
+      <span class="eyebrow">On this page</span>
+      <ol>
+        <li><a href="#what">What the Desktop is</a></li>
+        <li><a href="#components">Components</a></li>
+        <li><a href="#tiles">Tiles</a></li>
+        <li><a href="#desktops">Desktops and screens</a></li>
+        <li><a href="#keyboard">Keyboard</a></li>
+        <li><a href="#snap">Snap Assist</a></li>
+        <li><a href="#files">Where the Desktop keeps its files</a></li>
+      </ol>
+    </nav>
+
+    <article class="doc">
+
+      <section>
+        <h2 id="what">What the Desktop is</h2>
+        <p>The Desktop is one of Triton's built-in modules, in the package <code>echelon.desktop</code>. It starts when you sign in and draws the Desktop on every screen.</p>
+        <p>It is the shell the rest of Triton runs in:</p>
+        <ul>
+          <li>It lays out the <strong>tiles</strong> for your apps and files, and opens them.</li>
+          <li>It owns the <strong>bottom bar</strong>, the <strong>launcher</strong>, the <strong>widgets</strong> and the <strong>wallpaper</strong>.</li>
+          <li>It saves how <strong>your</strong> desktop is arranged. Installed apps are shared by every user; where their tiles sit is kept per user.</li>
+        </ul>
+        <p class="after-note">The Desktop is part of Triton, not an app. To put your own app on it, see <a href="../../making-apps/">Making apps</a>.</p>
+      </section>
+
+      <section>
+        <h2 id="components">Components</h2>
+        <p>The Desktop is made of these parts:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Component</th><th scope="col">What it does</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Tile grid</strong></td><td>The grid of app, file and folder tiles. Drag tiles to rearrange them, or drop files on it from outside Triton.</td></tr>
+            <tr><td><strong>Bottom bar</strong></td><td>A button for each open app. Apps can add their own items to its right-click menu: see <a href="../../bottom-bar-menu/">Bottom-bar menu</a>.</td></tr>
+            <tr><td><strong>Launcher</strong></td><td>Search, your pinned apps, all programs and the power menu.</td></tr>
+            <tr><td><strong>Widgets</strong></td><td>Panels that live on the Desktop, on a grid of their own above the wallpaper. They can sit on any screen.</td></tr>
+            <tr><td><strong>Wallpaper</strong></td><td>The Desktop background. A themed wallpaper is a grayscale image that Triton recolours to match the active theme.</td></tr>
+            <tr><td><strong>Snap Assist</strong></td><td>Drag a window to a screen edge or corner to snap it to half or a quarter of the screen.</td></tr>
+            <tr><td><strong>Notifications</strong></td><td>Messages from Triton and from apps, and the notification centre that keeps them.</td></tr>
+            <tr><td><strong>Screens</strong></td><td>Each screen shows a Desktop of its own.</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section>
+        <h2 id="tiles">Tiles</h2>
+        <p>The tiles on the Desktop come from three places:</p>
+        <ul>
+          <li><strong>Apps.</strong> Every folder in <code>echelon/desktop/container/applications/</code> is an app and gets a tile, named after the folder.</li>
+          <li><strong>Your files.</strong> Every file in your own desktop folder, <code>echelon/users/&lt;user&gt;/desktop/</code>, gets a tile.</li>
+          <li><strong>Folders and the Trash.</strong> A Desktop folder holds shortcuts to tiles. The Trash is your own and holds the real files.</li>
+        </ul>
+        <p>Drop files on the Desktop from Explorer, a browser or another program, and Triton <strong>copies</strong> them into your desktop folder. The original stays where it was, so a drop in the wrong place does no harm.</p>
+        <p class="after-note">Only your own files can go in the Trash. To remove an app, uninstall it.</p>
+      </section>
+
+      <section>
+        <h2 id="desktops">Desktops and screens</h2>
+        <p>A <strong>desktop</strong> is a named set of tiles. A screen is only where a desktop is shown. Each desktop has an id:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Id</th><th scope="col">Desktop</th></tr></thead>
+          <tbody>
+            <tr><td><code>d0</code></td><td>The main desktop.</td></tr>
+            <tr><td><code>d1</code>, <code>d2</code>, …</td><td>Saved desktops, for example the one on a second screen.</td></tr>
+            <tr><td><code>t-…</code></td><td>Temporary desktops. They are never saved and are gone when you sign out or quit Triton.</td></tr>
+          </tbody>
+        </table></div>
+        <p>Triton saves each desktop's tiles as you change them. File paths are saved in a portable form, so a desktop still works when Triton's main folder moves to another drive or machine.</p>
+        <p>A new user starts from the <strong>default preset</strong>: an arrangement of tiles that ships with Triton. Apps installed later are added to the free cells as usual.</p>
+      </section>
+
+      <section>
+        <h2 id="keyboard">Keyboard</h2>
+        <p>While the Desktop is the active surface (click an empty spot on it), these keys work on the tiles:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd></td><td>Move the selection to the nearest tile in that direction. With nothing selected, the first key picks a tile from that edge.</td></tr>
+            <tr><td><kbd>Enter</kbd></td><td>Open the selected tile or tiles.</td></tr>
+            <tr><td><kbd>Esc</kbd></td><td>Clear the selection.</td></tr>
+            <tr><td><kbd>Win</kbd>+<kbd>D</kbd></td><td>Hide all apps and show the Desktop. Press it again to bring them back. Windows and Linux.</td></tr>
+          </tbody>
+        </table></div>
+        <p class="after-note">The arrow keys and <kbd>Enter</kbd> only act on the Desktop while it is in front. In an app window they work as usual.</p>
+      </section>
+
+      <section>
+        <h2 id="snap">Snap Assist</h2>
+        <p>Drag a window to an edge or corner of the screen. Triton shows where it will go, and snaps it there when you let go:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Drag to</th><th scope="col">The window fills</th></tr></thead>
+          <tbody>
+            <tr><td>Left edge</td><td>The left half</td></tr>
+            <tr><td>Right edge</td><td>The right half</td></tr>
+            <tr><td>Top edge, middle</td><td>The whole screen</td></tr>
+            <tr><td>A corner</td><td>That quarter of the screen</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section>
+        <h2 id="files">Where the Desktop keeps its files</h2>
+        <p>All in Triton's main folder, <code>echelon</code>:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Path</th><th scope="col">Holds</th></tr></thead>
+          <tbody>
+            <tr><td><code>echelon/desktop/container/applications/</code></td><td>Installed apps, one folder each. Shared by every user.</td></tr>
+            <tr><td><code>echelon/users/&lt;user&gt;/desktop/</code></td><td>Your own desktop files. Each one is a tile.</td></tr>
+            <tr><td><code>echelon/users/&lt;user&gt;/parallax/</code></td><td>Your desktops: the tiles of each one and where they sit.</td></tr>
+            <tr><td><code>echelon/desktop/default.json</code></td><td>The default preset for new users.</td></tr>
+            <tr><td><code>echelon/desktop/background.json</code></td><td>Wallpaper settings.</td></tr>
+            <tr><td><code>echelon/desktop/modular-addon/</code></td><td>Widget jars.</td></tr>
+          </tbody>
+        </table></div>
+        <p class="after-note">Triton writes these files itself. Don't put your own files in <code>parallax/</code>: put them in your desktop folder.</p>
+      </section>
+
+    </article>
+
+    <p class="no-results" id="no-results" hidden>Nothing on this page matches that filter.</p>
+    <nav class="pager" id="pager" aria-label="More docs"></nav>
+
+  </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <span>Triton is a project by Strombos</span>
+  <span>© 2026 Strombos</span>
+</footer>
+
+<script src="../../docs.js?v=9"></script>
+</body>
+</html>

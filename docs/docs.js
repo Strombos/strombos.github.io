@@ -2,14 +2,16 @@
 // When you change docs.css or docs.js, bump the ?v= number where every page loads them.
 // To add a doc: create docs/<name>/index.html (copy docs/terminal/index.html) and add ONE line to DOCS below.
 // The sidebar, the docs overview cards and the previous/next links are all built from this list.
-// The sidebar groups entries by tag (App → "Apps", Guide → "Guides"), in the order tags first appear.
+// The sidebar groups entries by tag (App → "Apps", Guide → "Guides", Module → "Module"), in the order tags first appear.
 // An entry with parent: '<href>' is listed indented under that page, and comes right after it in previous/next.
 var DOCS = [
   { title: 'Terminal', href: 'terminal/', tag: 'App', desc: 'All Triton Terminal commands.' },
   { title: 'Making apps', href: 'making-apps/', tag: 'Guide', desc: 'Build a Triton App: extend AbstractModule, add @ModProtection and the app’s settings files.' },
   { title: 'Modding', href: 'making-apps/modding/', tag: 'Guide', parent: 'making-apps/', desc: 'Replace one of Triton’s classes inside your app with a mod in its mod/ folder.' },
   { title: 'Bottom-bar menu', href: 'bottom-bar-menu/', tag: 'Guide', desc: 'Add your app’s own items to its bottom-bar button’s right-click menu with BottomBarMenuProvider.' },
-  { title: 'Vortex Loading', href: 'vortex-loading/', tag: 'Guide', desc: 'Override Triton’s own classes or add new ones from vortex-module/, with sources Triton compiles and @Vortexable to seal a class.' }
+  { title: 'Vortex Loading', href: 'vortex-loading/', tag: 'Guide', desc: 'Override Triton’s own classes or add new ones from vortex-module/, with sources Triton compiles and @Vortexable to seal a class.' },
+  // A Desktop component: docs/module/desktop/<name>/index.html, with tag: 'Module', parent: 'module/desktop/'.
+  { title: 'Desktop', href: 'module/desktop/', tag: 'Module', desc: 'Triton’s Desktop: the tile grid, bottom bar, launcher, widgets, wallpaper, Snap Assist and screens.' }
 ];
 
 (function () {
