@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../docs.css?v=6">
+<link rel="stylesheet" href="../docs.css?v=7">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -67,7 +67,7 @@
         <h2 id="first-app">Your first app</h2>
         <p>Make a folder named after your app, for example <code>Hello</code>, in <code>desktop/container/applications/</code>, and add one file, <code>Main.java</code>:</p>
         <span class="ex-label">Hello/Main.java</span>
-        <pre><code>import shared.AbstractModule;
+        <pre><code class="lang-java">import shared.AbstractModule;
 import shared.ModProtection;
 
 import javax.swing.JFrame;
@@ -115,7 +115,7 @@ public class Main extends AbstractModule {
         <p class="h-note">Package <code>shared</code>, in Triton's jar. Every app's <code>Main</code> extends it.</p>
         <p>The full class, for reference:</p>
         <span class="ex-label">shared/AbstractModule.java</span>
-        <pre><code>package shared;
+        <pre><code class="lang-java">package shared;
 
 import echelon.module.vortex.Vortexable;
 import triton.core.atlas.AtlasTag;
@@ -230,7 +230,7 @@ public abstract class AbstractModule {
         <h2 id="mod-protection" class="cmd-h">@ModProtection</h2>
         <p class="h-note">Annotation <code>shared.ModProtection</code>. Goes on a class.</p>
         <p><code>@ModProtection</code> says whether a class may be replaced by a <strong>mod</strong>: an app's own copy of one of Triton's classes. Built-in apps put it on their <code>Main</code>:</p>
-        <pre><code>import shared.ModProtection;
+        <pre><code class="lang-java">import shared.ModProtection;
 
 @ModProtection(ModProtection.Policy.ALLOW_MOD)
 public class Main extends AbstractModule { … }</code></pre>
@@ -265,7 +265,7 @@ public class Main extends AbstractModule { … }</code></pre>
           </tbody>
         </table></div>
         <span class="ex-label">Example · Main with both tags</span>
-        <pre><code>import shared.AbstractModule;
+        <pre><code class="lang-java">import shared.AbstractModule;
 import shared.ModProtection;
 import triton.core.atlas.AtlasTag;
 
@@ -306,7 +306,7 @@ public class Main extends AbstractModule { … }</code></pre>
         <p class="h-note">Tile and window settings. Optional; leave out any key you don't need.</p>
         <p>Each line is <code>key=value</code>, where the value is a list in brackets, like <code>["onlyOne"]</code>. A single value without brackets also works. Lines starting with <code>#</code> are comments.</p>
         <span class="ex-label">Example · Hello/directory.properties</span>
-        <pre><code># Tile picture
+        <pre><code class="lang-properties"># Tile picture
 icon=["desktop_logo.png"]
 
 # One window: opening the app again brings it forward
@@ -334,7 +334,7 @@ limit_instance=["onlyOne"]</code></pre>
         <h2 id="module-properties" class="cmd-h">module.properties</h2>
         <p class="h-note">Plain Java properties: <code>key=value</code>, no brackets. Optional.</p>
         <span class="ex-label">Example · Hello/module.properties</span>
-        <pre><code># Words that find this app in the start menu, comma separated
+        <pre><code class="lang-properties"># Words that find this app in the start menu, comma separated
 tags=hello, example, greeting
 
 # Java version to compile for (capped at the Java Triton runs on)
@@ -353,9 +353,9 @@ java.version=21</code></pre>
         <h2 id="opening-files">Opening files</h2>
         <p>To make your app open files clicked anywhere in Triton (the desktop, Folder Explorer, open-file), list the file types in <code>directory.properties</code> and implement <code>shared.files.FileOpenable</code> on <code>Main</code>:</p>
         <span class="ex-label">directory.properties</span>
-        <pre><code>opens=["txt","md"]</code></pre>
+        <pre><code class="lang-properties">opens=["txt","md"]</code></pre>
         <span class="ex-label">Main.java</span>
-        <pre><code>import shared.AbstractModule;
+        <pre><code class="lang-java">import shared.AbstractModule;
 import shared.files.FileOpenRequest;
 import shared.files.FileOpenable;
 
@@ -434,6 +434,6 @@ public class Main extends AbstractModule implements FileOpenable {
   <span>© 2026 Strombos</span>
 </footer>
 
-<script src="../docs.js?v=6"></script>
+<script src="../docs.js?v=7"></script>
 </body>
 </html>

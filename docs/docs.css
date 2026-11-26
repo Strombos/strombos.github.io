@@ -141,6 +141,16 @@ h2:hover .anchor, .anchor:focus { opacity: 1; }
 .copy { position: absolute; top: 8px; right: 8px; height: 28px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--fg-dim); font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; }
 .copy:hover { color: #FFFFFF; border-color: var(--accent); }
 .copy.done { color: var(--accent); border-color: var(--accent); }
+/* Code colours: docs.js wraps tokens of <code class="lang-java|lang-properties"> in these. */
+.tok-kw { color: #7FC4DD; }      /* keywords: public, class, extends */
+.tok-type { color: #E3C27E; }    /* types: AbstractModule, JFrame */
+.tok-const { color: #D7A9E8; }   /* constants: ALLOW_MOD, EXIT_ON_CLOSE */
+.tok-ann { color: #E39A6E; }     /* annotations: @ModProtection, @Override */
+.tok-str { color: #A8D5A2; }     /* strings */
+.tok-num { color: #F0B48A; }     /* numbers */
+.tok-fn { color: #9DC4F2; }      /* method calls and declarations */
+.tok-com { color: #7A8B96; }     /* comments */
+.tok-key { color: #7FC4DD; }     /* properties keys */
 .ex-label { display: block; margin: 24px 0 8px !important; font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
 
 /* Command reference: command | what it does. Stacks on phones. */

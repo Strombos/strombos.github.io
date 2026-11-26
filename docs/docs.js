@@ -79,6 +79,41 @@ var DOCS = [
     h.appendChild(a);
   });
 
+  // ---- Code colours: <pre><code class="lang-java"> or class="lang-properties"> ----
+  // Wraps tokens in <span class="tok-…">; the text itself is unchanged, so Copy and the filter see plain code.
+  var LANGS = {
+    java: [
+      ['com', /\/\*[\s\S]*?\*\/|\/\/[^\n]*/],
+      ['str', /"(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])'/],
+      ['ann', /@[A-Za-z_]\w*/],
+      ['kw', /\b(?:abstract|boolean|break|case|catch|char|class|continue|default|do|double|else|enum|extends|false|final|finally|float|for|if|implements|import|instanceof|int|interface|long|new|null|package|private|protected|public|return|short|static|super|switch|synchronized|this|throw|throws|true|try|var|void|volatile|while)\b/],
+      ['num', /\b\d+(?:\.\d+)?[fFdDlL]?\b/],
+      ['const', /\b[A-Z][A-Z0-9_]+\b/],
+      ['type', /\b[A-Z]\w*\b/],
+      ['fn', /\b[a-z_]\w*(?=\s*\()/]
+    ],
+    properties: [
+      ['com', /^[ \t]*[#!][^\n]*/],
+      ['key', /^[ \t]*[^\s=:#!][^=:\n]*?(?=[ \t]*[=:])/],
+      ['str', /"(?:\\.|[^"\\\n])*"/]
+    ]
+  };
+  var highlight = function (text, rules) {
+    var re = new RegExp(rules.map(function (r) { return '(' + r[1].source + ')'; }).join('|'), 'gm');
+    var out = '', last = 0, m;
+    while ((m = re.exec(text))) {
+      if (!m[0]) { re.lastIndex++; continue; }
+      var k = 1; while (m[k] === undefined) k++;
+      out += esc(text.slice(last, m.index)) + '<span class="tok-' + rules[k - 1][0] + '">' + esc(m[0]) + '</span>';
+      last = re.lastIndex;
+    }
+    return out + esc(text.slice(last));
+  };
+  Array.prototype.forEach.call(document.querySelectorAll('.doc pre code[class*="lang-"]'), function (code) {
+    var lang = (code.className.match(/lang-(\w+)/) || [])[1];
+    if (LANGS[lang]) code.innerHTML = highlight(code.textContent, LANGS[lang]);
+  });
+
   // ---- Copy buttons on code blocks ----
   Array.prototype.forEach.call(document.querySelectorAll('.doc pre'), function (pre) {
     var wrap = document.createElement('div');
