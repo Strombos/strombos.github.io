@@ -2,7 +2,7 @@
 // When you change docs.css or docs.js, bump the ?v= number where every page loads them.
 // To add a doc: create docs/<name>/index.html (copy docs/terminal/index.html) and add ONE line to DOCS below.
 // The sidebar, the docs overview cards and the previous/next links are all built from this list.
-// The sidebar groups entries by tag (App → "Apps", Guide → "Guides", Module → "Module"), in the order tags first appear.
+// The sidebar groups entries by tag, in the order of GROUPS below (a tag not listed there goes last, under its own name).
 // An entry with parent: '<href>' is listed indented under that page, and comes right after it in previous/next.
 var DOCS = [
   { title: 'Terminal', href: 'terminal/', tag: 'App', desc: 'All Triton Terminal commands.' },
@@ -20,16 +20,24 @@ var DOCS = [
   var root = base + '../';                                  // URL of the homepage
   var norm = function (u) { return u.split('#')[0].split('?')[0].replace(/index\.html$/, '').replace(/\/$/, ''); };
   var here = norm(location.href);
-  // Group by tag, in the order each tag first appears; the sidebar and previous/next follow this order.
-  var GROUP_NAMES = { App: 'Apps', Guide: 'Guides' };
-  var groups = [];
+  // Sidebar groups, in reading order: boot Triton, use it, then build for it.
+  // The sidebar, the overview cards and previous/next all follow this order. Empty groups are not shown.
+  var GROUPS = [
+    { tag: 'Boot', title: 'Booting Triton' },
+    { tag: 'Module', title: 'Module' },
+    { tag: 'Accessibility', title: 'Accessibility' },
+    { tag: 'App', title: 'Apps' },
+    { tag: 'Guide', title: 'Guides' }
+  ];
+  var groups = GROUPS.map(function (g) { return { tag: g.tag, title: g.title, items: [] }; });
   var kids = function (p) { return DOCS.filter(function (d) { return d.parent && d.parent === p.href; }); };
   DOCS.forEach(function (d) {
     if (d.parent) return;   // listed under its parent page
     var g = groups.filter(function (x) { return x.tag === d.tag; })[0];
-    if (!g) groups.push(g = { tag: d.tag, title: GROUP_NAMES[d.tag] || d.tag, items: [] });
+    if (!g) groups.push(g = { tag: d.tag, title: d.tag, items: [] });
     g.items.push(d);
   });
+  groups = groups.filter(function (g) { return g.items.length; });
   var pages = [{ title: 'Overview', href: '' }];
   var addPage = function (p) { pages.push(p); kids(p).forEach(addPage); };
   groups.forEach(function (g) { g.items.forEach(addPage); });
@@ -47,18 +55,18 @@ var DOCS = [
     side.innerHTML =
       '<nav aria-label="Docs">' +
       '<div class="group"><span class="group-title">Documentation</span><ul>' + item(pages[0]) + '</ul></div>' +
-      groups.map(function (g) {
-        return '<div class="group"><span class="group-title">' + esc(g.title) + '</span><ul>' + g.items.map(item).join('') + '</ul></div>';
-      }).join('') +
       '<div class="group"><span class="group-title">Get Triton</span><ul>' + ext.map(function (e) {
         return '<li><a class="ext" href="' + esc(root + e[1]) + '">' + esc(e[0]) + '</a></li>';
-      }).join('') + '</ul></div></nav>';
+      }).join('') + '</ul></div>' +
+      groups.map(function (g) {
+        return '<div class="group"><span class="group-title">' + esc(g.title) + '</span><ul>' + g.items.map(item).join('') + '</ul></div>';
+      }).join('') + '</nav>';
   }
 
   // ---- Overview cards ----
   var list = document.getElementById('doc-list');
   if (list) {
-    list.innerHTML = DOCS.map(function (d) {
+    list.innerHTML = pages.slice(1).map(function (d) {
       return '<li><a class="doc-card" href="' + esc(base + d.href) + '"><span class="tag">' + esc(d.tag) + '</span><strong>' + esc(d.title) + '</strong><span class="desc">' + esc(d.desc) + '</span><span class="go">Read →</span></a></li>';
     }).join('');
   }
