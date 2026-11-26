@@ -55,10 +55,13 @@ var DOCS = [
   // ---- Sidebar ----
   var side = document.getElementById('sidebar');
   if (side) {
-    var item = function (p) {
+    // A page with the same name as its group (the Accessibility page in the Accessibility group)
+    // is listed as "Overview", without the tag, so the name isn't shown three times.
+    var item = function (p, group) {
       var url = base + p.href, cur = norm(url) === here, sub = kids(p);
-      return '<li><a href="' + esc(url) + '"' + (cur ? ' aria-current="page"' : '') + '>' + esc(p.title) + (p.tag && !p.parent ? '<small>' + esc(p.tag) + '</small>' : '') + '</a>' +
-        (sub.length ? '<ul class="sub">' + sub.map(item).join('') + '</ul>' : '') + '</li>';
+      var same = !p.parent && group && p.title === group;
+      return '<li><a href="' + esc(url) + '"' + (cur ? ' aria-current="page"' : '') + '>' + esc(same ? 'Overview' : p.title) + (p.tag && !p.parent && !same ? '<small>' + esc(p.tag) + '</small>' : '') + '</a>' +
+        (sub.length ? '<ul class="sub">' + sub.map(function (s) { return item(s); }).join('') + '</ul>' : '') + '</li>';
     };
     var ext = [['Triton homepage', ''], ['Download', '#download'], ['How to start', '#run'], ['Get Java 21 or higher', '#java']];
     side.innerHTML =
@@ -68,7 +71,7 @@ var DOCS = [
         return '<li><a class="ext" href="' + esc(root + e[1]) + '">' + esc(e[0]) + '</a></li>';
       }).join('') + '</ul></div>' +
       groups.map(function (g) {
-        return '<div class="group"><span class="group-title">' + esc(g.title) + '</span><ul>' + g.items.map(item).join('') + '</ul></div>';
+        return '<div class="group"><span class="group-title">' + esc(g.title) + '</span><ul>' + g.items.map(function (p) { return item(p, g.title); }).join('') + '</ul></div>';
       }).join('') + '</nav>';
   }
 
