@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../docs.css?v=3">
+<link rel="stylesheet" href="../docs.css?v=5">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -31,6 +31,7 @@
       <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Docs</a><span aria-hidden="true">/</span><span>Apps</span><span aria-hidden="true">/</span><span aria-current="page">Terminal</span></nav>
       <h1>Terminal<span class="dot">.</span></h1>
       <p class="lead">All Triton Terminal commands</p>
+      <p class="tip">If Key Interceptor is active, you can also open the Terminal with <span class="keys"><kbd>Windows</kbd> / <kbd>Super</kbd> + <kbd>T</kbd></span>.</p>
     </div>
 
     <!-- On this page: one <li> per <h2 id="..."> below (class="cmd" shows it in mono). -->
@@ -40,12 +41,17 @@
         <li><a href="#built-ins">Triton Shell built-ins</a></li>
         <li><a class="cmd" href="#codex">codex</a></li>
         <li><a class="cmd" href="#sys">sys</a></li>
+        <li><a href="#sys-power">System power</a></li>
         <li><a class="cmd" href="#package">package</a></li>
         <li><a class="cmd" href="#synapse">synapse</a></li>
         <li><a class="cmd" href="#demo">demo</a></li>
         <li><a class="cmd" href="#admin">admin</a></li>
         <li><a class="cmd" href="#layout">layout</a></li>
         <li><a class="cmd" href="#hollywood">hollywood</a></li>
+        <li><a href="#vortex">Vortex</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#whoami">Who am I</a></li>
+        <li><a href="#cmo">Central Module Opener</a></li>
         <li><a href="#from-packages">From installed packages and apps</a></li>
       </ol>
     </nav>
@@ -119,6 +125,20 @@
             <tr><td colspan="2"><code>sys workspace take &lt;class|path&gt;</code></td></tr>
           </tbody>
         </table></div>
+      </section>
+
+      <section>
+        <h2 id="sys-power">System power <span class="h-cmd">sys</span></h2>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Command</th><th scope="col">Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>sys shutdown</code></td><td>Shut Triton down (alias: <code>sys poweroff</code>)</td></tr>
+            <tr><td><code>sys restart</code></td><td>Restart Triton (alias: <code>sys reboot</code>)</td></tr>
+            <tr><td><code>sys logoff</code></td><td>Lock the session and show the sign-in screen (aliases: <code>sys logout</code>, <code>sys lo</code>, <code>sys lock</code>)</td></tr>
+            <tr><td><code>sys pt</code></td><td>Open the power menu in a terminal tab: Log off, Restart, Shut down (alias: <code>sys power</code>)</td></tr>
+          </tbody>
+        </table></div>
+        <p class="after-note">Under Triton OS, shutdown and restart act on the machine instead of just Triton.</p>
       </section>
 
       <section>
@@ -201,6 +221,58 @@ layout save-default</code></pre>
       </section>
 
       <section>
+        <h2 id="vortex">Vortex <span class="h-cmd">vortex</span></h2>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Command</th><th scope="col">Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>vortex list</code></td><td>Show what is deployed: system overrides, includes and jars</td></tr>
+            <tr><td><code>vortex scan</code></td><td>Show sources that are new or changed, and classes waiting in staging; changes nothing</td></tr>
+            <tr><td><code>vortex reload</code></td><td>Recompile what changed, deploy it, and hot-swap the skills into the running Triton</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section>
+        <h2 id="skills">Skills <span class="h-cmd">list</span></h2>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Command</th><th scope="col">Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>list skills</code></td><td>Every registered skill and who may call it (<code>list skill</code> also works)</td></tr>
+            <tr><td><code>list skills -llm</code></td><td>Only the skills the language model can call, with their parameters</td></tr>
+            <tr><td><code>list skills &lt;text&gt;</code></td><td>Only skills whose id contains the text</td></tr>
+            <tr><td><code>list skills -full</code></td><td>Whole descriptions and parameters instead of one line each</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section>
+        <h2 id="whoami">Who am I <span class="h-cmd">whoami / wai</span></h2>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Command</th><th scope="col">Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>wai</code></td><td>Run the who-am-I skill: voice and camera together</td></tr>
+            <tr><td><code>wai voice</code></td><td>Whose voice last spoke</td></tr>
+            <tr><td><code>wai camera</code></td><td>Who the camera sees</td></tr>
+          </tbody>
+        </table></div>
+        <p class="after-note"><code>whoami</code> is the same command but only works in the Triton Shell; in PowerShell, cmd and bash tabs <code>whoami</code> stays the operating system's own, so use <code>wai</code> there.</p>
+      </section>
+
+      <section>
+        <h2 id="cmo">Central Module Opener <span class="h-cmd">cmo</span></h2>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Command</th><th scope="col">Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>cmo start &lt;app name&gt;</code></td><td>Open an installed app by its exact name; case and spacing don't matter (aliases: <code>cmo launch</code>, <code>cmo open</code>)</td></tr>
+            <tr><td><code>cmo start &lt;app name&gt; -cm</code></td><td>Open the app whose name is closest to what was typed, e.g. <code>cmo start camra -cm</code> opens Camera</td></tr>
+            <tr><td><code>cmo start-logging</code></td><td>Record every app CMO opens in its open log</td></tr>
+            <tr><td><code>cmo stop-logging</code></td><td>Stop recording; what is already logged is kept</td></tr>
+            <tr><td><code>cmo status</code></td><td>Whether the open log is recording, and where the file is (plain <code>cmo</code> does the same)</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section>
         <h2 id="from-packages">From installed packages and apps</h2>
         <div class="table-wrap"><table class="cmds">
           <thead><tr><th scope="col">Command</th><th scope="col">Description</th></tr></thead>
@@ -231,6 +303,6 @@ autopsy --listAllIngestProfiles</code></pre>
   <span>© 2026 Strombos</span>
 </footer>
 
-<script src="../docs.js?v=3"></script>
+<script src="../docs.js?v=5"></script>
 </body>
 </html>
