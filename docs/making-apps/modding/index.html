@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modding — Triton Docs</title>
+<meta name="description" content="Replace one of Triton's classes inside your app with a mod: the mod/ folder, @ModProtection, protected packages and how Triton loads mods.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../docs.css?v=8">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <div class="brand"><a href="../../../" style="text-decoration:none"><b>Strombos</b></a><a href="../../" style="text-decoration:none"><span>Triton Docs</span></a></div>
+  <label class="search"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="filter" type="search" placeholder="Filter this guide" aria-label="Filter this guide" autocomplete="off" spellcheck="false"><kbd>/</kbd></label>
+  <nav class="links" aria-label="Site"><a href="../../">Docs</a><a href="../../../#download">Download</a></nav>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="scrim"></div>
+
+  <main class="content" id="main">
+  <div class="page has-toc">
+
+    <div class="page-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Docs</a><span aria-hidden="true">/</span><span>Guides</span><span aria-hidden="true">/</span><a href="../">Making apps</a><span aria-hidden="true">/</span><span aria-current="page">Modding</span></nav>
+      <h1>Modding<span class="dot">.</span></h1>
+      <p class="lead">Replace one of Triton's classes with your own version, just for your app. Put the new version in your app's <code>mod/</code> folder and Triton uses it whenever your app's code needs that class.</p>
+      <p class="tip">Start with <a href="../">Making apps</a>. A mod belongs to an app, so you need a working app first.</p>
+    </div>
+
+    <!-- On this page: one <li> per <h2 id="..."> below (class="cmd" shows it in mono). -->
+    <nav class="toc" aria-label="On this page">
+      <span class="eyebrow">On this page</span>
+      <ol>
+        <li><a href="#what">What a mod is</a></li>
+        <li><a href="#first-mod">Your first mod</a></li>
+        <li><a class="cmd" href="#mod-protection">@ModProtection</a></li>
+        <li><a href="#protected">Protected packages</a></li>
+        <li><a href="#loading">How Triton loads mods</a></li>
+        <li><a href="#scope">What a mod changes</a></li>
+        <li><a href="#mistakes">Common mistakes</a></li>
+      </ol>
+    </nav>
+
+    <article class="doc">
+
+      <section>
+        <h2 id="what">What a mod is</h2>
+        <p>A <strong>mod</strong> is your app's own version of one of Triton's classes. It has the same package and class name as Triton's class, and it lives in the <code>mod/</code> folder inside your app's folder.</p>
+        <p>When your app opens, Triton compiles <code>mod/</code> and loads your version in place of its own, but only for your app. Triton itself and every other app keep the original class.</p>
+        <p>Each Triton class decides whether it may be modded, with the <code>@ModProtection</code> annotation. Some packages can never be modded at all.</p>
+      </section>
+
+      <section>
+        <h2 id="first-mod">Your first mod</h2>
+        <p>This example makes an app always use dark colours, even when Triton has a light theme. The app asks Triton's <code>ThemeMode</code> class whether the theme is dark, and the mod changes the answer to always be "yes", for this app only.</p>
+
+        <h3>1. An app that follows the theme</h3>
+        <p>This is the <strong>Hello</strong> app from <a href="../#first-app">Making apps</a>, with one change: it asks <code>ThemeMode.isDark()</code> and picks its colours from the answer.</p>
+        <span class="ex-label">Hello/Main.java</span>
+        <pre><code class="lang-java">import shared.AbstractModule;
+import shared.ModProtection;
+import echelon.util.ThemeMode;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+@ModProtection(ModProtection.Policy.ALLOW_MOD)
+public class Main extends AbstractModule {
+
+    private final JFrame frame;
+
+    public Main() {
+        frame = echelon.ui.WindowFactory.create("Hello");
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        // Ask Triton whether the theme is dark, and pick colours to match.
+        boolean dark = ThemeMode.isDark();
+        JLabel label = new JLabel(dark ? "Dark theme" : "Light theme", SwingConstants.CENTER);
+        label.setOpaque(true);
+        label.setBackground(dark ? new Color(0x1E1E1E) : Color.WHITE);
+        label.setForeground(dark ? Color.WHITE : Color.BLACK);
+        frame.add(label);
+
+        frame.setSize(480, 320);
+        frame.setLocationRelativeTo(null);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override public void windowClosing(WindowEvent e) { close(); }
+        });
+    }
+
+    @Override public void start()        { frame.setVisible(true); }
+    @Override public void bringToFront() { frame.toFront(); }
+    @Override public void hideModule()   { frame.setVisible(false); }
+    @Override public void showModule()   { frame.setVisible(true); }
+    @Override public boolean isVisible() { return frame.isVisible(); }
+
+    @Override protected void onClose()   { frame.dispose(); }
+}</code></pre>
+        <p>With a light theme, the window says <strong>Light theme</strong> in black on white. Nothing is modded yet.</p>
+
+        <h3>2. The mod</h3>
+        <p>Triton's class is <code>echelon.util.ThemeMode</code>, so the mod goes in <code>mod/echelon/util/ThemeMode.java</code>:</p>
+        <pre><code>echelon/desktop/container/applications/
+└── Hello/
+    ├── Main.java
+    └── mod/
+        └── echelon/
+            └── util/
+                └── ThemeMode.java   Hello's version of Triton's ThemeMode</code></pre>
+        <p>It has the same package, the same name and the same public methods as Triton's <code>ThemeMode</code>. Only <code>isDark()</code> is different:</p>
+        <span class="ex-label">Hello/mod/echelon/util/ThemeMode.java</span>
+        <pre><code class="lang-java">package echelon.util;   // the same package as Triton's ThemeMode
+
+import echelon.ui.theme.ThemeManager;
+import echelon.ui.theme.ThemePolicy;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+// Hello's own ThemeMode. Inside Hello it replaces Triton's.
+public final class ThemeMode {
+
+    private static final PropertyChangeSupport PCS = new PropertyChangeSupport(ThemeMode.class);
+
+    private ThemeMode() {}
+
+    // The change: Hello is always told the theme is dark.
+    public static boolean isDark() {
+        return true;
+    }
+
+    // The rest is kept, so code that calls these still works.
+    public static void setDark(boolean dark) {
+        ThemeManager.setPolicy(dark ? ThemePolicy.DARK : ThemePolicy.LIGHT);
+    }
+
+    @Deprecated
+    public static void syncFromCurrentLaF() { }
+
+    public static void addListener(PropertyChangeListener l)    { PCS.addPropertyChangeListener(l); }
+    public static void removeListener(PropertyChangeListener l) { PCS.removePropertyChangeListener(l); }
+}</code></pre>
+
+        <h3>3. What you see</h3>
+        <ul>
+          <li>Close Hello and open it again. The window now says <strong>Dark theme</strong> in white on dark grey, even though Triton's theme is still light.</li>
+          <li>A <strong>Class Modded</strong> notice appears: <em>Hello → ThemeMode</em>. Triton's <code>ThemeMode</code> has no <code>@ModProtection</code>, so the mod is allowed and Triton tells you about it.</li>
+          <li>The desktop and every other app still follow the real theme. The mod only changes Hello.</li>
+          <li>To undo it, delete <code>mod/</code> and open Hello again.</li>
+        </ul>
+
+        <h3>Modding any class</h3>
+        <ol>
+          <li>Find the full name of the Triton class: its package and class name, like <code>echelon.util.ThemeMode</code>.</li>
+          <li>In your app's folder, make <code>mod/</code> and the folders for that package inside it.</li>
+          <li>Add a <code>.java</code> file with the class's name, starting with the same <code>package</code> line as Triton's class.</li>
+          <li>Write the whole class: keep every public method and field Triton's version has, with the same names and types, and change what you need.</li>
+          <li>Open your app. Triton compiles the mod and uses it.</li>
+        </ol>
+        <p class="after-note">Triton goes by the <code>package</code> line, not the folder. Keep them the same anyway, so the file is easy to find.</p>
+      </section>
+
+      <section>
+        <h2 id="mod-protection" class="cmd-h">@ModProtection</h2>
+        <p class="h-note">Annotation <code>shared.ModProtection</code>. Goes on a class.</p>
+        <p>Triton reads <code>@ModProtection</code> on <strong>its own copy</strong> of the class you're modding. That decides what happens to your mod:</p>
+        <div class="table-wrap"><table class="cmds ref">
+          <thead><tr><th scope="col">Triton's class has</th><th scope="col">What happens to your mod</th></tr></thead>
+          <tbody>
+            <tr><td><code>@ModProtection(ModProtection.Policy.ALLOW_MOD)</code></td><td>Used, silently.</td></tr>
+            <tr><td><em>no annotation</em></td><td>Used, and Triton shows a <strong>Class Modded</strong> notice naming your app and the class.</td></tr>
+            <tr><td><code>@ModProtection(ModProtection.Policy.DISALLOW_MOD)</code></td><td>Not compiled. Triton shows a <strong>Modification Blocked</strong> notice and your app gets Triton's own class.</td></tr>
+          </tbody>
+        </table></div>
+        <p>The annotation on your copy doesn't count. Removing <code>DISALLOW_MOD</code> from your version, or adding <code>ALLOW_MOD</code> to it, changes nothing.</p>
+        <p>You can put <code>@ModProtection</code> on your own classes too, as <a href="../#mod-protection">Making apps</a> shows for <code>Main</code>. There it records your intent; Triton only checks the tag on its own classes.</p>
+      </section>
+
+      <section>
+        <h2 id="protected">Protected packages</h2>
+        <p>Classes in these packages can never be modded, whatever their annotation says:</p>
+        <div class="table-wrap"><table class="cmds ref">
+          <thead><tr><th scope="col">Package</th><th scope="col">What it holds</th></tr></thead>
+          <tbody>
+            <tr><td><code>shared.*</code></td><td>The classes apps build on, such as <code>AbstractModule</code> and <code>ModProtection</code></td></tr>
+            <tr><td><code>echelon.module.vortex.*</code></td><td>Vortex, Triton's own class loading</td></tr>
+            <tr><td><code>echelon.auth.*</code></td><td>Sign-in and security</td></tr>
+            <tr><td><code>echelon.desktop.core.*</code></td><td>Opening and running apps</td></tr>
+            <tr><td><code>triton.boot.*</code></td><td>Starting Triton</td></tr>
+          </tbody>
+        </table></div>
+        <p>A mod in one of them is skipped with a <strong>Modification Blocked</strong> notice. Your app can't add new classes to these packages either: Triton always loads them from itself.</p>
+      </section>
+
+      <section>
+        <h2 id="loading">How Triton loads mods</h2>
+        <p>Every time your app opens:</p>
+        <ol>
+          <li>Triton compiles your app into <code>bin/</code>, leaving <code>mod/</code> out. Your app's code is compiled against Triton's <strong>original</strong> classes.</li>
+          <li>It checks every file in <code>mod/</code>. A file in a protected package, or for a class Triton marks <code>DISALLOW_MOD</code>, is skipped with a <strong>Modification Blocked</strong> notice.</li>
+          <li>It compiles the rest of <code>mod/</code> into <code>mod-bin/</code>. Mods can use Triton's classes, your app's classes and the jars in <code>lib/</code>.</li>
+          <li>It checks <code>mod-bin/</code> again and deletes any blocked class, including its inner classes, so a class file copied in by hand doesn't get through.</li>
+          <li>It loads your app's classes from <code>mod-bin/</code> first, then <code>bin/</code>, then <code>lib/</code>. A class found in <code>mod-bin/</code> wins over Triton's, unless Triton's is marked <code>DISALLOW_MOD</code>.</li>
+        </ol>
+        <p>If <code>mod/</code> doesn't compile, Triton shows <strong>Mod Compilation Failed</strong> and opens your app without any mods. One broken file turns off all of them, so fix it and open the app again.</p>
+      </section>
+
+      <section>
+        <h2 id="scope">What a mod changes</h2>
+        <ul>
+          <li><strong>Only your app.</strong> Your version is used when your app's code uses the class. Triton's desktop, its other classes and other apps keep using the original.</li>
+          <li><strong>Only while your app runs.</strong> Nothing in Triton's own files changes. Delete <code>mod/</code> and the next open uses Triton's class again.</li>
+          <li><strong>Copies outside <code>mod/</code> follow the same rule.</strong> If a jar in <code>lib/</code> or a class in your app has the same name as one of Triton's, Triton checks it the same way. It just doesn't show a notice, because this is usually a library that Triton also ships.</li>
+        </ul>
+        <p class="after-note">To change a Triton class for the whole of Triton, not just your app, Triton uses <a href="../../vortex-loading/">Vortex</a> instead. Vortex is a separate system with its own rules; mods don't use it.</p>
+      </section>
+
+      <section>
+        <h2 id="mistakes">Common mistakes</h2>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Mistake</th><th scope="col">What happens · fix</th></tr></thead>
+          <tbody>
+            <tr><td>A <code>package</code> line that doesn't match Triton's class</td><td>Your class is a new class, not a mod, so nothing is replaced. Copy the package line from Triton's class exactly.</td></tr>
+            <tr><td>Leaving out a method your app uses</td><td>Your app was compiled against Triton's version, so it fails when it calls the missing method (<code>NoSuchMethodError</code>). Keep every public method with the same signature.</td></tr>
+            <tr><td>Adding a new method to the mod and calling it from your app</td><td>Your app doesn't compile: it's built against Triton's original class, which has no such method. Put new code in your own classes instead.</td></tr>
+            <tr><td>A mod of a <code>DISALLOW_MOD</code> class</td><td><strong>Modification Blocked</strong>, and your app gets Triton's class. Only classes with <code>ALLOW_MOD</code> or no annotation can be modded.</td></tr>
+            <tr><td>A mod in <code>shared.*</code> or another protected package</td><td><strong>Modification Blocked</strong>. These packages can't be modded.</td></tr>
+            <tr><td>A compile error in one mod file</td><td><strong>Mod Compilation Failed</strong>, and the app opens with no mods at all. Fix the error.</td></tr>
+            <tr><td>Expecting the desktop or other apps to change</td><td>A mod only affects your app. Triton and other apps keep the original class.</td></tr>
+            <tr><td>Editing or adding files in <code>mod-bin/</code></td><td>Triton writes that folder and deletes blocked classes from it. Change <code>mod/</code> instead.</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+    </article>
+
+    <p class="no-results" id="no-results" hidden>Nothing in this guide matches that filter.</p>
+    <nav class="pager" id="pager" aria-label="More docs"></nav>
+
+  </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <span>Triton is a project by Strombos</span>
+  <span>© 2026 Strombos</span>
+</footer>
+
+<script src="../../docs.js?v=8"></script>
+</body>
+</html>

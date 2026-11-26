@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../docs.css?v=7">
+<link rel="stylesheet" href="../docs.css?v=8">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -238,15 +238,11 @@ public class Main extends AbstractModule { … }</code></pre>
           <thead><tr><th scope="col">Value</th><th scope="col">Meaning</th></tr></thead>
           <tbody>
             <tr><td><code>ModProtection.Policy.ALLOW_MOD</code></td><td>The class may be replaced. Triton loads the replacement silently.</td></tr>
-            <tr><td><code>ModProtection.Policy.DISALLOW_MOD</code></td><td>The class may not be replaced. Triton refuses the replacement, keeps its own copy and shows a <strong>Mod Blocked</strong> notice.</td></tr>
+            <tr><td><code>ModProtection.Policy.DISALLOW_MOD</code></td><td>The class may not be replaced. Triton refuses the replacement, keeps its own copy and shows a <strong>Modification Blocked</strong> notice.</td></tr>
             <tr><td><em>no annotation</em></td><td>The class may be replaced, and Triton shows a <strong>Class Modded</strong> notice when it is.</td></tr>
           </tbody>
         </table></div>
-        <h3>How mods work</h3>
-        <p>An app can change one of Triton's classes, for itself only, by putting its own version in a <code>mod/</code> folder at the class's package path:</p>
-        <pre><code>Hello/mod/echelon/desktop/util/SomeTritonClass.java</code></pre>
-        <p>Triton compiles <code>mod/</code> into <code>mod-bin/</code> and loads those classes before its own, but only inside your app. Other apps and Triton itself keep the original. Before compiling, Triton reads <code>@ModProtection</code> on <strong>its own copy</strong> of each class, so removing the annotation from your copy changes nothing.</p>
-        <p>Some packages can never be replaced, whatever the annotation says: <code>shared.*</code>, <code>echelon.module.vortex.*</code>, <code>echelon.auth.*</code>, <code>echelon.desktop.core.*</code> and <code>triton.boot.*</code>. Your app can't define classes in them either.</p>
+        <p>To replace one of Triton's classes inside your app, with a worked example, see <a href="modding/">Modding</a>.</p>
         <h3>Which value to use on your Main</h3>
         <ul>
           <li><code>ALLOW_MOD</code> is the usual choice. Most built-in apps use it.</li>
@@ -290,7 +286,7 @@ public class Main extends AbstractModule { … }</code></pre>
     ├── directory.properties   tile and window settings
     ├── module.properties      search words and Java version
     ├── lib/                   .jar libraries the app needs
-    ├── mod/                   your versions of Triton classes (see @ModProtection)
+    ├── mod/                   your versions of Triton classes (see Modding)
     ├── bin/                   written by Triton: compiled classes
     └── mod-bin/               written by Triton: compiled mods</code></pre>
         <ul>
@@ -413,7 +409,7 @@ public class Main extends AbstractModule implements FileOpenable {
             <tr><td>Calling <code>setOnCloseListener</code> with your own listener</td><td>Replaces Triton's, so the bottom bar never cleans up. Put cleanup in <code>onClose()</code>, or wrap Triton's: read <code>getOnCloseListener()</code> in <code>start()</code> and call it from yours.</td></tr>
             <tr><td>Threads or timers left running</td><td>They keep running after the window closes, inside Triton. Stop them in <code>onClose()</code>.</td></tr>
             <tr><td>Classes in <code>shared.*</code>, <code>echelon.auth.*</code> or another protected package</td><td>Never loaded from your app; Triton always uses its own. Use your own package name.</td></tr>
-            <tr><td>A mod of a <code>DISALLOW_MOD</code> class</td><td>"Mod Blocked", and Triton keeps its own class. Only classes without the annotation, or with <code>ALLOW_MOD</code>, can be modded.</td></tr>
+            <tr><td>A mod of a <code>DISALLOW_MOD</code> class</td><td>"Modification Blocked", and Triton keeps its own class. Only classes without the annotation, or with <code>ALLOW_MOD</code>, can be modded. See <a href="modding/">Modding</a>.</td></tr>
             <tr><td>A jar in <code>lib/</code> that Triton also ships</td><td>Your copy is used, unless Triton's copy is marked <code>DISALLOW_MOD</code>. Check the Triton log if a library behaves differently than expected.</td></tr>
             <tr><td>Using classes from <code>icon.java</code> in your app</td><td><code>icon.java</code> is compiled separately, only to draw the tile. Keep app code in other files.</td></tr>
           </tbody>
@@ -434,6 +430,6 @@ public class Main extends AbstractModule implements FileOpenable {
   <span>© 2026 Strombos</span>
 </footer>
 
-<script src="../docs.js?v=7"></script>
+<script src="../docs.js?v=8"></script>
 </body>
 </html>

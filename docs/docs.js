@@ -3,9 +3,11 @@
 // To add a doc: create docs/<name>/index.html (copy docs/terminal/index.html) and add ONE line to DOCS below.
 // The sidebar, the docs overview cards and the previous/next links are all built from this list.
 // The sidebar groups entries by tag (App → "Apps", Guide → "Guides"), in the order tags first appear.
+// An entry with parent: '<href>' is listed indented under that page, and comes right after it in previous/next.
 var DOCS = [
   { title: 'Terminal', href: 'terminal/', tag: 'App', desc: 'All Triton Terminal commands.' },
   { title: 'Making apps', href: 'making-apps/', tag: 'Guide', desc: 'Build a Triton App: extend AbstractModule, add @ModProtection and the app’s settings files.' },
+  { title: 'Modding', href: 'making-apps/modding/', tag: 'Guide', parent: 'making-apps/', desc: 'Replace one of Triton’s classes inside your app with a mod in its mod/ folder.' },
   { title: 'Bottom-bar menu', href: 'bottom-bar-menu/', tag: 'Guide', desc: 'Add your app’s own items to its bottom-bar button’s right-click menu with BottomBarMenuProvider.' },
   { title: 'Vortex Loading', href: 'vortex-loading/', tag: 'Guide', desc: 'Override Triton’s own classes or add new ones from vortex-module/, with sources Triton compiles and @Vortexable to seal a class.' }
 ];
@@ -19,21 +21,25 @@ var DOCS = [
   // Group by tag, in the order each tag first appears; the sidebar and previous/next follow this order.
   var GROUP_NAMES = { App: 'Apps', Guide: 'Guides' };
   var groups = [];
+  var kids = function (p) { return DOCS.filter(function (d) { return d.parent && d.parent === p.href; }); };
   DOCS.forEach(function (d) {
+    if (d.parent) return;   // listed under its parent page
     var g = groups.filter(function (x) { return x.tag === d.tag; })[0];
     if (!g) groups.push(g = { tag: d.tag, title: GROUP_NAMES[d.tag] || d.tag, items: [] });
     g.items.push(d);
   });
   var pages = [{ title: 'Overview', href: '' }];
-  groups.forEach(function (g) { pages = pages.concat(g.items); });
+  var addPage = function (p) { pages.push(p); kids(p).forEach(addPage); };
+  groups.forEach(function (g) { g.items.forEach(addPage); });
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
 
   // ---- Sidebar ----
   var side = document.getElementById('sidebar');
   if (side) {
     var item = function (p) {
-      var url = base + p.href, cur = norm(url) === here;
-      return '<li><a href="' + esc(url) + '"' + (cur ? ' aria-current="page"' : '') + '>' + esc(p.title) + (p.tag ? '<small>' + esc(p.tag) + '</small>' : '') + '</a></li>';
+      var url = base + p.href, cur = norm(url) === here, sub = kids(p);
+      return '<li><a href="' + esc(url) + '"' + (cur ? ' aria-current="page"' : '') + '>' + esc(p.title) + (p.tag && !p.parent ? '<small>' + esc(p.tag) + '</small>' : '') + '</a>' +
+        (sub.length ? '<ul class="sub">' + sub.map(item).join('') + '</ul>' : '') + '</li>';
     };
     var ext = [['Triton homepage', ''], ['Download', '#download'], ['How to start', '#run'], ['Get Java 21 or higher', '#java']];
     side.innerHTML =
