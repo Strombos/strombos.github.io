@@ -6,7 +6,8 @@
 var DOCS = [
   { title: 'Terminal', href: 'terminal/', tag: 'App', desc: 'All Triton Terminal commands.' },
   { title: 'Making apps', href: 'making-apps/', tag: 'Guide', desc: 'Build a Triton App: extend AbstractModule, add @ModProtection and the app’s settings files.' },
-  { title: 'Bottom-bar menu', href: 'bottom-bar-menu/', tag: 'Guide', desc: 'Add your app’s own items to its bottom-bar button’s right-click menu with BottomBarMenuProvider.' }
+  { title: 'Bottom-bar menu', href: 'bottom-bar-menu/', tag: 'Guide', desc: 'Add your app’s own items to its bottom-bar button’s right-click menu with BottomBarMenuProvider.' },
+  { title: 'Vortex Loading', href: 'vortex-loading/', tag: 'Guide', desc: 'Override Triton’s own classes or add new ones from vortex-module/, with sources Triton compiles and @Vortexable to seal a class.' }
 ];
 
 (function () {

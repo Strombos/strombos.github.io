@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vortex Loading — Triton Docs</title>
+<meta name="description" content="How Vortex Loading works in Triton: override Triton's classes from system/, add new classes, drop in sources Triton compiles, and seal classes with @Vortexable.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../docs.css?v=7">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <div class="brand"><a href="../../" style="text-decoration:none"><b>Strombos</b></a><a href="../" style="text-decoration:none"><span>Triton Docs</span></a></div>
+  <label class="search"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="filter" type="search" placeholder="Filter this guide" aria-label="Filter this guide" autocomplete="off" spellcheck="false"><kbd>/</kbd></label>
+  <nav class="links" aria-label="Site"><a href="../">Docs</a><a href="../../#download">Download</a></nav>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="scrim"></div>
+
+  <main class="content" id="main">
+  <div class="page has-toc">
+
+    <div class="page-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Docs</a><span aria-hidden="true">/</span><span>Guides</span><span aria-hidden="true">/</span><span aria-current="page">Vortex Loading</span></nav>
+      <h1>Vortex Loading<span class="dot">.</span></h1>
+      <p class="lead">Vortex is Triton's own class loader. It lets you replace one of Triton's classes, or add new ones, by dropping files into a folder. No rebuilt jar needed.</p>
+      <p class="tip">Drop <code>.java</code> sources into <code>vortex-module/src/</code> and Triton compiles them for you, at every start and on <code>vortex reload</code>.</p>
+    </div>
+
+    <!-- On this page: one <li> per <h2 id="..."> below (class="cmd" shows it in mono). -->
+    <nav class="toc" aria-label="On this page">
+      <span class="eyebrow">On this page</span>
+      <ol>
+        <li><a href="#what">What Vortex does</a></li>
+        <li><a class="cmd" href="#folder">vortex-module/</a></li>
+        <li><a href="#overrides">Overrides</a></li>
+        <li><a href="#includes">Includes</a></li>
+        <li><a href="#sources">Sources Triton compiles</a></li>
+        <li><a href="#jars">Jars</a></li>
+        <li><a href="#staging">Staging</a></li>
+        <li><a href="#when">When changes take effect</a></li>
+        <li><a href="#load-order">Load order</a></li>
+        <li><a class="cmd" href="#vortexable">@Vortexable</a></li>
+        <li><a href="#mods">Vortex and app mods</a></li>
+        <li><a href="#commands">Terminal commands</a></li>
+        <li><a href="#troubleshooting">Troubleshooting</a></li>
+      </ol>
+    </nav>
+
+    <article class="doc">
+
+      <section>
+        <h2 id="what">What Vortex does</h2>
+        <p>Every time Triton loads one of its classes, Vortex looks in the <code>vortex-module/</code> folder first. If it finds a class there with the same full name, Triton runs that one instead of the copy in its jar. If it doesn't, Triton loads its own class as usual.</p>
+        <p>That gives you two things:</p>
+        <ul>
+          <li><strong>Overrides</strong> replace a class Triton already has, for example to fix or change how one part of Triton works.</li>
+          <li><strong>Includes</strong> add classes Triton doesn't have at all, such as new skills or helper classes.</li>
+        </ul>
+        <p>Vortex starts before the rest of Triton: Triton restarts its own Java process with Vortex as the system class loader, so every Triton class goes through it. Nothing else in Triton needs to know a class came from Vortex.</p>
+        <p class="after-note">Vortex works on Triton itself, for everything running in Triton. To change a Triton class for <em>one app only</em>, use that app's <code>mod/</code> folder instead (see <a href="../making-apps/#mod-protection">Making apps</a>).</p>
+      </section>
+
+      <section>
+        <h2 id="folder" class="cmd-h">vortex-module/</h2>
+        <p class="h-note">In Triton's main folder <code>echo/</code>, next to the Triton jar. Triton creates it on first start.</p>
+        <pre><code>echo/vortex-module/
+├── src/                       your .java sources: Triton compiles them
+│   ├── system/                sources of overrides
+│   │   └── echelon/ui/WindowFactory.java
+│   └── tools/hello/Greeter.java   sources of includes
+├── system/                    overrides: replace classes Triton has
+│   ├── echelon/ui/WindowFactory.class
+│   └── hotfix.jar             a jar of overrides
+├── tools/hello/Greeter.class  includes: new classes, outside system/
+├── new-feature.jar            a jar of includes
+├── staging/                   classes waiting for the next start
+├── snapshots/                 rollback copies Triton keeps
+└── vortex_manifest.json       Triton's list of what is deployed</code></pre>
+        <ul>
+          <li>Classes sit at their package path, as in any classpath folder: <code>echelon.ui.WindowFactory</code> is <code>system/echelon/ui/WindowFactory.class</code>.</li>
+          <li><code>src/</code>, <code>system/</code>, <code>staging/</code>, <code>snapshots/</code> and <code>plugin-data/</code> are reserved names. Don't use them as the first part of an include's package.</li>
+          <li>Don't edit <code>vortex_manifest.json</code> or <code>snapshots/</code>. Triton writes them.</li>
+        </ul>
+        <p class="after-note"><strong>Keep the source.</strong> A loose <code>.class</code> in <code>system/</code> or among the includes must have its <code>.java</code> at the same path under <code>src/</code>. At every start and on <code>vortex reload</code>, Triton deletes loose classes whose source is gone. To ship compiled classes without their source, put them in a <a href="#jars">jar</a>.</p>
+      </section>
+
+      <section>
+        <h2 id="overrides">Overrides</h2>
+        <p>An <strong>override</strong> replaces a class that is already in Triton's jar. Write its source under <code>src/system/</code>, at the class's package path, and Triton compiles it into <code>system/</code>:</p>
+        <pre><code>echo/vortex-module/src/system/echelon/ui/WindowFactory.java
+          → echo/vortex-module/system/echelon/ui/WindowFactory.class</code></pre>
+        <ul>
+          <li>The class must have <strong>exactly the same full name</strong> (package and class) as Triton's.</li>
+          <li>It replaces the <strong>whole class</strong>. Keep every public method and field that other classes use, with the same signatures, or the classes that call them break.</li>
+          <li>Inner classes (<code>Name$Inner.class</code>) come along with their outer class: Triton writes and removes them together.</li>
+          <li>Classes marked <code>@Vortexable(Vortexable.Policy.LOCKED)</code> can't be overridden (see <a href="#vortexable">@Vortexable</a>).</li>
+        </ul>
+        <p>Already compiled? Put the classes in a jar in <code>system/</code> instead (see <a href="#jars">Jars</a>).</p>
+      </section>
+
+      <section>
+        <h2 id="includes">Includes</h2>
+        <p>An <strong>include</strong> is a class Triton doesn't have. Write its source under <code>src/</code> (not <code>src/system/</code>), at its package path. Triton compiles it into <code>vortex-module/</code> itself, outside <code>system/</code>:</p>
+        <pre><code>echo/vortex-module/src/tools/hello/Greeter.java
+          → echo/vortex-module/tools/hello/Greeter.class</code></pre>
+        <p>An include may only add. If Triton's jar already has a class with that name, Vortex refuses the include, logs <strong>REJECTED INCLUDE</strong> and keeps Triton's class. To replace a class, put it under <code>system/</code>.</p>
+      </section>
+
+      <section>
+        <h2 id="sources">Sources Triton compiles</h2>
+        <p>You don't have to compile anything yourself. Put <code>.java</code> files in <code>src/</code> and Triton compiles them into the right place:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Source in</th><th scope="col">Compiled into</th></tr></thead>
+          <tbody>
+            <tr><td><code>src/system/echelon/ui/WindowFactory.java</code></td><td><code>system/echelon/ui/WindowFactory.class</code>: an override</td></tr>
+            <tr><td><code>src/tools/hello/Greeter.java</code></td><td><code>tools/hello/Greeter.class</code>: an include</td></tr>
+          </tbody>
+        </table></div>
+        <span class="ex-label">Example · src/tools/hello/Greeter.java</span>
+        <pre><code class="lang-java">package tools.hello;
+
+public class Greeter {
+    public static String greet(String name) {
+        return "Hello, " + name;
+    }
+}</code></pre>
+        <p>Triton compiles a source when it is <strong>new</strong> (no <code>.class</code> yet), <strong>changed</strong> (the <code>.java</code> is newer than its <code>.class</code>), or was compiled by a <strong>newer JDK</strong> than the one Triton runs on now. It checks:</p>
+        <ul>
+          <li>at every start, before Triton loads its own classes, and</li>
+          <li>whenever you run <code>vortex reload</code> in the <a href="../terminal/#vortex">Terminal</a>.</li>
+        </ul>
+        <ul>
+          <li>The <code>package</code> line must match the folder. <code>src/tools/hello/Greeter.java</code> starts with <code>package tools.hello;</code>, and an override under <code>src/system/echelon/ui/</code> starts with <code>package echelon.ui;</code>.</li>
+          <li>Sources compile against Triton's own classes and its <code>lib/</code> jars, so they can use anything Triton has.</li>
+          <li>They compile for the Java version Triton runs on. Triton uses the JDK's compiler when there is one, and its built-in compiler otherwise, so a plain Java runtime is enough.</li>
+          <li>Delete a source and Triton deletes its compiled <code>.class</code> at the next check.</li>
+        </ul>
+        <p class="after-note">If a source doesn't compile, Triton shows the compiler's errors. Fix the source and run <code>vortex reload</code> again; the skills already running stay as they were.</p>
+      </section>
+
+      <section>
+        <h2 id="jars">Jars</h2>
+        <p>A <code>.jar</code> is the way to add classes that are already compiled. It works like a folder of classes:</p>
+        <ul>
+          <li>A jar in <code>system/</code> holds <strong>overrides</strong>.</li>
+          <li>A jar directly in <code>vortex-module/</code> holds <strong>includes</strong>, with the same rule: none of its classes may already be in Triton.</li>
+        </ul>
+        <pre><code>echo/vortex-module/system/hotfix.jar        overrides
+echo/vortex-module/new-feature.jar          includes</code></pre>
+        <p>Triton reads the list of jars when it starts, so a new jar is picked up at the next start. Triton never deletes a jar on its own. A loose <code>.class</code> file wins over the same class in a jar.</p>
+      </section>
+
+      <section>
+        <h2 id="staging">Staging</h2>
+        <p><code>staging/</code> is for compiled classes you want Triton to take in at the next start. Use the same layout as <code>vortex-module/</code> itself:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Put the class in</th><th scope="col">At the next start it becomes</th></tr></thead>
+          <tbody>
+            <tr><td><code>staging/system/echelon/ui/WindowFactory.class</code></td><td>an override in <code>system/</code></td></tr>
+            <tr><td><code>staging/tools/hello/Greeter.class</code></td><td>an include</td></tr>
+          </tbody>
+        </table></div>
+        <p>When Triton starts, it moves each staged class into place, adds it to <code>vortex_manifest.json</code> and empties <code>staging/</code>. <code>vortex scan</code> tells you whether anything is waiting there.</p>
+        <p class="after-note">A staged class becomes a loose class, so the <a href="#folder">keep-the-source rule</a> applies: without its <code>.java</code> under <code>src/</code>, it is removed again at the start after that. For classes that should stay, add the source or use a jar.</p>
+      </section>
+
+      <section>
+        <h2 id="when">When changes take effect</h2>
+        <p>Java loads each class once. After that, the running Triton keeps using the copy it has. So:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Change</th><th scope="col">Takes effect</th></tr></thead>
+          <tbody>
+            <tr><td>Skills (in <code>vortex-module/</code>, compiled from <code>src/</code>)</td><td>Right away with <code>vortex reload</code>: it recompiles and swaps the new skills into the running Triton.</td></tr>
+            <tr><td>An override of a class Triton has already loaded</td><td>At the next start.</td></tr>
+            <tr><td>A new jar, or classes in <code>staging/</code></td><td>At the next start.</td></tr>
+            <tr><td>A class Triton hasn't loaded yet</td><td>The first time Triton needs it.</td></tr>
+          </tbody>
+        </table></div>
+        <p class="after-note">When in doubt, restart Triton. <code>vortex reload</code> says so when classes are waiting for a restart.</p>
+      </section>
+
+      <section>
+        <h2 id="load-order">Load order</h2>
+        <p>For each class, Triton takes the first match:</p>
+        <ol>
+          <li>A class it has already loaded.</li>
+          <li>Java's own classes (<code>java.*</code>, <code>javax.*</code>, <code>sun.*</code>, <code>jdk.*</code>), and Vortex's and the framework's (<code>echelon.module.vortex.*</code>, <code>shared.*</code>), always from the jar. Vortex can't replace them.</li>
+          <li>A signed security patch from Strombos.</li>
+          <li>A class marked <code>@Vortexable(LOCKED)</code>: from the jar.</li>
+          <li>An override in <code>system/</code>: loose <code>.class</code>, then <code>system/</code> jars.</li>
+          <li>An include in <code>vortex-module/</code>: loose <code>.class</code>, then jars.</li>
+          <li>Triton's own class from its jar.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2 id="vortexable" class="cmd-h">@Vortexable</h2>
+        <p class="h-note">Annotation <code>echelon.module.vortex.Vortexable</code>. Goes on a class in Triton.</p>
+        <p><code>@Vortexable</code> says whether Vortex may override a class. Without it, a class can be overridden.</p>
+        <pre><code class="lang-java">import echelon.module.vortex.Vortexable;
+
+@Vortexable(Vortexable.Policy.LOCKED) // Vortex can't replace this class
+public class SecurityCore { … }</code></pre>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Value</th><th scope="col">Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><em>no annotation</em></td><td>The class can be overridden. This is the default.</td></tr>
+            <tr><td><code>Vortexable.Policy.ABSORBABLE</code></td><td>The same, said on purpose.</td></tr>
+            <tr><td><code>Vortexable.Policy.LOCKED</code></td><td>Sealed. Vortex refuses an override, logs <strong>REJECTED — class is sealed</strong> and loads Triton's own class.</td></tr>
+            <tr><td><code>Vortexable.Policy.INCLUDE</code></td><td>Marks a new class that must not exist in Triton. Includes already work this way, so it only records intent.</td></tr>
+          </tbody>
+        </table></div>
+        <p>Vortex reads the annotation on <strong>Triton's</strong> copy of the class. Removing it from your override changes nothing.</p>
+        <p class="after-note">Triton seals its core classes this way, <code>AbstractModule</code> among them. It's not for app classes: leave it off your app's <code>Main</code>.</p>
+      </section>
+
+      <section>
+        <h2 id="mods">Vortex and app mods</h2>
+        <p>Vortex and app mods both replace Triton classes, but they are separate:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col"></th><th scope="col">Vortex</th><th scope="col">App mods</th></tr></thead>
+          <tbody>
+            <tr><td>Where</td><td><code>echo/vortex-module/</code></td><td>the app's <code>mod/</code> folder</td></tr>
+            <tr><td>Applies to</td><td>All of Triton</td><td>That app only</td></tr>
+            <tr><td>Sealed by</td><td><code>@Vortexable(LOCKED)</code></td><td><code>@ModProtection(DISALLOW_MOD)</code></td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section>
+        <h2 id="commands">Terminal commands</h2>
+        <p>Run these in the <a href="../terminal/#vortex">Terminal</a>:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Command</th><th scope="col">Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>vortex list</code></td><td>Show what is deployed: system overrides, includes and jars</td></tr>
+            <tr><td><code>vortex scan</code></td><td>Show sources that are new or changed, and classes waiting in staging; changes nothing</td></tr>
+            <tr><td><code>vortex reload</code></td><td>Recompile what changed, deploy it, and hot-swap the skills into the running Triton</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section>
+        <h2 id="troubleshooting">Troubleshooting</h2>
+        <p>Vortex writes what it does to the Triton log, each line starting with <code>[Vortex]</code>.</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">You see</th><th scope="col">What it means · fix</th></tr></thead>
+          <tbody>
+            <tr><td><strong>REJECTED — class is sealed</strong></td><td>Triton's class is <code>@Vortexable(LOCKED)</code>. It can't be overridden; Triton uses its own.</td></tr>
+            <tr><td><strong>REJECTED INCLUDE — class already exists</strong></td><td>An include has the name of a Triton class. Move it under <code>system/</code> to override, or rename it.</td></tr>
+            <tr><td><strong>Corrupt class</strong></td><td>The <code>.class</code> file is damaged or not a class file. Compile it again.</td></tr>
+            <tr><td><strong>LinkageError</strong></td><td>Triton had already loaded that class. Restart Triton.</td></tr>
+            <tr><td>The override doesn't seem to run</td><td>Check <code>vortex list</code>. Check that the source is under <code>src/system/</code> at the exact package path, then restart Triton.</td></tr>
+            <tr><td>A <code>.class</code> you copied in disappears</td><td>It had no <code>.java</code> under <code>src/</code>, so Triton removed it. Add the source, or put the class in a jar.</td></tr>
+            <tr><td>A source compiles but nothing is deployed</td><td>The <code>package</code> line doesn't match the source's folder. Make them match.</td></tr>
+            <tr><td><code>NoSuchMethodError</code> or <code>NoSuchFieldError</code></td><td>Your override is missing something other classes use. Keep the original's public methods and fields.</td></tr>
+          </tbody>
+        </table></div>
+        <p>To see every decision Vortex makes for Triton's classes, start Triton with <code>-Dvortex.debug=true</code>. It logs a lot, so turn it off again afterwards.</p>
+      </section>
+
+    </article>
+
+    <p class="no-results" id="no-results" hidden>Nothing in this guide matches that filter.</p>
+    <nav class="pager" id="pager" aria-label="More docs"></nav>
+
+  </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <span>Triton is a project by Strombos</span>
+  <span>© 2026 Strombos</span>
+</footer>
+
+<script src="../docs.js?v=7"></script>
+</body>
+</html>
