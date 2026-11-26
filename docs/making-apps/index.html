@@ -58,7 +58,7 @@
 
       <section>
         <h2 id="what">What a Triton App is</h2>
-        <p>A Triton App is a folder inside Triton's <code>desktop/container/applications/</code> folder. Every folder there becomes a tile on the desktop, named after the folder.</p>
+        <p>A Triton App is a folder inside Triton's <code>desktop/container/applications/</code> folder. That folder is in Triton's main folder, <code>echelon</code>, so the full path is <code>echelon/desktop/container/applications/</code>. Every folder there becomes a tile on the desktop, named after the folder.</p>
         <p>When someone opens the tile, Triton compiles the folder's Java sources, loads the class <code>Main</code> and starts it. <code>Main</code> must extend <code>shared.AbstractModule</code>, the base class for every app. It gives Triton one way to start, show, hide, raise and close any app.</p>
         <p>Your app runs inside Triton's own Java process, so it can use Triton's classes and Swing directly. That also means it must never call <code>System.exit</code> or close the window with <code>EXIT_ON_CLOSE</code>: that would close Triton too.</p>
       </section>
@@ -281,7 +281,7 @@ public class Main extends AbstractModule { … }</code></pre>
       <section>
         <h2 id="folder">The app folder</h2>
         <p>Only <code>Main.java</code> is required. Everything else is optional:</p>
-        <pre><code>desktop/container/applications/
+        <pre><code>echelon/desktop/container/applications/
 └── Hello/                     the folder name is the app's name
     ├── Main.java              entry point: default package, extends AbstractModule
     ├── hello/ui/Panel.java    more classes, in packages under the app folder
