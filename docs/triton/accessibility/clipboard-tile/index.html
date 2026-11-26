@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clipboard Tile — Triton Docs</title>
+<meta name="description" content="Triton's Clipboard Tile setting: show or hide the ClipBoard tile, with your recent clipboard history, in the bottom bar's quick panel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../docs.css?v=12">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <div class="brand"><a href="../../../../" style="text-decoration:none"><b>Strombos</b></a><a href="../../../" style="text-decoration:none"><span>Triton Docs</span></a></div>
+  <label class="search"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="filter" type="search" placeholder="Filter this page" aria-label="Filter this page" autocomplete="off" spellcheck="false"><kbd>/</kbd></label>
+  <nav class="links" aria-label="Site"><a href="../../../">Docs</a><a href="../../../../#download">Download</a></nav>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="scrim"></div>
+
+  <main class="content" id="main">
+  <div class="page has-toc">
+
+    <div class="page-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../../../">Docs</a><span aria-hidden="true">/</span><span>Triton</span><span aria-hidden="true">/</span><a href="../">Accessibility</a><span aria-hidden="true">/</span><span aria-current="page">Clipboard Tile</span></nav>
+      <h1>Clipboard Tile<span class="dot">.</span></h1>
+      <p class="lead">The ClipBoard tile in the bottom bar's quick panel pops up your recent clipboard history, so you can get back something you copied earlier. If you don't want it there, hide it.</p>
+      <p class="tip">Find it in Settings → Accessibility → <strong>Quick panel</strong>. It starts on.</p>
+    </div>
+
+    <!-- On this page: one <li> per <h2 id="..."> below (class="cmd" shows it in mono). -->
+    <nav class="toc" aria-label="On this page">
+      <span class="eyebrow">On this page</span>
+      <ol>
+        <li><a href="#what">The quick panel and the tile</a></li>
+        <li><a href="#switch">Hiding or showing the tile</a></li>
+        <li><a href="#saved">Where it is saved</a></li>
+      </ol>
+    </nav>
+
+    <article class="doc">
+
+      <section>
+        <h2 id="what">The quick panel and the tile</h2>
+        <p>Click the tray in the bottom bar to open the <strong>quick panel</strong>. It has a tile for each quick tool:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Tile</th><th scope="col">Opens</th></tr></thead>
+          <tbody>
+            <tr><td><strong>ClipBoard</strong></td><td>Your recent clipboard history.</td></tr>
+            <tr><td><strong>Volume</strong></td><td>The volume controls.</td></tr>
+            <tr><td><strong>Brightness</strong></td><td>The brightness controls.</td></tr>
+            <tr><td><strong>Notifications</strong></td><td>The notification centre.</td></tr>
+            <tr><td><strong>Keyboard</strong></td><td>The on-screen keyboard.</td></tr>
+          </tbody>
+        </table></div>
+        <p class="after-note">The ClipBoard tile is the first one, and the only one you can hide from Accessibility.</p>
+      </section>
+
+      <section>
+        <h2 id="switch">Hiding or showing the tile</h2>
+        <ol>
+          <li>Open <strong>Settings</strong> and choose <strong>Accessibility</strong>.</li>
+          <li>Under <strong>Quick panel</strong>, untick or tick <strong>Clipboard tile</strong>.</li>
+        </ol>
+        <p>The tile disappears from the quick panel, or comes back, straight away.</p>
+      </section>
+
+      <section>
+        <h2 id="saved">Where it is saved</h2>
+        <p>Unlike the other Accessibility settings, this one is saved in this computer's Java preferences, not in Triton's own settings file. On Windows that is the registry. So it does not travel with a portable copy of Triton: on another machine the tile starts on again.</p>
+      </section>
+
+    </article>
+
+    <p class="no-results" id="no-results" hidden>Nothing on this page matches that filter.</p>
+    <nav class="pager" id="pager" aria-label="More docs"></nav>
+
+  </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <span>Triton is a project by Strombos</span>
+  <span>© 2026 Strombos</span>
+</footer>
+
+<script src="../../../docs.js?v=12"></script>
+</body>
+</html>

@@ -13,7 +13,13 @@ var DOCS = [
   { title: 'Bottom-bar menu', href: 'bottom-bar-menu/', tag: 'Guide', desc: 'Add your app’s own items to its bottom-bar button’s right-click menu with BottomBarMenuProvider.' },
   { title: 'Vortex Loading', href: 'vortex-loading/', tag: 'Guide', desc: 'Override Triton’s own classes or add new ones from vortex-module/, with sources Triton compiles and @Vortexable to seal a class.' },
   // A Desktop component: docs/module/desktop/<name>/index.html, with tag: 'Module', parent: 'module/desktop/'.
-  { title: 'Desktop', href: 'module/desktop/', tag: 'Module', desc: 'Triton’s Desktop: the tile grid, bottom bar, launcher, widgets, wallpaper, Snap Assist and screens.' }
+  { title: 'Desktop', href: 'module/desktop/', tag: 'Module', desc: 'Triton’s Desktop: the tile grid, bottom bar, launcher, widgets, wallpaper, Snap Assist and screens.' },
+  // An Accessibility setting: docs/triton/accessibility/<name>/index.html, with tag: 'Triton', parent: 'triton/accessibility/'.
+  { title: 'Accessibility', href: 'triton/accessibility/', tag: 'Triton', desc: 'Triton’s accessibility settings: what each one does, how to open them and where they are saved.' },
+  { title: 'Anti Motion Sickness', href: 'triton/accessibility/anti-motion-sickness/', tag: 'Triton', parent: 'triton/accessibility/', desc: 'Keep the sign-in camera still, stop the Media Player’s reels, or calm every animation with Enable all.' },
+  { title: 'Edge Bumper', href: 'triton/accessibility/edge-bumper/', tag: 'Triton', parent: 'triton/accessibility/', desc: 'Re-tap the outer edge of your screens to jump the cursor across, or hold it there for quick options.' },
+  { title: 'Gesture Control', href: 'triton/accessibility/gesture-control/', tag: 'Triton', parent: 'triton/accessibility/', desc: 'Allow or block camera hand tracking. When it is off, nothing can start it, not even Troy.' },
+  { title: 'Clipboard Tile', href: 'triton/accessibility/clipboard-tile/', tag: 'Triton', parent: 'triton/accessibility/', desc: 'Show or hide the ClipBoard tile, with your recent clipboard history, in the bottom bar’s quick panel.' }
 ];
 
 (function () {
@@ -27,7 +33,7 @@ var DOCS = [
   var GROUPS = [
     { tag: 'Boot', title: 'Booting Triton' },
     { tag: 'Module', title: 'Module' },
-    { tag: 'Accessibility', title: 'Accessibility' },
+    { tag: 'Triton', title: 'Triton' },   // Triton's own settings, e.g. Accessibility and its pages
     { tag: 'App', title: 'Apps' },
     { tag: 'Guide', title: 'Guides' }
   ];

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edge Bumper — Triton Docs</title>
+<meta name="description" content="Triton's Edge Bumper: re-tap the outer edge of your screens to jump the cursor to the other side, or hold it there to open quick options.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../docs.css?v=12">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <div class="brand"><a href="../../../../" style="text-decoration:none"><b>Strombos</b></a><a href="../../../" style="text-decoration:none"><span>Triton Docs</span></a></div>
+  <label class="search"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="filter" type="search" placeholder="Filter this page" aria-label="Filter this page" autocomplete="off" spellcheck="false"><kbd>/</kbd></label>
+  <nav class="links" aria-label="Site"><a href="../../../">Docs</a><a href="../../../../#download">Download</a></nav>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="scrim"></div>
+
+  <main class="content" id="main">
+  <div class="page has-toc">
+
+    <div class="page-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../../../">Docs</a><span aria-hidden="true">/</span><span>Triton</span><span aria-hidden="true">/</span><a href="../">Accessibility</a><span aria-hidden="true">/</span><span aria-current="page">Edge Bumper</span></nav>
+      <h1>Edge Bumper<span class="dot">.</span></h1>
+      <p class="lead">With several screens side by side, the cursor has a long way to travel. Push it against the outer edge, and the Edge Bumper lets you jump it straight to the opposite edge, or open a panel of quick options.</p>
+      <p class="tip">Find it in Settings → Accessibility → <strong>Navigation &amp; pointer</strong>. It starts on.</p>
+    </div>
+
+    <!-- On this page: one <li> per <h2 id="..."> below (class="cmd" shows it in mono). -->
+    <nav class="toc" aria-label="On this page">
+      <span class="eyebrow">On this page</span>
+      <ol>
+        <li><a href="#what">What the bumper is</a></li>
+        <li><a href="#gestures">Jump or open quick options</a></li>
+        <li><a href="#edges">Which edges count</a></li>
+        <li><a href="#quick">Quick options</a></li>
+        <li><a href="#switch">Turning it off or on</a></li>
+        <li><a class="cmd" href="#api">registerQuickOption</a></li>
+      </ol>
+    </nav>
+
+    <article class="doc">
+
+      <section>
+        <h2 id="what">What the bumper is</h2>
+        <p>When you push the cursor against the far left or far right edge of your screens, a tall curved sliver appears at that edge, level with the cursor. That sliver is the <strong>bumper</strong>. It shows that the edge is ready for a jump or for quick options.</p>
+        <p class="after-note">The seam between two screens is not an edge. The cursor already crosses it freely, so the bumper never appears there.</p>
+      </section>
+
+      <section>
+        <h2 id="gestures">Jump or open quick options</h2>
+        <p>What happens next depends on whether the cursor leaves the edge or stays on it:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">You do</th><th scope="col">What happens</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Re-tap.</strong> Hit the edge, flick the cursor a little way back, then hit the edge again within 2 seconds.</td><td>The cursor jumps to the opposite edge, at the same height.</td></tr>
+            <tr><td><strong>Hold.</strong> Hit the edge and keep the cursor against it for about a second.</td><td>The bumper turns into the quick options panel.</td></tr>
+            <tr><td><strong>Right-click</strong> the bumper.</td><td>The quick options panel opens at the cursor.</td></tr>
+          </tbody>
+        </table></div>
+        <p>For the re-tap, stay close to the edge: within a tenth of the total width of your screens. On two 1080p screens side by side that is about 384 pixels. Move farther away, or wait longer than 2 seconds, and the jump is cancelled. A single bump far from the edge is almost always an accident, so it never jumps.</p>
+        <p class="after-note">Leaving the edge commits you to a jump; staying on it commits you to quick options. One touch of the edge can never do both.</p>
+      </section>
+
+      <section>
+        <h2 id="edges">Which edges count</h2>
+        <p>An edge counts when the cursor is against the side of the screen it is on, and no other screen continues farther out on that side at the cursor's height.</p>
+        <ul>
+          <li>In a stacked or stair-step layout, a screen's side is an edge wherever nothing continues past it, not only at the very outside of all your screens.</li>
+          <li>A jump lands on the outermost screen of the cursor's row on the other side.</li>
+          <li>A screen you plug in after Triton has started works straight away.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="quick">Quick options</h2>
+        <p>The quick options panel is a grid of cards. Click a card to run it; the panel closes. Move the cursor well away from the panel and it closes on its own.</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Card</th><th scope="col">What it does</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Reverse</strong></td><td>Jumps the cursor to the opposite edge, the same as a re-tap. It works out the direction from which half of your screens the cursor is in.</td></tr>
+          </tbody>
+        </table></div>
+        <p class="after-note">Apps can add their own cards: see <a href="#api">registerQuickOption</a> below.</p>
+      </section>
+
+      <section>
+        <h2 id="switch">Turning it off or on</h2>
+        <ol>
+          <li>Open <strong>Settings</strong> and choose <strong>Accessibility</strong>.</li>
+          <li>Under <strong>Navigation &amp; pointer</strong>, untick or tick <strong>Edge bumper (multi-monitor cursor teleport)</strong>.</li>
+        </ol>
+        <p>Turn it off if the edge reacts when you don't want it to. The change applies at once, with no restart: turning it off also closes any bumper or quick options panel on screen.</p>
+        <p>Triton saves the choice in its settings file, <code>settings.properties</code>, under the key <code>edgebumper.enabled</code>.</p>
+      </section>
+
+      <section>
+        <h2 id="api">registerQuickOption</h2>
+        <p>An app can add a card to the quick options panel with <code>EdgeBumperController.registerQuickOption</code>. Call it once, for example when your app starts:</p>
+        <span class="ex-label">Adding a quick option</span>
+<pre><code class="lang-java">import triton.desktop.EdgeBumperController;
+
+EdgeBumperController.registerQuickOption("hello", "Hello", null,
+        side -&gt; System.out.println("Opened from the " + side + " edge"));</code></pre>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Parameter</th><th scope="col">Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><code>id</code></td><td>A fixed id for the card. Registering the same id again replaces that card, so calling it twice never adds a second one.</td></tr>
+            <tr><td><code>label</code></td><td>The text under the card's icon.</td></tr>
+            <tr><td><code>glyph</code></td><td>A <code>QuickGlyph</code> that paints the icon, or <code>null</code> for a plain dot.</td></tr>
+            <tr><td><code>action</code></td><td>Runs on the Swing event thread when the card is chosen. It gets the edge the panel was opened from: <code>Side.LEFT</code> or <code>Side.RIGHT</code>.</td></tr>
+          </tbody>
+        </table></div>
+        <p class="after-note">You can call it from any thread, and before the bumper is installed.</p>
+      </section>
+
+    </article>
+
+    <p class="no-results" id="no-results" hidden>Nothing on this page matches that filter.</p>
+    <nav class="pager" id="pager" aria-label="More docs"></nav>
+
+  </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <span>Triton is a project by Strombos</span>
+  <span>© 2026 Strombos</span>
+</footer>
+
+<script src="../../../docs.js?v=12"></script>
+</body>
+</html>

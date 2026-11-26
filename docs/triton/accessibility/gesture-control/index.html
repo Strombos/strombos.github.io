@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gesture Control — Triton Docs</title>
+<meta name="description" content="Triton's Gesture Control switch: allow or block camera hand tracking, start it by asking Troy, and what turning it off does.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../docs.css?v=12">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sidebar"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <div class="brand"><a href="../../../../" style="text-decoration:none"><b>Strombos</b></a><a href="../../../" style="text-decoration:none"><span>Triton Docs</span></a></div>
+  <label class="search"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="filter" type="search" placeholder="Filter this page" aria-label="Filter this page" autocomplete="off" spellcheck="false"><kbd>/</kbd></label>
+  <nav class="links" aria-label="Site"><a href="../../../">Docs</a><a href="../../../../#download">Download</a></nav>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="scrim"></div>
+
+  <main class="content" id="main">
+  <div class="page has-toc">
+
+    <div class="page-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="../../../">Docs</a><span aria-hidden="true">/</span><span>Triton</span><span aria-hidden="true">/</span><a href="../">Accessibility</a><span aria-hidden="true">/</span><span aria-current="page">Gesture Control</span></nav>
+      <h1>Gesture Control<span class="dot">.</span></h1>
+      <p class="lead">Gesture control lets you work Triton with your hands through the camera: pinch for volume and zoom, twist to rotate, grab to drag. The Accessibility switch decides whether it is allowed at all.</p>
+      <p class="tip">Find it in Settings → Accessibility → <strong>Gesture control</strong>. It starts on: allowed, but not running until you ask for it.</p>
+    </div>
+
+    <!-- On this page: one <li> per <h2 id="..."> below (class="cmd" shows it in mono). -->
+    <nav class="toc" aria-label="On this page">
+      <span class="eyebrow">On this page</span>
+      <ol>
+        <li><a href="#what">What gesture control is</a></li>
+        <li><a href="#troy">Starting it with Troy</a></li>
+        <li><a href="#switch">The Accessibility switch</a></li>
+        <li><a href="#saved">Where it is saved</a></li>
+      </ol>
+    </nav>
+
+    <article class="doc">
+
+      <section>
+        <h2 id="what">What gesture control is</h2>
+        <p>Gesture control watches your hand through the camera and turns what it does into actions:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Gesture</th><th scope="col">Does</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Pinch</strong></td><td>Changes the volume, or zooms.</td></tr>
+            <tr><td><strong>Twist</strong></td><td>Rotates.</td></tr>
+            <tr><td><strong>Grab</strong></td><td>Drags.</td></tr>
+          </tbody>
+        </table></div>
+        <p class="after-note">The camera is only on while gesture control is running, never just because it is allowed.</p>
+      </section>
+
+      <section>
+        <h2 id="troy">Starting it with Troy</h2>
+        <p>Gesture control starts and stops when you ask Troy, Triton's voice assistant:</p>
+        <div class="table-wrap"><table class="cmds">
+          <thead><tr><th scope="col">Say</th><th scope="col">What happens</th></tr></thead>
+          <tbody>
+            <tr><td>“Troy, activate gesture control”</td><td>Starts gesture control for all of Triton.</td></tr>
+            <tr><td>“Troy, gesture control for <em>app</em>”</td><td>Starts it for one app, for example “gesture control for neural map”.</td></tr>
+            <tr><td>“zoom”</td><td>While it runs, listens only for that gesture.</td></tr>
+            <tr><td>“unlock” or “general”</td><td>Listens for every gesture again.</td></tr>
+            <tr><td>“Troy, deactivate gesture control”</td><td>Stops it and turns the camera off.</td></tr>
+          </tbody>
+        </table></div>
+        <p class="after-note">The first start can take a little longer while Triton sets up hand tracking.</p>
+      </section>
+
+      <section>
+        <h2 id="switch">The Accessibility switch</h2>
+        <ol>
+          <li>Open <strong>Settings</strong> and choose <strong>Accessibility</strong>.</li>
+          <li>Under <strong>Gesture control</strong>, untick or tick <strong>Gesture control (camera hand tracking)</strong>.</li>
+        </ol>
+        <p>While it is off:</p>
+        <ul>
+          <li><strong>Nothing can start gesture control</strong>, not even Troy. Asking Troy gets the answer that it is turned off in Accessibility settings.</li>
+          <li>If gesture control is running when you turn it off, it stops and the camera is released straight away.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="saved">Where it is saved</h2>
+        <p>The switch is saved in <code>gesture.properties</code>, next to the gesture models, under the key <code>gesture.enabled</code>. It travels with a portable copy of Triton.</p>
+      </section>
+
+    </article>
+
+    <p class="no-results" id="no-results" hidden>Nothing on this page matches that filter.</p>
+    <nav class="pager" id="pager" aria-label="More docs"></nav>
+
+  </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <span>Triton is a project by Strombos</span>
+  <span>© 2026 Strombos</span>
+</footer>
+
+<script src="../../../docs.js?v=12"></script>
+</body>
+</html>
