@@ -19,6 +19,7 @@
   .up-hero .page-meta { margin-top: 24px; }
 
   .feature { max-width: 760px; padding-top: 40px; border-top: 1px solid var(--line-soft); }
+  .feature + .feature { margin-top: 64px; }
   .feature h2 { margin: 10px 0 14px; font-size: 36px; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: var(--fg-strong); }
   .feature .doc > p:first-of-type { font-size: 17px; }
   .feature .doc h3 { margin-top: 36px; }
@@ -37,6 +38,8 @@
   .peek a:hover { border-color: var(--accent); }
   .peek img { display: block; width: 100%; height: auto; }
   .peek figcaption { margin-top: 14px; max-width: 720px; font-size: 15px; line-height: 1.6; color: var(--fg-dim); }
+  .peek-head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .peek-note { margin: 8px 0 0; font-size: 15px; color: var(--fg-dim); }
 
   .site-footer { max-width: 1040px; margin: 0 auto; }
   @media (max-width: 640px) {
@@ -71,9 +74,10 @@
   </div>
 
   <figure class="peek">
-    <span class="eyebrow">Sneak peek</span>
+    <div class="peek-head"><span class="eyebrow">What's being developed</span><span class="pill">In development</span></div>
+    <p class="peek-note">May not ship with the next build.</p>
     <a href="sneak-peek.webp"><img src="sneak-peek.webp" width="1919" height="1079" alt="The Triton Media Player playing a video with the Feed Analytic Framework on: people framed and numbered, two of them marked in red for violence, a warning at the bottom of the video, and the layer panel on the right with Person, Presence, Face, Action and Violence switched on"></a>
-    <figcaption>The Media Player in Pre-Release 0.1, with the Feed Analytic Framework switched on. Work in progress: it may still change before the release.</figcaption>
+    <figcaption>The Media Player with the Feed Analytic Framework switched on. Work in progress: it may still change.</figcaption>
   </figure>
 
   <section class="feature" aria-labelledby="feed-analytic-framework">
@@ -100,6 +104,16 @@
       </ul>
     </div>
 
+  </section>
+
+  <section class="feature fixes" aria-labelledby="fixes">
+    <div class="doc">
+      <span class="eyebrow">In Pre-Release 0.1</span>
+      <h2 id="fixes">Fixes</h2>
+      <ul>
+        <li>Twilio call fixes (receiving calls)</li>
+      </ul>
+    </div>
   </section>
 
 </main>
