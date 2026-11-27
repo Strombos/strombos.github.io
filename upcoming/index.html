@@ -75,6 +75,20 @@
     <div class="page-meta"><span class="pill accent">Next release</span><span class="pill">Prototype 156</span><span class="pill">In development</span></div>
   </div>
 
+  <nav class="toc" aria-label="On this page">
+    <span class="eyebrow">On this page</span>
+    <ol>
+      <li><a href="#space-map">Space Map side panel</a></li>
+      <li><a href="#dramatic-action">Troy: Dramatic Action</a></li>
+      <li><a href="#crash-guard">Crash guard and phone alerts</a></li>
+      <li><a href="#troy-remote-android">Troy Remote for Android</a></li>
+      <li><a href="#troy-remote-pc">Troy Remote pages on the PC</a></li>
+      <li><a href="#developers">For app developers</a></li>
+      <li><a href="#fixes">Fixes</a></li>
+      <li><a href="#lab">Triton Lab</a></li>
+    </ol>
+  </nav>
+
   <figure class="peek">
     <div class="peek-head"><span class="eyebrow">Folder Explorer · Space Map</span><span class="pill accent">New</span></div>
     <a href="space-map-side-panel.jpg"><img src="space-map-side-panel.jpg" width="1462" height="604" alt="Folder Explorer showing drive D:\ on the left, with the Space Map open in a side panel on the right: a folder table with sizes and file counts, a list of file types, and a coloured map of what takes up the space"></a>
@@ -109,14 +123,103 @@
     </div>
   </section>
 
-  <section class="feature" aria-labelledby="snappanel">
+  <section class="feature" aria-labelledby="crash-guard">
+    <div class="doc">
+      <span class="eyebrow">New in Pre-Release 0.1</span>
+      <h2 id="crash-guard">Crash guard and phone alerts</h2>
+      <ul>
+        <li><strong>Crash guard:</strong> a small watcher process restarts Triton when it ends without a Shutdown, Restart or boot screen close: a crash, End task or kill.</li>
+        <li><strong>Recovery limit:</strong> it stops restarting after 3 crashes in 15 minutes. Both numbers are settings: <code>crashguard.maxRecoveries</code> (0 = no limit) and <code>crashguard.windowMinutes</code>.</li>
+        <li><strong>Crash notice:</strong> after a recovery, Triton shows a “TRITON RECOVERED” notice with three beeps and sends a line to your phone, like a Troy reply.</li>
+        <li><strong>Your phone rings on a crash:</strong> the crash notice makes the phone play the emergency alert sound until you acknowledge it. The PC stays quiet and keeps the notice on screen until then.</li>
+        <li><strong>Planned stops:</strong> Triton tells linked phones just before a Shutdown, Restart or close, so they don't treat it as a crash.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="feature" aria-labelledby="troy-remote-android">
+    <div class="doc">
+      <span class="eyebrow">New in Pre-Release 0.1 · Android</span>
+      <h2 id="troy-remote-android">Troy Remote for Android</h2>
+      <p>A native Android app for Troy Remote, now at version 1.0.475387. It shows your PC's Troy Remote pages, so updating Triton updates most of the app.</p>
+
+      <h3>Getting started</h3>
+      <ul>
+        <li>Pair by scanning the QR code, pasting the link, or opening it from the camera app. The pairing key is never backed up.</li>
+        <li>Voice works on your local network with Android's own speech recognition and text to speech. You no longer need <code>tailscale serve</code> for the mic.</li>
+        <li>Take a photo or pick one from the gallery. If the PC can't be reached, an offline screen lets you retry. The back gesture works.</li>
+        <li>The app icon is the Triton glyph.</li>
+      </ul>
+
+      <h3>Notifications</h3>
+      <ul>
+        <li>Emergency alerts on the alarm channel, with an Acknowledge button that also closes the alert on the PC.</li>
+        <li>A full-screen alert over the lock screen, or a normal banner while the phone is unlocked, with its own critical alert sound.</li>
+        <li>Troy's replies, Talk Hub items, missed calls and arrivals pop up as banners.</li>
+        <li>Talk Hub notifications show the bubble's options as buttons. The buttons go away once the bubble leaves the PC screen.</li>
+        <li>“Someone is in view” notifications come with a snapshot. Tap one to open that camera live.</li>
+        <li>If you turned notifications off, the app asks again. The background link starts even without that permission.</li>
+      </ul>
+
+      <h3>“PC not responding” alarm</h3>
+      <ul>
+        <li>Rings after 2 minutes without the PC, unless the phone is offline, on another network, or Triton said it was stopping. It loops the emergency sound and vibrates until you tap OK or the PC is back.</li>
+        <li>Works while the phone is locked: the app keeps checking the PC with the screen off, and asks once for unrestricted battery so Android doesn't pause it.</li>
+        <li>It has its own notification channel, so you can turn it off in Android settings without silencing emergency alerts.</li>
+      </ul>
+
+      <h3>Calls</h3>
+      <ul>
+        <li>An incoming call notification with Answer here, Decline, Let Troy answer, Send to my phone, and Answer on PC.</li>
+        <li>Answer on the phone: a call screen with mute, speaker, keypad and hang up, using about 0.5 MB of data a minute, with echo cancelling.</li>
+        <li>Answering needs the phone unlocked. If the phone goes quiet, Troy takes the call or it's hung up.</li>
+        <li>While a call is on the phone, Troy keeps listening on the PC, and the PC shows “On your phone”.</li>
+        <li>Missed-call notifications.</li>
+      </ul>
+
+      <h3>Updates</h3>
+      <ul>
+        <li>The app updates itself: a prompt when it opens, plus an “Update ready” notification.</li>
+        <li>Your PC serves the app. Open the Troy Remote home page in Chrome on your phone and press GET to download it.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="feature" aria-labelledby="troy-remote-pc">
+    <div class="doc">
+      <span class="eyebrow">New in Pre-Release 0.1</span>
+      <h2 id="troy-remote-pc">Troy Remote pages on the PC</h2>
+      <ul>
+        <li><strong>Talk Hub</strong> (<code>/hub</code>): a channel dropdown and an “Allow actions on the PC” tick that starts off and turns itself off after 2 minutes.</li>
+        <li><strong>Cameras</strong> (<code>/camera</code>): live view, a camera picker and recent arrivals.</li>
+        <li><strong>Home screen tiles:</strong> Talk Hub, Cameras, Camera, Send photos, and a TRITON section for built-in apps: Settings, Control Center, Terminal, Downloads and Module Restorer.</li>
+        <li><strong>App tiles:</strong> long-press for Close App. A green dot shows when the app is open on the PC.</li>
+        <li><strong>Power:</strong> a Crash JVM card that stops Triton so crash recovery restarts it. It's refused when recovery isn't watching.</li>
+        <li><strong>Phone page:</strong> Answer on this phone, Move to phone or PC, and a Forward calls to setting (it needs the country code).</li>
+        <li><strong>Photos:</strong> Camera and Send photos save to the signed-in user's <code>Pictures</code> folder.</li>
+        <li><strong>Smoother:</strong> overlapping frame requests, 16 server threads instead of 4, and faster change detection while you're touching the screen.</li>
+        <li><strong>App view:</strong> app windows shrink to phone width, and their minimum size comes back afterwards. Forge gets a compact one-pane layout on a phone.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="feature" aria-labelledby="developers">
     <div class="doc">
       <span class="eyebrow">For app developers</span>
-      <h2 id="snappanel">SnapPanel</h2>
+      <h2 id="developers">API changes</h2>
+      <h3>SnapPanel</h3>
       <ul>
         <li>New optional <code>setCloseDisposes(true)</code>: the red close button disposes the panel and removes its aqua button, instead of hiding it. It's off by default, so the Forge, Volume and Meridian panels still just hide.</li>
         <li>New <code>close()</code> method.</li>
         <li>Closing a panel now only unregisters that panel, so a newer panel for the same window stays registered.</li>
+      </ul>
+      <h3>UrgentNotice</h3>
+      <ul>
+        <li>New <code>UrgentNotice.ringPhones(true)</code>: any notice can ring linked phones without sounding the PC alarm.</li>
+      </ul>
+      <h3>Telephony</h3>
+      <ul>
+        <li>Calls answered on a phone go through the new <code>PhoneCallAudio</code>.</li>
       </ul>
     </div>
   </section>
@@ -126,7 +229,11 @@
       <span class="eyebrow">In Pre-Release 0.1</span>
       <h2 id="fixes">Fixes</h2>
       <ul>
-        <li>Twilio call fixes (receiving calls)</li>
+        <li>Twilio call fixes (receiving calls).</li>
+        <li>Phones no longer miss messages sent right after a Triton restart.</li>
+        <li>Checking whether Settings was open no longer opens Settings.</li>
+        <li>Troy Remote for Android: no crash when the “PC not responding” alarm vibrates, and none on Android versions before 13.</li>
+        <li>Troy Remote for Android: notifications no longer fail silently when a permission is off.</li>
       </ul>
     </div>
   </section>
