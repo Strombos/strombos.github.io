@@ -96,17 +96,17 @@
   .pill.beta { border-color: #F2B533; color: #F2B533; }
   .dl-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--line); background: #1A2229; color: var(--fg-muted); font: 600 15px var(--sans); cursor: not-allowed; }
   .dl-note { margin: 16px 0 0 !important; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--line); border-left: 3px solid #F2B533; background: var(--inset); font-size: 15px; line-height: 1.6; }
-  /* Watch companion demo: aqua outline (glows when Troy speaks, wobbles now and then), pill and bubble */
+  /* Watch companion demo: aqua outline (glows when Troy speaks, and swells into a soft glow now and then), pill and bubble */
   .watch-demo { margin: 24px 0 8px; }
   .watch-win { position: relative; border-radius: 14px; }
   .watch-win img { display: block; width: 100%; height: auto; border-radius: 14px; }
   .watch-halo { position: absolute; inset: -5px; border-radius: 18px; border: 2px solid #2FD5E0; box-shadow: 0 0 0 1px rgba(47, 213, 224, 0.25), 0 0 18px rgba(47, 213, 224, 0.35); pointer-events: none; transition: box-shadow 0.35s ease, opacity 0.4s ease, border-color 0.35s ease; }
   .watch-win:hover .watch-halo { box-shadow: 0 0 0 1px rgba(47, 213, 224, 0.4), 0 0 26px rgba(47, 213, 224, 0.5); }
   .watch-halo.talk { border-color: #7FF1F8; box-shadow: 0 0 0 2px rgba(127, 241, 248, 0.45), 0 0 36px rgba(47, 213, 224, 0.7); }
-  .watch-halo.wobble { animation: halo-wobble 0.9s ease-in-out; }
-  @keyframes halo-wobble {
-    0% { transform: none; } 15% { transform: rotate(-0.6deg) scale(1.006, 0.994); } 30% { transform: rotate(0.5deg) scale(0.996, 1.006); }
-    45% { transform: rotate(-0.35deg) scale(1.004, 0.997); } 60% { transform: rotate(0.25deg); } 80% { transform: rotate(-0.1deg); } 100% { transform: none; } }
+  .watch-halo.wobble { animation: halo-glow 1.8s ease-in-out; }
+  @keyframes halo-glow {
+    0%, 100% { border-color: #2FD5E0; box-shadow: 0 0 0 1px rgba(47, 213, 224, 0.25), 0 0 18px rgba(47, 213, 224, 0.35); }
+    45% { border-color: #A6F7FB; box-shadow: 0 0 0 3px rgba(127, 241, 248, 0.35), 0 0 48px rgba(47, 213, 224, 0.85), 0 0 90px rgba(47, 213, 224, 0.35); } }
   .watch-off .watch-halo { opacity: 0; }
   .watch-pill { position: absolute; top: 12px; right: 12px; display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px; border-radius: 999px; border: 1px solid #2FD5E0; background: rgba(10, 14, 17, 0.85); font-size: 13px; font-weight: 600; color: #F2F6F8; transition: opacity 0.4s ease; }
   .watch-pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #2FD5E0; animation: demo-pulse 1.6s ease-in-out infinite; }
@@ -267,7 +267,7 @@ document.querySelectorAll('.slider').forEach(function (f) {
 </script>
 <script>
 // Watch companion demo: Troy "watches" a still and remarks when the scene changes. The outline glows while he
-// speaks and wobbles now and then. Nothing is sent anywhere.
+// speaks and swells into a soft glow now and then. Nothing is sent anywhere.
 (function () {
   var box = document.getElementById('watch-demo'); if (!box) return;
   var halo = box.querySelector('.watch-halo'), bubble = box.querySelector('.watch-bubble');
