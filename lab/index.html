@@ -41,12 +41,31 @@
   .peek-head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
   .peek-note { margin: 8px 0 0; font-size: 15px; color: var(--fg-dim); }
 
+  /* Slider: a scroll-snap strip with prev/next and dots */
+  .slides { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; margin-top: 14px; border-radius: 16px; border: 1px solid var(--line); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4); background: var(--card-2); }
+  .slides::-webkit-scrollbar { display: none; }
+  .slides:focus-visible { outline-offset: 4px; border-radius: 16px; }
+  .slide { position: relative; flex: 0 0 100%; aspect-ratio: 16 / 9; scroll-snap-align: start; }
+  .slider .slide a { position: relative; z-index: 1; height: 100%; margin: 0; border: 0; border-radius: 0; box-shadow: none; }
+  .slide img { width: 100%; height: 100%; object-fit: cover; }
+  .slide-loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); }
+  .slider-bar { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 16px; }
+  .slider-bar .nav { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--fg-strong); cursor: pointer; }
+  .slider-bar .nav:hover:not(:disabled) { border-color: var(--accent); }
+  .slider-bar .nav:disabled { opacity: 0.35; cursor: default; }
+  .dots { display: flex; gap: 2px; }
+  .dots button { width: 32px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; }
+  .dots button::before { content: ""; display: block; width: 8px; height: 8px; margin: 0 auto; border-radius: 999px; background: var(--line); transition: width 0.2s ease, background 0.2s ease; }
+  .dots button[aria-current="true"]::before { width: 22px; background: var(--accent); }
+  @media (prefers-reduced-motion: reduce) { .slides { scroll-behavior: auto; } .dots button::before { transition: none; } }
+
   .site-footer { max-width: 1040px; margin: 0 auto; }
   @media (max-width: 640px) {
     .up { padding: 40px 16px 80px; }
     .up-hero { margin-bottom: 48px; }
     .peek { margin-bottom: 48px; }
     .peek a { border-radius: 12px; }
+    .slides { border-radius: 12px; }
     .topbar .brand a + a { display: none; }
     .topbar .links > a:first-of-type { display: inline-flex; }
     .topbar .links > a[aria-current] { display: none; }
@@ -73,11 +92,25 @@
     <div class="page-meta"><span class="pill accent">Experimental</span><span class="pill">Side projects</span></div>
   </div>
 
-  <figure class="peek">
+  <figure class="peek slider" aria-roledescription="carousel" aria-label="Feed Analytic Framework, 2 slides">
     <div class="peek-head"><span class="eyebrow">Media Player · Feed Analytic Framework</span><span class="pill">Experimental</span></div>
     <p class="peek-note">Not part of a release yet. It may merge into Triton later, or it may not.</p>
-    <a href="feed-analytic-framework.webp"><img src="feed-analytic-framework.webp" width="1919" height="1079" alt="The Triton Media Player playing a video with the Feed Analytic Framework on: people framed and numbered, two of them marked in red for violence, a warning at the bottom of the video, and the layer panel on the right with Person, Presence, Face, Action and Violence switched on"></a>
-    <figcaption>The Media Player with the Feed Analytic Framework switched on. Work in progress: it may still change.</figcaption>
+    <!-- One .slide per picture. data-caption is shown under the slider. An <img data-src> loads only when its slide is shown. -->
+    <div class="slides" tabindex="0" aria-label="Slides: use the arrow keys or swipe">
+      <div class="slide" role="group" aria-roledescription="slide" aria-label="1 of 2" data-caption="The Media Player with the Feed Analytic Framework switched on. Work in progress: it may still change.">
+        <a href="feed-analytic-framework.webp"><img src="feed-analytic-framework.webp" width="1919" height="1079" alt="The Triton Media Player playing a video with the Feed Analytic Framework on: people framed and numbered, two of them marked in red for violence, a warning at the bottom of the video, and the layer panel on the right with Person, Presence, Face, Action and Violence switched on"></a>
+      </div>
+      <div class="slide" role="group" aria-roledescription="slide" aria-label="2 of 2" data-caption="In motion: the layers follow people as the video plays, with the Identification panel showing a live camera in the corner. Animated GIF, 16 MB.">
+        <span class="slide-loading">Loading animation…</span>
+        <a href="feed-analytic-framework-identification.gif"><img data-src="feed-analytic-framework-identification.gif" width="960" height="540" alt="Animated: the Media Player playing a video with the Feed Analytic Framework on, people framed and labelled as they move, and an Identification panel in the top-right corner showing a live camera with the person in front of it named"></a>
+      </div>
+    </div>
+    <div class="slider-bar">
+      <button type="button" class="nav prev" aria-label="Previous slide"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <div class="dots"><button type="button" aria-label="Slide 1"></button><button type="button" aria-label="Slide 2"></button></div>
+      <button type="button" class="nav next" aria-label="Next slide"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
+    <figcaption aria-live="polite">The Media Player with the Feed Analytic Framework switched on. Work in progress: it may still change.</figcaption>
   </figure>
 
   <section class="feature" aria-labelledby="feed-analytic-framework">
@@ -112,5 +145,34 @@
   <span>Triton is a project by Strombos</span>
   <span>© 2026 Strombos</span>
 </footer>
+<script>
+// Slider: prev/next, dots, swipe and arrow keys. A slide's <img data-src> loads when that slide is shown.
+document.querySelectorAll('.slider').forEach(function (f) {
+  var track = f.querySelector('.slides'), slides = Array.prototype.slice.call(track.children);
+  var dots = Array.prototype.slice.call(f.querySelectorAll('.dots button'));
+  var prev = f.querySelector('.prev'), next = f.querySelector('.next'), cap = f.querySelector('figcaption'), i = 0, t;
+  var show = function (n, scroll) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    var img = slides[i].querySelector('img[data-src]');
+    if (img) { img.src = img.getAttribute('data-src'); img.removeAttribute('data-src'); }
+    if (scroll) track.scrollTo({ left: i * track.clientWidth });
+    dots.forEach(function (d, k) { d.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+    prev.disabled = i === 0; next.disabled = i === slides.length - 1;
+    cap.textContent = slides[i].getAttribute('data-caption');
+  };
+  prev.addEventListener('click', function () { show(i - 1, true); });
+  next.addEventListener('click', function () { show(i + 1, true); });
+  dots.forEach(function (d, k) { d.addEventListener('click', function () { show(k, true); }); });
+  track.addEventListener('scroll', function () {
+    clearTimeout(t);
+    t = setTimeout(function () { var n = Math.round(track.scrollLeft / track.clientWidth); if (n !== i) show(n, false); }, 80);
+  });
+  track.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { show(i + 1, true); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { show(i - 1, true); e.preventDefault(); }
+  });
+  show(0, false);
+});
+</script>
 </body>
 </html>
