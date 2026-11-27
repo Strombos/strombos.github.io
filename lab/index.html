@@ -41,7 +41,7 @@
   .layers .sub { margin-left: 28px; }
 
   .dotc { flex: none; width: 8px; height: 8px; border-radius: 50%; }
-  .c-person { background: #3E8EE6; } .c-presence { background: #35C46A; } .c-face { background: #2FC6B0; } .c-action { background: #A77BEA; } .c-violence { background: #E5484D; }
+  .c-person { background: #3E8EE6; } .c-presence { background: #35C46A; } .c-face { background: #2FC6B0; } .c-action { background: #A77BEA; } .c-remember, .c-transcript { background: #F2B533; } .c-violence { background: #E5484D; }
 
   .peek { margin: 0 0 72px; }
   .peek a { display: block; margin-top: 14px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4); }
@@ -148,12 +148,14 @@
       <p>With the Feed Analytic Framework, the Media Player can look at the video while it plays and draw what it sees on top of it: who is in the picture, where their faces are, what each person is doing, and when something turns violent.</p>
       <p>Everything is drawn on screen only. The video itself is not changed.</p>
 
-      <h3>Five layers, each one on or off</h3>
+      <h3>Seven layers, each one on or off</h3>
       <p>Open the processing layer panel from the player's toolbar and press a layer to switch it on or off.</p>
       <ul class="layers">
         <li><b><i class="dotc c-person"></i>Person</b><span>Finds every person in the picture, puts a frame around them and numbers them: Person 1, Person 2 and so on, with how sure it is.</span></li>
         <li><b><i class="dotc c-presence"></i>Presence</b><span>Counts how many people are here and for how long. It doesn't put names to anyone.</span></li>
         <li><b><i class="dotc c-face"></i>Face</b><span>Marks each face it finds, with how sure it is and how big the face is.</span></li>
+        <li><b><i class="dotc c-remember"></i>Remember faces</b><span>Remembers each face it sees and counts how often it has seen it, so the same person keeps the same label, like Visitor 1, for the whole video.</span></li>
+        <li><b><i class="dotc c-transcript"></i>Transcript</b><span>Listens to the video&rsquo;s sound and writes down what is said, line by line and speaker by speaker.</span></li>
         <li><b><i class="dotc c-action"></i>Action</b><span>Describes the scene in a sentence and says what each person is doing, like “just watching” or “punching person 1”.</span></li>
         <li class="sub"><b><i class="dotc c-violence"></i>Violence</b><span>Part of Action. Marks the people involved in red, frames the video in red and shows a warning at the bottom, such as “Possible violence · Person 1”. A beep can go with it, or stay off.</span></li>
       </ul>
