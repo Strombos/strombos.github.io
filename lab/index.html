@@ -96,6 +96,30 @@
   .pill.beta { border-color: #F2B533; color: #F2B533; }
   .dl-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--line); background: #1A2229; color: var(--fg-muted); font: 600 15px var(--sans); cursor: not-allowed; }
   .dl-note { margin: 16px 0 0 !important; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--line); border-left: 3px solid #F2B533; background: var(--inset); font-size: 15px; line-height: 1.6; }
+  /* Watch companion demo: aqua outline (glows when Troy speaks, wobbles now and then), pill and bubble */
+  .watch-demo { margin: 24px 0 8px; }
+  .watch-win { position: relative; border-radius: 14px; }
+  .watch-win img { display: block; width: 100%; height: auto; border-radius: 14px; }
+  .watch-halo { position: absolute; inset: -5px; border-radius: 18px; border: 2px solid #2FD5E0; box-shadow: 0 0 0 1px rgba(47, 213, 224, 0.25), 0 0 18px rgba(47, 213, 224, 0.35); pointer-events: none; transition: box-shadow 0.35s ease, opacity 0.4s ease, border-color 0.35s ease; }
+  .watch-win:hover .watch-halo { box-shadow: 0 0 0 1px rgba(47, 213, 224, 0.4), 0 0 26px rgba(47, 213, 224, 0.5); }
+  .watch-halo.talk { border-color: #7FF1F8; box-shadow: 0 0 0 2px rgba(127, 241, 248, 0.45), 0 0 36px rgba(47, 213, 224, 0.7); }
+  .watch-halo.wobble { animation: halo-wobble 0.9s ease-in-out; }
+  @keyframes halo-wobble {
+    0% { transform: none; } 15% { transform: rotate(-0.6deg) scale(1.006, 0.994); } 30% { transform: rotate(0.5deg) scale(0.996, 1.006); }
+    45% { transform: rotate(-0.35deg) scale(1.004, 0.997); } 60% { transform: rotate(0.25deg); } 80% { transform: rotate(-0.1deg); } 100% { transform: none; } }
+  .watch-off .watch-halo { opacity: 0; }
+  .watch-pill { position: absolute; top: 12px; right: 12px; display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px; border-radius: 999px; border: 1px solid #2FD5E0; background: rgba(10, 14, 17, 0.85); font-size: 13px; font-weight: 600; color: #F2F6F8; transition: opacity 0.4s ease; }
+  .watch-pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #2FD5E0; animation: demo-pulse 1.6s ease-in-out infinite; }
+  .watch-bubble { position: absolute; top: 48px; right: 12px; max-width: min(340px, 70%); min-height: 1.6em; padding: 9px 13px; border-radius: 12px; border: 1px solid #2FD5E0; background: rgba(10, 14, 17, 0.9); font-size: 14px; line-height: 1.5; color: #F2F6F8; transition: opacity 0.3s ease; }
+  .watch-bubble:empty { opacity: 0; }
+  .watch-off .watch-pill, .watch-off .watch-bubble:empty { opacity: 0; }
+  .watch-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .watch-bar button { min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--fg-strong); font: 14px var(--sans); cursor: pointer; }
+  .watch-bar button:hover { border-color: var(--accent); }
+  .watch-demo .credit { margin: 10px 0 0 !important; font-size: 13px; color: var(--fg-muted); }
+  @keyframes demo-pulse { 50% { opacity: 0.3; } }
+  @media (max-width: 640px) { .watch-bubble { top: 44px; font-size: 12.5px; max-width: 80%; } .watch-pill { font-size: 11.5px; } }
+  @media (prefers-reduced-motion: reduce) { .watch-halo.wobble { animation: none; } .watch-pill::before { animation: none; } }
 </style>
 </head>
 <body>
@@ -181,6 +205,16 @@
       <span class="eyebrow">Troy · Experimental skill</span>
       <h2 id="watch-companion">Watch companion</h2>
       <p>Troy watches along with you. Say “watch this with me” and he hooks to whatever you're looking at and makes short remarks about it by himself, like “I see people gathering on a bridge”, until you say “stop watching”. It's the “Troy is watching this” bubble in the slides above.</p>
+      <div class="watch-demo" id="watch-demo">
+        <div class="watch-win">
+          <img src="feed-analytic-framework-tears-of-steel-2.webp" width="1920" height="1080" loading="lazy" alt="The Media Player streaming Tears of Steel, two people on a bridge, with Troy watching: an aqua outline around the window, a Troy is watching this pill and a speech bubble with his latest remark">
+          <span class="watch-halo" aria-hidden="true"></span>
+          <span class="watch-pill">Troy is watching this</span>
+          <div class="watch-bubble" aria-live="polite"></div>
+        </div>
+        <div class="watch-bar"><button type="button" data-ask>&ldquo;What am I seeing?&rdquo;</button><button type="button" data-toggle>&ldquo;Stop watching&rdquo;</button></div>
+        <p class="credit">A demo of the outline, pill and bubble on this page. Tears of Steel &copy; Blender Foundation | mango.blender.org, CC BY 3.0</p>
+      </div>
       <ul>
         <li><strong>In the Media Player</strong> he reads the layers you've switched on, such as Action, Violence and Transcript, together with the picture. He never switches layers on himself.</li>
         <li><strong>In other apps</strong> he looks at the window. On the desktop he can look through the presence camera, if it's already running.</li>
@@ -230,6 +264,54 @@ document.querySelectorAll('.slider').forEach(function (f) {
   });
   show(0, false);
 });
+</script>
+<script>
+// Watch companion demo: Troy "watches" a still and remarks when the scene changes. The outline glows while he
+// speaks and wobbles now and then. Nothing is sent anywhere.
+(function () {
+  var box = document.getElementById('watch-demo'); if (!box) return;
+  var halo = box.querySelector('.watch-halo'), bubble = box.querySelector('.watch-bubble');
+  var ask = box.querySelector('[data-ask]'), toggle = box.querySelector('[data-toggle]');
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var REMARKS = ['I see two people talking on a bridge.', 'One of them has a robotic hand.', 'I detected violence. One of them is punching the other.', 'They are still arguing on the bridge.'];
+  var ANSWER = 'Two people on a bridge over a canal. One of them, with a robotic hand, is punching the other.';
+  var watching = true, i = 0, timer = null, typing = null, wob = null;
+  var say = function (text, done) {
+    clearInterval(typing); halo.classList.add('talk');
+    if (still) { bubble.textContent = text; halo.classList.remove('talk'); if (done) done(); return; }
+    var n = 0; bubble.textContent = '';
+    typing = setInterval(function () {
+      bubble.textContent = text.slice(0, ++n);
+      if (n >= text.length) { clearInterval(typing); setTimeout(function () { halo.classList.remove('talk'); }, 400); if (done) done(); }
+    }, 28);
+  };
+  var next = function () {
+    if (!watching) return;
+    say(REMARKS[i % REMARKS.length]); i++;
+    timer = setTimeout(next, 7000);
+  };
+  var wobble = function () {
+    if (watching && !still) { halo.classList.remove('wobble'); void halo.offsetWidth; halo.classList.add('wobble'); }
+    wob = setTimeout(wobble, 4000 + Math.random() * 5000);
+  };
+  var start = function () {
+    watching = true; box.classList.remove('watch-off'); toggle.innerHTML = '&ldquo;Stop watching&rdquo;'; ask.disabled = false;
+    clearTimeout(timer); i = 0; next();
+  };
+  ask.addEventListener('click', function () { if (!watching) return; clearTimeout(timer); say(ANSWER); timer = setTimeout(next, 8000); });
+  toggle.addEventListener('click', function () {
+    if (watching) {
+      watching = false; clearTimeout(timer); ask.disabled = true;
+      say('Okay, I’ll stop watching.', function () { box.classList.add('watch-off'); setTimeout(function () { if (!watching) bubble.textContent = ''; }, 1800); });
+      toggle.innerHTML = '&ldquo;Watch this with me&rdquo;';
+    } else { start(); }
+  });
+  // start when the demo scrolls into view, so the first remark isn't missed
+  var begun = false, go = function () { if (!begun) { begun = true; start(); wobble(); } };
+  var seen = function () { var r = box.getBoundingClientRect(); return r.top < innerHeight * 0.8 && r.bottom > innerHeight * 0.2; };
+  var check = function () { if (seen()) { go(); removeEventListener('scroll', check); } };
+  addEventListener('scroll', check, { passive: true }); check(); setTimeout(check, 300);
+})();
 </script>
 <script src="../lightbox.js?v=1" defer></script>
 </body>
