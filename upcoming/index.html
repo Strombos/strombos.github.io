@@ -43,6 +43,8 @@
   .peek-note { margin: 8px 0 0; font-size: 15px; color: var(--fg-dim); }
 
   .site-footer { max-width: 1040px; margin: 0 auto; }
+  /* Smaller screens: the highlighted nav link (or the project switcher) already names the page */
+  @media (max-width: 1024px) { .topbar .brand a + a { display: none; } }
   @media (max-width: 640px) {
     .up { padding: 40px 16px 80px; }
     .up-hero { margin-bottom: 48px; }
@@ -252,5 +254,6 @@
   <span>Triton is a project by Strombos</span>
   <span>© 2026 Strombos</span>
 </footer>
+<script src="../lightbox.js?v=1" defer></script>
 </body>
 </html>
