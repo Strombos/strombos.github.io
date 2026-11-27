@@ -23,7 +23,7 @@
 
   .feature { max-width: 760px; padding-top: 40px; border-top: 1px solid var(--line-soft); }
   .feature + .feature { margin-top: 64px; }
-  .feature h2 { margin: 10px 0 14px; font-size: 36px; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: var(--fg-strong); }
+  .feature h2 { scroll-margin-top: calc(var(--top) + 48px); margin: 10px 0 14px; font-size: 36px; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: var(--fg-strong); }
   .feature .doc > p:first-of-type { font-size: 17px; }
   .feature .doc h3 { margin-top: 36px; }
 
@@ -60,7 +60,7 @@
 
 <header class="topbar">
   <div class="brand" style="display:flex"><a href="../" style="text-decoration:none"><b>Strombos</b></a><a href="./" style="text-decoration:none"><span>Anasynthe</span></a></div>
-  <nav class="links" aria-label="Site"><details class="proj"><summary aria-label="Project: Anasynthe. Switch project">Anasynthe<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary><div class="proj-menu"><span class="t">Projects</span><a href="../">Triton</a><a href="./" aria-current="page">Anasynthe<small>Current</small></a></div></details><a href="#how-it-works">How it works</a><a href="#in-the-app">In the app</a><a href="#through-troy">Through Troy</a></nav>
+  <nav class="links" aria-label="Site"><details class="proj"><summary aria-label="Project: Anasynthe. Switch project">Anasynthe<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary><div class="proj-menu"><span class="t">Projects</span><a href="../">Triton</a><a href="./" aria-current="page">Anasynthe<small>Current</small></a></div></details><a href="#how-it-works">How it works</a><a href="#where-the-ai-is">AI</a><a href="#in-the-app">In the app</a><a href="#through-troy">Through Troy</a></nav>
 </header>
 
 <main class="up" id="main">
@@ -89,7 +89,7 @@
       <ul class="layers">
         <li><b><i class="n">01</i>Edge matcher</b><span>Compares the ink along every pair of edges and solves the ordering: exact for 16 strips or fewer, heuristic beyond that. Fast; it handles most clean scans and photos in a few seconds.</span></li>
         <li><b><i class="n">02</i>Fragment growing with OCR</b><span>Reads candidate joins with Tesseract and merges pairs where real words cross the seam, growing fragments until pages form. Slower, but it reads text rather than pixels.</span></li>
-        <li><b><i class="n">03</i>DocReassembly / DeepRec</b><span>Optional external tools, used if installed.</span></li>
+        <li><b><i class="n">03</i>DocReassembly / DeepRec</b><span>Optional external deep-learning reassembly tools, used if installed.</span></li>
       </ul>
 
       <h3>3. Multi-page</h3>
@@ -104,6 +104,19 @@
         <li>pixel continuity across seams.</li>
       </ul>
       <p>Pages must start and end on blank margins. The result is <strong>trusted</strong>, <strong>needs review</strong> (with each suspect seam marked), or <strong>rejected</strong>. A deliberately shuffled page scores about 0.25 against a 0.70 trust threshold.</p>
+    </div>
+  </section>
+
+  <section class="feature" aria-labelledby="where-the-ai-is">
+    <div class="doc">
+      <span class="eyebrow">AI</span>
+      <h2 id="where-the-ai-is">Where the AI is</h2>
+      <ul class="layers">
+        <li><b><i class="n">OCR</i>Tesseract OCR is the reader</b><span>Bundled, via tess4j. It's used twice: inside fragment growing, to decide whether two strips belong together by whether real words appear across the join; and in the verifier, to judge the finished page. The dictionary check and the seam-word check are built on its output.</span></li>
+        <li><b><i class="n">LLM</i>Troy is the operator</b><span>Troy runs on a local Qwen 2.5 on the PC. He recognises the request in plain speech, extracts the attached photos, starts the job and narrates progress. With “open the app” ticked he runs the actual window and reports each step as he would if he were sitting at it.</span></li>
+        <li><b><i class="n">NN</i>Optional deep-learning engines</b><span>DocReassembly and DeepRec are neural strip-reassembly tools that slot into the method chain when installed. Neither is on the PC yet.</span></li>
+        <li><b><i class="n">NEXT</i>Planned: a learned strip matcher</b><span>A small network trained on synthetic shreds to score whether two edges are true neighbours, exported to ONNX and added as another method. It's aimed at the one test case the hand-built matcher still struggles with.</span></li>
+      </ul>
     </div>
   </section>
 
