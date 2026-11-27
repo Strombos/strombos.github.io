@@ -73,6 +73,38 @@
     <div class="page-meta"><span class="pill accent">Next release</span><span class="pill">In development</span></div>
   </div>
 
+  <figure class="peek">
+    <div class="peek-head"><span class="eyebrow">Folder Explorer · Space Map</span><span class="pill accent">New</span></div>
+    <a href="space-map-side-panel.jpg"><img src="space-map-side-panel.jpg" width="1462" height="604" alt="Folder Explorer showing drive D:\ on the left, with the Space Map open in a side panel on the right: a folder table with sizes and file counts, a list of file types, and a coloured map of what takes up the space"></a>
+    <figcaption>Folder Explorer with the Space Map open in a side panel.</figcaption>
+  </figure>
+
+  <section class="feature" aria-labelledby="space-map">
+    <div class="doc">
+      <span class="eyebrow">New in Pre-Release 0.1</span>
+      <h2 id="space-map">Folder Explorer: Space Map side panel</h2>
+      <ul>
+        <li>Right-click <strong>▦ Space Map</strong> (in the folder toolbar, and the Space Map buttons on the Core Code page) to open the map in a snap panel beside the window. The tab's own view doesn't change.</li>
+        <li>The panel adds an aqua button to the title bar to hide or show it. Both stay until you press the panel's red close button, which also stops the map's scan.</li>
+        <li>Right-clicking another folder's Space Map swaps the map in the same panel (one per window).</li>
+        <li>Double-click a folder in the side map to open it in the tab. Files open with their system app.</li>
+        <li>Left-click on Space Map works as before.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="feature" aria-labelledby="snappanel">
+    <div class="doc">
+      <span class="eyebrow">For app developers</span>
+      <h2 id="snappanel">SnapPanel</h2>
+      <ul>
+        <li>New optional <code>setCloseDisposes(true)</code>: the red close button disposes the panel and removes its aqua button, instead of hiding it. It's off by default, so the Forge, Volume and Meridian panels still just hide.</li>
+        <li>New <code>close()</code> method.</li>
+        <li>Closing a panel now only unregisters that panel, so a newer panel for the same window stays registered.</li>
+      </ul>
+    </div>
+  </section>
+
   <section class="feature" aria-labelledby="fixes">
     <div class="doc">
       <span class="eyebrow">In Pre-Release 0.1</span>
