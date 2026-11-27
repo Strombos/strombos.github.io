@@ -63,7 +63,7 @@ var DOCS = [
       return '<li><a href="' + esc(url) + '"' + (cur ? ' aria-current="page"' : '') + '>' + esc(same ? 'Overview' : p.title) + (p.tag && !p.parent && !same ? '<small>' + esc(p.tag) + '</small>' : '') + '</a>' +
         (sub.length ? '<ul class="sub">' + sub.map(function (s) { return item(s); }).join('') + '</ul>' : '') + '</li>';
     };
-    var ext = [['Triton homepage', ''], ['Upcoming', 'upcoming/'], ['Download', '#download'], ['How to start', '#run'], ['Get Java 21 or higher', '#java']];
+    var ext = [['Triton homepage', ''], ['Upcoming', 'upcoming/'], ['Triton Lab', 'lab/'], ['Download', '#download'], ['How to start', '#run'], ['Get Java 21 or higher', '#java']];
     side.innerHTML =
       '<nav aria-label="Docs">' +
       '<div class="group"><span class="group-title">Documentation</span><ul>' + item(pages[0]) + '</ul></div>' +
