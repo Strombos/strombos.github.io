@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Triton — Home</title>
 <script src="./_runtime/react.js"></script>
 <script src="./_runtime/react-dom.js"></script>
@@ -27,15 +28,17 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
 .proj-menu a{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:40px;padding:0 10px;border-radius:8px;font-family:'Sora',system-ui,sans-serif;font-size:14px;color:#F2F6F8;text-decoration:none}
 .proj-menu a:hover{background:#121C23;color:#FFFFFF}
 .proj-menu small{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#6FB3CC}
+.hp-title{font-size:min(200px,22vw)!important}
+@media (max-width:640px){.hp-head{padding:16px!important}.hp-head>span{letter-spacing:0.2em!important}.hp-nav{gap:16px!important}.hp-nav>a:not(:last-child){display:none}.proj{padding-right:16px}.hp-cap{position:relative!important;left:0!important;right:0!important;padding-top:calc(52% + 16px)!important;text-shadow:none!important}}
 </style>
 </helmet>
 <main style="box-sizing: border-box; background: #0A0E11; color: #E8EEF1; font-family: 'Sora', system-ui, sans-serif; display: flex; flex-direction: column; overflow: clip">
 
 <section style="min-height: 100vh; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 64px 16px; gap: 40px; position: relative">
 
-  <header style="position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 28px 32px; box-sizing: border-box">
+  <header class="hp-head" style="position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 28px 32px; box-sizing: border-box">
     <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: #F2F6F8">{{orgName}}</span>
-    <nav aria-label="Site" style="display: flex; gap: 24px">
+    <nav class="hp-nav" aria-label="Site" style="display: flex; gap: 24px">
       <details class="proj"><summary aria-label="Project: Triton. Switch project">Triton<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></summary><div class="proj-menu"><span class="t">Projects</span><a href="./">Triton<small>Current</small></a><a href="anasynthe/">Anasynthe</a></div></details>
       <a href="docs/" style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; padding: 12px 0; min-height: 44px; box-sizing: border-box">Docs</a>
       <a href="upcoming/" style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; padding: 12px 0; min-height: 44px; box-sizing: border-box">Upcoming</a>
@@ -46,7 +49,7 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
 
   <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0; color: #8A9AA4; position: relative">Project E1102 · Desktop Shell</span>
 
-  <h1 style="margin: 0; font-size: 200px; font-weight: 800; line-height: 0.9; letter-spacing: -0.045em; color: #F2F6F8; text-align: center; position: relative">TRITON<span style="color: rgb(111, 179, 204)">.</span></h1>
+  <h1 class="hp-title" style="margin: 0; font-size: 200px; font-weight: 800; line-height: 0.9; letter-spacing: -0.045em; color: #F2F6F8; text-align: center; position: relative">TRITON<span style="color: rgb(111, 179, 204)">.</span></h1>
 
   <nav aria-label="Choose your platform" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; position: relative">
 
@@ -78,7 +81,7 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
 <section id="showcase" aria-label="Triton in action" style="position: relative; height: 2400px; box-sizing: border-box">
   <div style="position: sticky; top: 0; height: min(100svh, 960px); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 24px 16px; overflow: hidden">
 
-    <div style="position: relative; flex: none; width: min(100%, 1600px, calc((min(100svh, 960px) - 110px) * 1.78)); aspect-ratio: 16 / 9">
+    <div class="hp-stage" style="position: relative; flex: none; width: min(100%, 1600px, calc((min(100svh, 960px) - 110px) * 1.78)); aspect-ratio: 16 / 9">
     <div style="position: absolute; inset: 0; perspective: 2200px; perspective-origin: 50% 30%">
       <sc-for list="{{ pages }}" as="page" hint-placeholder-count="6">
         <div style="position: absolute; z-index: {{ page.z }}; left: 8%; top: 3%; width: 84%; aspect-ratio: 16 / 9; box-sizing: border-box; transform-origin: 50% 50% -900px; border-radius: 10px; border: 1px solid {{ page.border }}; box-shadow: {{ page.shadow }}; opacity: {{ page.opacity }}; transform: {{ page.transform }}; transition: {{ page.transition }}">
@@ -87,7 +90,7 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
       </sc-for>
     </div>
 
-    <div style="position: absolute; z-index: 30; left: max(16px, 2%); right: 16px; bottom: 0; box-sizing: border-box; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; text-shadow: 0 2px 24px rgba(10, 14, 17, 0.85)">
+    <div class="hp-cap" style="position: absolute; z-index: 30; left: max(16px, 2%); right: 16px; bottom: 0; box-sizing: border-box; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; text-shadow: 0 2px 24px rgba(10, 14, 17, 0.85)">
       <div aria-live="polite" style="max-width: 100%; min-width: 0; display: flex; flex-direction: column; gap: 6px">
         <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">{{ current.num }} / 06</span>
         <h2 style="margin: 0; font-size: clamp(40px, 6vw, 80px); font-weight: 600; line-height: 1; letter-spacing: -0.02em; color: #F2F6F8">{{ current.title }}</h2>
