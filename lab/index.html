@@ -48,6 +48,7 @@
   .slide { position: relative; flex: 0 0 100%; aspect-ratio: 16 / 9; scroll-snap-align: start; }
   .slider .slide a { position: relative; z-index: 1; height: 100%; margin: 0; border: 0; border-radius: 0; box-shadow: none; }
   .slide img { width: 100%; height: 100%; object-fit: cover; }
+  .slide.fit img { object-fit: contain; }
   .slide-loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); }
   .slider-bar { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 16px; }
   .slider-bar .nav { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--fg-strong); cursor: pointer; }
@@ -92,22 +93,25 @@
     <div class="page-meta"><span class="pill accent">Experimental</span><span class="pill">Side projects</span></div>
   </div>
 
-  <figure class="peek slider" aria-roledescription="carousel" aria-label="Feed Analytic Framework, 2 slides">
+  <figure class="peek slider" aria-roledescription="carousel" aria-label="Feed Analytic Framework, 3 slides">
     <div class="peek-head"><span class="eyebrow">Media Player · Feed Analytic Framework</span><span class="pill">Experimental</span></div>
     <p class="peek-note">Not part of a release yet. It may merge into Triton later, or it may not.</p>
     <!-- One .slide per picture. data-caption is shown under the slider. An <img data-src> loads only when its slide is shown. -->
     <div class="slides" tabindex="0" aria-label="Slides: use the arrow keys or swipe">
-      <div class="slide" role="group" aria-roledescription="slide" aria-label="1 of 2" data-caption="The Media Player with the Feed Analytic Framework switched on. Work in progress: it may still change.">
+      <div class="slide" role="group" aria-roledescription="slide" aria-label="1 of 3" data-caption="The Media Player with the Feed Analytic Framework switched on. Work in progress: it may still change.">
         <a href="feed-analytic-framework.webp"><img src="feed-analytic-framework.webp" width="1919" height="1079" alt="The Triton Media Player playing a video with the Feed Analytic Framework on: people framed and numbered, two of them marked in red for violence, a warning at the bottom of the video, and the layer panel on the right with Person, Presence, Face, Action and Violence switched on"></a>
       </div>
-      <div class="slide" role="group" aria-roledescription="slide" aria-label="2 of 2" data-caption="In motion: the layers follow people as the video plays, with the Identification panel showing a live camera in the corner. Animated GIF, 16 MB.">
+      <div class="slide" role="group" aria-roledescription="slide" aria-label="2 of 3" data-caption="In motion: the layers follow people as the video plays, with the Identification panel showing a live camera in the corner. Animated GIF, 16 MB.">
         <span class="slide-loading">Loading animation…</span>
         <a href="feed-analytic-framework-identification.gif?v=2"><img data-src="feed-analytic-framework-identification.gif?v=2" width="960" height="540" alt="Animated: the Media Player playing a video with the Feed Analytic Framework on, people framed and labelled as they move, and an Identification panel in the top-right corner showing a live camera with the person in front of it named"></a>
+      </div>
+      <div class="slide fit" role="group" aria-roledescription="slide" aria-label="3 of 3" data-caption="Seven layers on, including Remember faces and Transcript. The &ldquo;Troy is watching this&rdquo; bubble is a new experimental Troy skill, still being worked on: here Troy describes the scene, &ldquo;I see two people fighting with a punching attack in the driveway.&rdquo;">
+        <a href="feed-analytic-framework-troy.webp"><img src="feed-analytic-framework-troy.webp" width="1416" height="871" loading="lazy" alt="The Media Player with seven processing layers on, including Remember faces and Transcript, and a Troy is watching this bubble in the top-right corner saying: I see two people fighting with a punching attack in the driveway."></a>
       </div>
     </div>
     <div class="slider-bar">
       <button type="button" class="nav prev" aria-label="Previous slide"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
-      <div class="dots"><button type="button" aria-label="Slide 1"></button><button type="button" aria-label="Slide 2"></button></div>
+      <div class="dots"><button type="button" aria-label="Slide 1"></button><button type="button" aria-label="Slide 2"></button><button type="button" aria-label="Slide 3"></button></div>
       <button type="button" class="nav next" aria-label="Next slide"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
     </div>
     <figcaption aria-live="polite">The Media Player with the Feed Analytic Framework switched on. Work in progress: it may still change.</figcaption>
