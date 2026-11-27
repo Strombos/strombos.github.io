@@ -16,6 +16,17 @@
 <style>
 body{margin:0;background:#0A0E11}
 a{color:#A9CFDB}a:hover{color:#FFFFFF}
+.proj{position:relative;display:flex;align-items:center;padding-right:24px;border-right:1px solid #22303A}
+.proj summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;min-height:44px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#F2F6F8}
+.proj summary::-webkit-details-marker{display:none}
+.proj summary:hover{color:#FFFFFF}
+.proj summary svg{color:#6FB3CC;transition:transform 0.15s ease}
+.proj[open] summary svg{transform:rotate(180deg)}
+.proj-menu{position:absolute;z-index:60;top:calc(100% + 6px);right:-12px;min-width:220px;padding:8px;border-radius:12px;background:#10181E;border:1px solid #22303A;box-shadow:0 16px 40px rgba(0,0,0,0.45)}
+.proj-menu .t{display:block;padding:6px 10px 8px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#8A9AA4}
+.proj-menu a{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:40px;padding:0 10px;border-radius:8px;font-family:'Sora',system-ui,sans-serif;font-size:14px;color:#F2F6F8;text-decoration:none}
+.proj-menu a:hover{background:#121C23;color:#FFFFFF}
+.proj-menu small{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#6FB3CC}
 </style>
 </helmet>
 <main style="box-sizing: border-box; background: #0A0E11; color: #E8EEF1; font-family: 'Sora', system-ui, sans-serif; display: flex; flex-direction: column; overflow: clip">
@@ -25,6 +36,7 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
   <header style="position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 28px 32px; box-sizing: border-box">
     <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: #F2F6F8">{{orgName}}</span>
     <nav aria-label="Site" style="display: flex; gap: 24px">
+      <details class="proj"><summary aria-label="Project: Triton. Switch project">Triton<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></summary><div class="proj-menu"><span class="t">Projects</span><a href="./">Triton<small>Current</small></a></div></details>
       <a href="docs/" style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; padding: 12px 0; min-height: 44px; box-sizing: border-box">Docs</a>
       <a href="upcoming/" style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; padding: 12px 0; min-height: 44px; box-sizing: border-box">Upcoming</a>
       <a href="lab/" style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; padding: 12px 0; min-height: 44px; box-sizing: border-box">Lab</a>

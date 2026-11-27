@@ -41,6 +41,18 @@ a:hover { color: #FFFFFF; }
 .topbar .links { margin-left: auto; display: flex; gap: 24px; }
 .topbar .links a { font-family: var(--mono); font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
 .topbar .links a[aria-current] { color: var(--fg-strong); }
+/* Project switcher at the front of the site links: "Triton ▾". Add a project as one more <a> in .proj-menu. */
+.proj { position: relative; display: flex; align-items: center; padding-right: 24px; border-right: 1px solid var(--line); }
+.proj summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-family: var(--mono); font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-strong); }
+.proj summary::-webkit-details-marker { display: none; }
+.proj summary:hover { color: #FFFFFF; }
+.proj summary svg { color: var(--accent); transition: transform 0.15s ease; }
+.proj[open] summary svg { transform: rotate(180deg); }
+.proj-menu { position: absolute; z-index: 60; top: calc(100% + 6px); left: -12px; min-width: 220px; padding: 8px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45); }
+.proj-menu .t { display: block; padding: 6px 10px 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-muted); }
+.topbar .links .proj-menu a { display: flex; justify-content: space-between; gap: 12px; min-height: 40px; padding: 0 10px; border-radius: 8px; font-family: var(--sans); font-size: 14px; letter-spacing: 0; text-transform: none; color: var(--fg-strong); }
+.topbar .links .proj-menu a:hover { background: #121C23; }
+.proj-menu small { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
 .menu-btn { display: none; align-items: center; justify-content: center; width: 44px; height: 44px; margin-left: -10px; padding: 0; border: 0; border-radius: 10px; background: transparent; color: var(--fg-strong); cursor: pointer; }
 .menu-btn:hover { background: var(--card); }
 
@@ -197,7 +209,8 @@ mark { background: rgba(111, 179, 204, 0.28); color: inherit; border-radius: 3px
   .topbar { padding: 0 16px; gap: 10px; }
   .topbar .brand { display: none; }
   .topbar .links { gap: 16px; }
-  .topbar .links a:not(:last-child) { display: none; }
+  .topbar .links > a:not(:last-child) { display: none; }
+  .proj { padding-right: 16px; }
   .search { flex: 1 1 auto; margin-left: 0; }
   .search kbd { display: none; }
   .content { padding: 24px 16px 72px; }
