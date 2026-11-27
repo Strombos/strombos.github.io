@@ -11,6 +11,16 @@
 <link rel="stylesheet" href="../docs/docs.css?v=17">
 <style>
   /* Lab page only (same layout as /upcoming/). Shared tokens and the top bar come from docs.css. */
+  /* Dotted field background, like the Triton desktop: a dot every 30px, a slightly brighter one every 150px. */
+  body {
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(circle, rgba(163, 177, 186, 0.22) 1.4px, transparent 1.8px),
+      radial-gradient(circle, rgba(163, 177, 186, 0.10) 1px, transparent 1.4px);
+    background-size: 150px 150px, 30px 30px;
+    background-position: 0 0, 0 0;
+    background-attachment: fixed;
+  }
   .up { max-width: 1040px; margin: 0 auto; padding: 72px 32px 112px; }
   .up-hero { margin-bottom: 72px; }
   .up-hero h1 { margin: 18px 0 20px; font-size: clamp(40px, 11vw, 104px); font-weight: 800; line-height: 0.95; letter-spacing: -0.05em; color: var(--fg-strong); }
