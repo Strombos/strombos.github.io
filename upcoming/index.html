@@ -83,6 +83,7 @@
       <li><a href="#space-map">Space Map side panel</a></li>
       <li><a href="#dramatic-action">Troy: Dramatic Action</a></li>
       <li><a href="#crash-guard">Crash guard and phone alerts</a></li>
+      <li><a href="#troy-fixes">Troy: ready-made fixes</a></li>
       <li><a href="#troy-remote-android">Troy Remote for Android</a></li>
       <li><a href="#troy-remote-pc">Troy Remote pages on the PC</a></li>
       <li><a href="#developers">For app developers</a></li>
@@ -135,6 +136,23 @@
         <li><strong>Crash notice:</strong> after a recovery, Triton shows a “TRITON RECOVERED” notice with three beeps and sends a line to your phone, like a Troy reply.</li>
         <li><strong>Your phone rings on a crash:</strong> the crash notice makes the phone play the emergency alert sound until you acknowledge it. The PC stays quiet and keeps the notice on screen until then.</li>
         <li><strong>Planned stops:</strong> Triton tells linked phones just before a Shutdown, Restart or close, so they don't treat it as a crash.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="feature" aria-labelledby="troy-fixes">
+    <div class="doc">
+      <span class="eyebrow">New in Pre-Release 0.1</span>
+      <h2 id="troy-fixes">Troy: ready-made fixes</h2>
+      <p>When you ask Troy how to fix a known problem, he looks it up in Triton&rsquo;s list of ready-made fixes instead of writing a command himself. The command is built from your own install&rsquo;s paths.</p>
+      <ul>
+        <li><strong>Run box:</strong> on the Troy page, the fix&rsquo;s command shows under his reply in a code box with a Run button. Run asks first (Always allow, Allow once or Decline, remembered per fix), then shows the result under the box.</li>
+        <li><strong>First fix, crash guard reset:</strong> ask &ldquo;How do I reset crash guard&rdquo; and Troy offers to clear the crash guard&rsquo;s history, so it restarts Triton after the next crash again.</li>
+      </ul>
+      <h3>Known limits</h3>
+      <ul>
+        <li>Fixes run on the PC only. On a phone, Troy says &ldquo;Fixes run on the PC only&rdquo;.</li>
+        <li>Troy&rsquo;s own chat window and voice give the answer without the Run box.</li>
       </ul>
     </div>
   </section>
@@ -218,6 +236,10 @@
       <h3>UrgentNotice</h3>
       <ul>
         <li>New <code>UrgentNotice.ringPhones(true)</code>: any notice can ring linked phones without sounding the PC alarm.</li>
+      </ul>
+      <h3>Fix registry</h3>
+      <ul>
+        <li>New <code>triton.troy.remedy</code>: a part of Triton can register a known problem, the words that name it and the command that fixes it. Troy&rsquo;s <code>troy.remedy</code> skill looks problems up there.</li>
       </ul>
       <h3>Telephony</h3>
       <ul>
