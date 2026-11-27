@@ -37,6 +37,9 @@
   .peek a { display: block; margin-top: 14px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4); }
   .peek a:hover { border-color: var(--accent); }
   .peek img { display: block; width: 100%; height: auto; }
+  .peek figcaption b { font-weight: 600; color: var(--fg-strong); }
+  .peek figcaption a { display: inline; margin: 0; border: 0; border-radius: 0; box-shadow: none; overflow: visible; }
+  .peek figcaption .credit { display: block; margin-top: 6px; font-size: 13px; color: var(--fg-muted); }
   .peek figcaption { margin-top: 14px; max-width: 720px; font-size: 15px; line-height: 1.6; color: var(--fg-dim); }
   .peek-head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
   .peek-note { margin: 8px 0 0; font-size: 15px; color: var(--fg-dim); }
@@ -98,23 +101,23 @@
     <p class="peek-note">Not part of a release yet. It may merge into Triton later, or it may not.</p>
     <!-- One .slide per picture. data-caption is shown under the slider. An <img data-src> loads only when its slide is shown. -->
     <div class="slides" tabindex="0" aria-label="Slides: use the arrow keys or swipe">
-      <div class="slide" role="group" aria-roledescription="slide" aria-label="1 of 6" data-caption="Streaming Tears of Steel from download.blender.org. Remember faces knows this face (&ldquo;remembered face &middot; seen 27 times&rdquo;), Action and Violence describe the scuffle, and Troy is watching. Tears of Steel &copy; Blender Foundation | mango.blender.org, CC BY 3.0.">
+      <div class="slide" role="group" aria-roledescription="slide" aria-label="1 of 6" data-caption="&lt;b&gt;Remember faces:&lt;/b&gt; Triton remembers each face it sees and counts how often it has seen it, so the same person keeps the same label for the whole video, here Visitor 1, seen 27 times. &lt;span class=&quot;credit&quot;&gt;Tears of Steel &amp;copy; Blender Foundation | mango.blender.org, CC BY 3.0&lt;/span&gt;">
         <a href="feed-analytic-framework-tears-of-steel.webp"><img src="feed-analytic-framework-tears-of-steel.webp" width="1920" height="1080" alt="The Media Player playing Tears of Steel with seven layers on: a close-up of a woman framed as Visitor 1 with face points and a remembered-face label seen 27 times, another person marked Person 7, both flagged for violence, and the layer panel on the right including Remember faces and Transcript"></a>
       </div>
-      <div class="slide" role="group" aria-roledescription="slide" aria-label="2 of 6" data-caption="Still streaming, on the bridge: both faces are remembered (seen 35 and 37 times), and Action names who is punching whom. Tears of Steel &copy; Blender Foundation | mango.blender.org, CC BY 3.0.">
+      <div class="slide" role="group" aria-roledescription="slide" aria-label="2 of 6" data-caption="&lt;b&gt;Action:&lt;/b&gt; says what each person is doing and to whom, like &amp;ldquo;punching Visitor 2&amp;rdquo; and &amp;ldquo;being punched by Visitor 1&amp;rdquo;, and sums up the scene in one line. &lt;b&gt;Violence&lt;/b&gt; builds on it and marks everyone involved in red. &lt;span class=&quot;credit&quot;&gt;Tears of Steel &amp;copy; Blender Foundation | mango.blender.org, CC BY 3.0&lt;/span&gt;">
         <a href="feed-analytic-framework-tears-of-steel-2.webp"><img src="feed-analytic-framework-tears-of-steel-2.webp" width="1920" height="1080" loading="lazy" alt="The Media Player playing Tears of Steel: two people on a bridge, framed as Visitor 1 and Visitor 2, each with a remembered-face label, flagged for violence with Visitor 1 punching Visitor 2, and the layer panel on the right"></a>
       </div>
-      <div class="slide" role="group" aria-roledescription="slide" aria-label="3 of 6" data-caption="Still streaming, three people in view: Remember faces knows all three, Transcript is hearing speech and Action is looking. Violence: nothing seen. Tears of Steel &copy; Blender Foundation | mango.blender.org, CC BY 3.0.">
+      <div class="slide" role="group" aria-roledescription="slide" aria-label="3 of 6" data-caption="&lt;b&gt;Transcript:&lt;/b&gt; listens to the video&amp;rsquo;s sound and writes down what is said, line by line and speaker by speaker. &lt;b&gt;Presence&lt;/b&gt; counts how many people are in view and for how long, without putting names to them. &lt;span class=&quot;credit&quot;&gt;Tears of Steel &amp;copy; Blender Foundation | mango.blender.org, CC BY 3.0&lt;/span&gt;">
         <a href="feed-analytic-framework-tears-of-steel-3.jpg"><img src="feed-analytic-framework-tears-of-steel-3.jpg" width="1920" height="1080" loading="lazy" alt="The Media Player streaming Tears of Steel: three people framed as Visitor 11, Visitor 5 and Visitor 9, each with face points and a remembered-face label, Transcript hearing speech, and Violence showing nothing seen"></a>
       </div>
-      <div class="slide" role="group" aria-roledescription="slide" aria-label="4 of 6" data-caption="The Media Player with the Feed Analytic Framework switched on. Work in progress: it may still change.">
+      <div class="slide" role="group" aria-roledescription="slide" aria-label="4 of 6" data-caption="&lt;b&gt;Person and Face:&lt;/b&gt; every person gets a frame, a number and how sure the match is, and every face gets its key points and size. Everything is drawn on screen only; the video itself is never changed.">
         <a href="feed-analytic-framework.webp"><img src="feed-analytic-framework.webp" width="1919" height="1079" alt="The Triton Media Player playing a video with the Feed Analytic Framework on: people framed and numbered, two of them marked in red for violence, a warning at the bottom of the video, and the layer panel on the right with Person, Presence, Face, Action and Violence switched on"></a>
       </div>
-      <div class="slide" role="group" aria-roledescription="slide" aria-label="5 of 6" data-caption="In motion: the layers follow people as the video plays, with the Identification panel showing a live camera in the corner. Animated GIF, 16 MB.">
+      <div class="slide" role="group" aria-roledescription="slide" aria-label="5 of 6" data-caption="&lt;b&gt;In motion:&lt;/b&gt; the frames and labels follow people as the video plays. The &lt;b&gt;Identification&lt;/b&gt; panel shows a live camera and puts a name to the person in front of it. Animated GIF, 16 MB.">
         <span class="slide-loading">Loading animation…</span>
         <a href="feed-analytic-framework-identification.gif?v=2"><img data-src="feed-analytic-framework-identification.gif?v=2" width="960" height="540" alt="Animated: the Media Player playing a video with the Feed Analytic Framework on, people framed and labelled as they move, and an Identification panel in the top-right corner showing a live camera with the person in front of it named"></a>
       </div>
-      <div class="slide fit" role="group" aria-roledescription="slide" aria-label="6 of 6" data-caption="Seven layers on, including Remember faces and Transcript. The &ldquo;Troy is watching this&rdquo; bubble is a new experimental Troy skill, still being worked on: here Troy describes the scene, &ldquo;I see two people fighting with a punching attack in the driveway.&rdquo;">
+      <div class="slide fit" role="group" aria-roledescription="slide" aria-label="6 of 6" data-caption="&lt;b&gt;Troy is watching:&lt;/b&gt; Troy watches along with you and, when something changes, makes a short remark by himself in a bubble, like &amp;ldquo;I see two people fighting with a punching attack in the driveway.&amp;rdquo; Experimental; see &lt;a href=&quot;#watch-companion&quot;&gt;Watch companion&lt;/a&gt; below.">
         <a href="feed-analytic-framework-troy.webp"><img src="feed-analytic-framework-troy.webp" width="1416" height="871" loading="lazy" alt="The Media Player with seven processing layers on, including Remember faces and Transcript, and a Troy is watching this bubble in the top-right corner saying: I see two people fighting with a punching attack in the driveway."></a>
       </div>
     </div>
@@ -123,7 +126,7 @@
       <div class="dots"><button type="button" aria-label="Slide 1"></button><button type="button" aria-label="Slide 2"></button><button type="button" aria-label="Slide 3"></button><button type="button" aria-label="Slide 4"></button><button type="button" aria-label="Slide 5"></button><button type="button" aria-label="Slide 6"></button></div>
       <button type="button" class="nav next" aria-label="Next slide"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
     </div>
-    <figcaption aria-live="polite">Streaming Tears of Steel from download.blender.org. Remember faces knows this face (&ldquo;remembered face &middot; seen 27 times&rdquo;), Action and Violence describe the scuffle, and Troy is watching. Tears of Steel &copy; Blender Foundation | mango.blender.org, CC BY 3.0.</figcaption>
+    <figcaption aria-live="polite"><b>Remember faces:</b> Triton remembers each face it sees and counts how often it has seen it, so the same person keeps the same label for the whole video, here Visitor 1, seen 27 times. <span class="credit">Tears of Steel &copy; Blender Foundation | mango.blender.org, CC BY 3.0</span></figcaption>
   </figure>
 
   <section class="feature" aria-labelledby="feed-analytic-framework">
@@ -152,6 +155,22 @@
 
   </section>
 
+  <section class="feature" aria-labelledby="watch-companion">
+    <div class="doc">
+      <span class="eyebrow">Troy · Experimental skill</span>
+      <h2 id="watch-companion">Watch companion</h2>
+      <p>Troy watches along with you. Say “watch this with me” and he hooks to whatever you're looking at and makes short remarks about it by himself, like “I see people gathering on a bridge”, until you say “stop watching”. It's the “Troy is watching this” bubble in the slides above.</p>
+      <ul>
+        <li><strong>In the Media Player</strong> he reads the layers you've switched on, such as Action, Violence and Transcript, together with the picture. He never switches layers on himself.</li>
+        <li><strong>In other apps</strong> he looks at the window. On the desktop he can look through the presence camera, if it's already running.</li>
+        <li><strong>He only speaks when something changes</strong>, keeps it short, and points out violence or a plot when he spots one.</li>
+        <li><strong>Ask him while he watches:</strong> “What am I seeing?” or “What's going on?” gets an answer straight away, with no wake word.</li>
+        <li><strong>He asks first</strong> before his first look, and needs headphones because he listens without the wake word.</li>
+      </ul>
+      <p>It has run once in the real app. Some parts haven't been tried live yet, so expect it to change.</p>
+    </div>
+  </section>
+
 </main>
 
 <footer class="site-footer">
@@ -171,7 +190,7 @@ document.querySelectorAll('.slider').forEach(function (f) {
     if (scroll) track.scrollTo({ left: i * track.clientWidth });
     dots.forEach(function (d, k) { d.setAttribute('aria-current', k === i ? 'true' : 'false'); });
     prev.disabled = i === 0; next.disabled = i === slides.length - 1;
-    cap.textContent = slides[i].getAttribute('data-caption');
+    cap.innerHTML = slides[i].getAttribute('data-caption');
   };
   prev.addEventListener('click', function () { show(i - 1, true); });
   next.addEventListener('click', function () { show(i + 1, true); });
