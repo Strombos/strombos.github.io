@@ -34,13 +34,17 @@
   .feature .doc > p:first-of-type { font-size: 17px; }
   .feature .doc h3 { margin-top: 36px; }
 
-  .layers { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-  .layers li { margin: 0; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--card-2); }
-  .layers li b { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--fg-strong); }
-  .layers li span { display: block; margin-top: 4px; padding-left: 18px; font-size: 15px; line-height: 1.55; color: var(--fg-body); }
-  .layers .sub { margin-left: 28px; }
+  /* Seven layers: one panel, like the player's processing layer panel */
+  .layers { list-style: none; margin: 0; padding: 0; border-radius: 12px; border: 1px solid var(--line); background: var(--card-2); overflow: hidden; }
+  .layers li { position: relative; margin: 0; padding: 16px; border-top: 1px solid var(--line-soft); }
+  .layers li:first-child { border-top: 0; }
+  .layers li b { display: flex; align-items: center; gap: 12px; font-weight: 600; color: var(--fg-strong); }
+  .layers li span { display: block; margin-top: 4px; padding-left: 20px; font-size: 15px; line-height: 1.55; color: var(--fg-body); }
+  .layers li .part { margin-left: 4px; font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--fg-muted); }
+  .layers .sub { padding-top: 4px; padding-left: 44px; border-top: 0; }
+  .layers .sub::before { content: ""; position: absolute; left: 20px; top: -12px; width: 16px; height: 28px; border-left: 1px solid var(--line); border-bottom: 1px solid var(--line); border-bottom-left-radius: 6px; }
 
-  .dotc { flex: none; width: 8px; height: 8px; border-radius: 50%; }
+  .dotc { flex: none; width: 8px; height: 8px; border-radius: 2px; }
   .c-person { background: #3E8EE6; } .c-presence { background: #35C46A; } .c-face { background: #2FC6B0; } .c-action { background: #A77BEA; } .c-remember, .c-transcript { background: #F2B533; } .c-violence { background: #E5484D; }
 
   .peek { margin: 0 0 72px; }
@@ -87,7 +91,8 @@
     .topbar .links > a[aria-current] { display: none; }
     .up-hero .lead { font-size: 16px; }
     .feature h2 { font-size: 28px; }
-    .layers .sub { margin-left: 16px; }
+    .layers .sub { padding-left: 36px; }
+    .layers .sub::before { width: 8px; }
   }
   /* Watch companion: download block */
   .skill-dl { margin-top: 32px; padding: 20px; border-radius: 16px; border: 1px solid var(--line); background: var(--card-2); }
@@ -188,7 +193,7 @@
         <li><b><i class="dotc c-remember"></i>Remember faces</b><span>Remembers each face it sees and counts how often it has seen it, so the same person keeps the same label, like Visitor 1, for the whole video.</span></li>
         <li><b><i class="dotc c-transcript"></i>Transcript</b><span>Listens to the video&rsquo;s sound and writes down what is said, line by line and speaker by speaker.</span></li>
         <li><b><i class="dotc c-action"></i>Action</b><span>Describes the scene in a sentence and says what each person is doing, like “just watching” or “punching person 1”.</span></li>
-        <li class="sub"><b><i class="dotc c-violence"></i>Violence</b><span>Part of Action. Marks the people involved in red, frames the video in red and shows a warning at the bottom, such as “Possible violence · Person 1”. A beep can go with it, or stay off.</span></li>
+        <li class="sub"><b><i class="dotc c-violence"></i>Violence<small class="part">Part of Action</small></b><span>Marks the people involved in red, frames the video in red and shows a warning at the bottom, such as “Possible violence · Person 1”. A beep can go with it, or stay off.</span></li>
       </ul>
 
       <h3>On the video</h3>
