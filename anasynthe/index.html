@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anasynthe</title>
+<meta name="description" content="Anasynthe: a Triton app that rebuilds a strip-shredded document from photos or scans of the strips.">
+<link rel="icon" type="image/png" href="anasynthe-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../docs/docs.css?v=17">
+<style>
+  /* Anasynthe page only (same layout as /upcoming/). Shared tokens and the top bar come from docs.css. */
+  .up { max-width: 1040px; margin: 0 auto; padding: 72px 32px 112px; }
+  .up-hero { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 40px; align-items: center; margin-bottom: 72px; }
+  .up-hero .icon { width: 168px; height: 168px; }
+  .up-hero h1 { margin: 14px 0 20px; font-size: clamp(40px, 9vw, 96px); font-weight: 800; line-height: 0.95; letter-spacing: -0.05em; color: var(--fg-strong); }
+  .up-hero h1 .dot { color: var(--accent); }
+  .up-hero .lead { margin: 0; max-width: 640px; font-size: 18px; line-height: 1.6; color: var(--fg-body); }
+  .up-hero .page-meta { margin-top: 24px; }
+
+  .feature { max-width: 760px; padding-top: 40px; border-top: 1px solid var(--line-soft); }
+  .feature + .feature { margin-top: 64px; }
+  .feature h2 { margin: 10px 0 14px; font-size: 36px; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: var(--fg-strong); }
+  .feature .doc > p:first-of-type { font-size: 17px; }
+  .feature .doc h3 { margin-top: 36px; }
+
+  .layers { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .layers li { margin: 0; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--card-2); }
+  .layers li b { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--fg-strong); }
+  .layers li span { display: block; margin-top: 4px; font-size: 15px; line-height: 1.55; color: var(--fg-body); }
+  .layers .n { flex: none; font-family: var(--mono); font-size: 12px; color: var(--accent); }
+
+  .shots { display: grid; grid-template-columns: minmax(0, 325fr) minmax(0, 650fr); gap: 20px; align-items: start; margin: 28px 0 0; }
+  .shots figure { margin: 0; }
+  .shots a { display: block; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4); }
+  .shots a:hover { border-color: var(--accent); }
+  .shots img { display: block; width: 100%; height: auto; }
+  .shots figcaption { margin-top: 10px; font-size: 14px; line-height: 1.55; color: var(--fg-dim); }
+
+  .site-footer { max-width: 1040px; margin: 0 auto; }
+  @media (max-width: 640px) {
+    .up { padding: 40px 16px 80px; }
+    .up-hero { display: block; margin-bottom: 48px; }
+    .up-hero .icon { width: 96px; height: 96px; margin-bottom: 16px; }
+    .topbar .brand a + a { display: none; }
+    .topbar .links > a { display: none; }
+    .proj-menu { left: auto; right: 0; }
+    .up-hero .lead { font-size: 16px; }
+    .feature h2 { font-size: 28px; }
+    .shots { grid-template-columns: minmax(0, 1fr); }
+    .shots a { border-radius: 12px; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="brand" style="display:flex"><a href="../" style="text-decoration:none"><b>Strombos</b></a><a href="./" style="text-decoration:none"><span>Anasynthe</span></a></div>
+  <nav class="links" aria-label="Site"><details class="proj"><summary aria-label="Project: Anasynthe. Switch project">Anasynthe<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary><div class="proj-menu"><span class="t">Projects</span><a href="../">Triton</a><a href="./" aria-current="page">Anasynthe<small>Current</small></a></div></details><a href="#how-it-works">How it works</a><a href="#in-the-app">In the app</a><a href="#through-troy">Through Troy</a></nav>
+</header>
+
+<main class="up" id="main">
+
+  <div class="up-hero">
+    <img class="icon" src="anasynthe-icon.png" width="512" height="512" alt="">
+    <div>
+      <span class="eyebrow">A Triton app</span>
+      <h1>Anasynthe<span class="dot">.</span></h1>
+      <p class="lead">Rebuilds a strip-shredded document from photos or scans of the strips. Drop in one image of all the strips (or several images, or the strips as separate files), press Reconstruct, and it hands back the reassembled page or pages, plus a verdict on whether the result can be trusted.</p>
+      <div class="page-meta"><span class="pill accent">Triton app</span><span class="pill">Works with Troy</span></div>
+    </div>
+  </div>
+
+  <section class="feature" aria-labelledby="how-it-works">
+    <div class="doc">
+      <span class="eyebrow">How it works</span>
+      <h2 id="how-it-works">From strips to a page</h2>
+
+      <h3>1. Find the strips</h3>
+      <p>Each input image is separated from its background, split into connected pieces, deskewed, and trimmed of the blurred cut fringe along each edge. A single photo of 30 strips on a desk becomes 30 clean strips.</p>
+
+      <h3>2. Try methods in order, falling back automatically</h3>
+      <p>Each method proposes an arrangement and the verifier scores it. If it isn't trusted, the next method runs.</p>
+      <ul class="layers">
+        <li><b><i class="n">01</i>Edge matcher</b><span>Compares the ink along every pair of edges and solves the ordering: exact for 16 strips or fewer, heuristic beyond that. Fast; it handles most clean scans and photos in a few seconds.</span></li>
+        <li><b><i class="n">02</i>Fragment growing with OCR</b><span>Reads candidate joins with Tesseract and merges pairs where real words cross the seam, growing fragments until pages form. Slower, but it reads text rather than pixels.</span></li>
+        <li><b><i class="n">03</i>DocReassembly / DeepRec</b><span>Optional external tools, used if installed.</span></li>
+      </ul>
+
+      <h3>3. Multi-page</h3>
+      <p>Tell it how many pages. The solver places the page breaks itself at the most margin-like edges, so two documents shredded together come out as two pages.</p>
+
+      <h3>4. Verify</h3>
+      <p>The composed page is OCR'd and checked four ways:</p>
+      <ul>
+        <li>word confidence,</li>
+        <li>how many words are in the dictionary,</li>
+        <li>whether words crossing each seam read as real words,</li>
+        <li>pixel continuity across seams.</li>
+      </ul>
+      <p>Pages must start and end on blank margins. The result is <strong>trusted</strong>, <strong>needs review</strong> (with each suspect seam marked), or <strong>rejected</strong>. A deliberately shuffled page scores about 0.25 against a 0.70 trust threshold.</p>
+    </div>
+  </section>
+
+  <section class="feature" aria-labelledby="in-the-app">
+    <div class="doc">
+      <span class="eyebrow">In the app</span>
+      <h2 id="in-the-app">Watch it work</h2>
+      <ul>
+        <li>A transparent drop area that takes multiple files. Click any thumbnail for a zoomable preview.</li>
+        <li><strong>Left:</strong> the method queue with live status: waiting, running, trusted, not trusted, failed, skipped.</li>
+        <li><strong>Right:</strong> the live process view: the strips as they're found, the cost matrix, OCR sheets being read and the verifier's page check, plus counters and a word feed. Restrained, no theatrics.</li>
+        <li>A result view with <strong>Page</strong>, <strong>Seams</strong> and <strong>Process</strong> tabs. Suspect seams are highlighted; double-click to open. You can reorder strips by hand and check again.</li>
+        <li>An output folder for each run: the pages as PNG, a seams overlay, the extracted text and a JSON report.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="feature" aria-labelledby="through-troy">
+    <div class="doc">
+      <span class="eyebrow">Through Troy</span>
+      <h2 id="through-troy">Just ask Troy</h2>
+      <p>Say “help reassemble the shredded document”, or drop a photo and say “reconstruct this”, and the skill starts a job.</p>
+      <ul>
+        <li>Troy's web page shows a card with a drop zone, the page count, and a checkbox to open the real app and watch it work.</li>
+        <li>The card follows the job live: the queue, the current frame, narration and counters, then the result with Page, Seams and Process tabs and the text.</li>
+        <li>With “open the app” ticked, Troy drives the window and narrates each step aloud: “Attempting reconstruction using Edge matcher… not trusted, reattempting with Fragment growing… completed.”</li>
+      </ul>
+    </div>
+    <div class="shots">
+      <figure>
+        <a href="troy-reconstruct-request.png"><img src="troy-reconstruct-request.png" width="325" height="237" alt="A chat message to Troy: a photo of about 30 shredded paper strips lying side by side, with the text “reconstruct this photo”"></a>
+        <figcaption>A photo of the strips, sent to Troy.</figcaption>
+      </figure>
+      <figure>
+        <a href="troy-rebuilt-card.png"><img src="troy-rebuilt-card.png" width="650" height="585" alt="Troy's card for the finished job: Rebuilt, trusted 0.94, Edge matcher, 30 strips. The method queue on the left shows Edge matcher trusted and the other methods not needed; the rebuilt page sits on the right under Page, Seams and Process tabs; below are Troy's narration lines and the counters"></a>
+        <figcaption>Troy's card when the job is done: trusted at 0.94 by the Edge matcher, 30 strips.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <span>Anasynthe is a Triton app by Strombos</span>
+  <span>© 2026 Strombos</span>
+</footer>
+</body>
+</html>
