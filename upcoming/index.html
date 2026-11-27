@@ -93,6 +93,26 @@
   .demo-input button:disabled { opacity: 0.5; cursor: default; }
   .demo-input button.ghost { background: transparent; border: 1px solid var(--line); color: var(--fg-strong); font-weight: 400; }
   @media (prefers-reduced-motion: reduce) { .thinking::before { animation: none; } }
+  /* Interactive copy of the PC emergency alert (script at the end) */
+  .alert-demo { margin: 24px 0 8px; padding: 28px 16px; border-radius: 16px; border: 1px solid var(--line); background: #2A323A; }
+  .alert-demo .note { margin: 0 0 14px; font-size: 13px; color: #A3B1BA; text-align: center; }
+  .ea { max-width: 560px; margin: 0 auto; padding: 16px 12px 12px; border-radius: 10px; border: 2px solid #E5484D; background: #22272C; box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45); color: #E8EEF1; }
+  .ea-top { display: flex; align-items: baseline; gap: 10px; padding: 0 4px 10px; }
+  .ea-top b { font-size: 21px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #F2F6F8; }
+  .ea-top span { font-family: var(--mono); font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: #8A9AA4; }
+  .ea-dots { margin-left: auto; display: flex; gap: 6px; align-self: center; }
+  .ea-dots i { width: 8px; height: 8px; border-radius: 50%; background: #E5484D; }
+  .ea-dots i + i { background: #5A2A2E; }
+  .ea-bar { padding: 6px 10px; background: #C8202A; font-size: 15px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #FFFFFF; }
+  .ea p { margin: 12px 4px; font-size: 15px; line-height: 1.55; }
+  .ea-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 4px; }
+  .ea-foot span { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; color: #8A9AA4; }
+  .ea-foot button { min-height: 36px; padding: 0 14px; border-radius: 3px; border: 1px solid #F07178; background: #C8202A; color: #FFFFFF; font: 700 13px var(--sans); letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; }
+  .ea-foot button:hover { background: #DC2B35; }
+  .ea-done { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; min-height: 120px; font-size: 15px; color: #C9D6DD; }
+  .ea-done button { min-height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--fg-strong); font: 14px var(--sans); cursor: pointer; }
+  .ea-done button:hover { border-color: var(--accent); }
+  @media (max-width: 640px) { .ea-top b { font-size: 18px; } .ea-bar { font-size: 13px; } }
 </style>
 </head>
 <body>
@@ -172,6 +192,18 @@
         <li><strong>Your phone rings on a crash:</strong> the crash notice makes the phone play the emergency alert sound until you acknowledge it. The PC stays quiet and keeps the notice on screen until then.</li>
         <li><strong>Planned stops:</strong> Triton tells linked phones just before a Shutdown, Restart or close, so they don't treat it as a crash.</li>
       </ul>
+      <h3>Emergency alert on the PC</h3>
+      <p>This is how an emergency alert looks on the PC. Acknowledging it on your phone closes it on the PC too. Try the button:</p>
+      <div class="alert-demo" id="alert-demo">
+        <p class="note">A copy of the PC alert, for this page. Nothing is sent.</p>
+        <div class="ea" role="alertdialog" aria-labelledby="ea-title" aria-describedby="ea-text">
+          <div class="ea-top"><b id="ea-title">Emergency alert</b><span>(Severe)</span><span class="ea-dots" aria-hidden="true"><i></i><i></i></span></div>
+          <div class="ea-bar">Test alert &mdash; until 19:40</div>
+          <p id="ea-text">This is a test of Triton&rsquo;s emergency alerts. No action is needed. A real alert shows the issuer&rsquo;s own text here: what is happening and where. This covers your location.</p>
+          <div class="ea-foot"><span>TEST &middot; 19:30</span><button type="button">Acknowledge</button></div>
+        </div>
+        <div class="ea-done" hidden><span>&#10003; Acknowledged. The alert is closed.</span><button type="button">Show the test alert again</button></div>
+      </div>
     </div>
   </section>
 
@@ -381,6 +413,15 @@
   reset.addEventListener('click', function () {
     chat.innerHTML = EMPTY; input.value = START; reset.hidden = true; always = false; input.focus();
   });
+})();
+</script>
+<script>
+// Emergency alert copy: Acknowledge closes it, "Show again" brings it back. Nothing is sent.
+(function () {
+  var box = document.getElementById('alert-demo'); if (!box) return;
+  var alert = box.querySelector('.ea'), done = box.querySelector('.ea-done');
+  alert.querySelector('button').addEventListener('click', function () { alert.hidden = true; done.hidden = false; done.querySelector('button').focus(); });
+  done.querySelector('button').addEventListener('click', function () { done.hidden = true; alert.hidden = false; alert.querySelector('button').focus(); });
 })();
 </script>
 <script src="../lightbox.js?v=1" defer></script>
