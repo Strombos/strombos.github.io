@@ -34,6 +34,7 @@
   .c-person { background: #3E8EE6; } .c-presence { background: #35C46A; } .c-face { background: #2FC6B0; } .c-action { background: #A77BEA; } .c-violence { background: #E5484D; }
 
   .peek { margin: 0 0 72px; }
+  .feature + .peek { margin-top: 72px; }
   .peek a { display: block; margin-top: 14px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4); }
   .peek a:hover { border-color: var(--accent); }
   .peek img { display: block; width: 100%; height: auto; }
@@ -46,6 +47,7 @@
     .up { padding: 40px 16px 80px; }
     .up-hero { margin-bottom: 48px; }
     .peek { margin-bottom: 48px; }
+    .feature + .peek { margin-top: 48px; }
     .peek a { border-radius: 12px; }
     .topbar .brand a + a { display: none; }
     .topbar .links a:first-child { display: inline-flex; }
@@ -69,8 +71,8 @@
   <div class="up-hero">
     <span class="eyebrow">Triton · Upcoming</span>
     <h1>Pre-Release 0.1<span class="dot">.</span></h1>
-    <p class="lead">The next Triton release, after Prototype 155 · Build 8. This is what's coming in it.</p>
-    <div class="page-meta"><span class="pill accent">Next release</span><span class="pill">In development</span></div>
+    <p class="lead">The next Triton release, Prototype 156, after Prototype 155 · Build 8. This is what's coming in it.</p>
+    <div class="page-meta"><span class="pill accent">Next release</span><span class="pill">Prototype 156</span><span class="pill">In development</span></div>
   </div>
 
   <figure class="peek">
@@ -90,6 +92,20 @@
         <li>Double-click a folder in the side map to open it in the tab. Files open with their system app.</li>
         <li>Left-click on Space Map works as before.</li>
       </ul>
+    </div>
+  </section>
+
+  <figure class="peek">
+    <div class="peek-head"><span class="eyebrow">Troy · Dramatic Action</span><span class="pill accent">New</span><span class="pill">Optional</span></div>
+    <a href="dramatic-action.gif"><img src="dramatic-action.gif" width="800" height="450" loading="lazy" alt="Troy answering a question in Forge with Dramatic Action on: terminal windows open one after another, each showing a search Troy runs through the source code, its results, and Done when it finishes"></a>
+    <figcaption>Troy looking up code with Atlas, with Dramatic Action on: each search he runs opens in its own terminal.</figcaption>
+  </figure>
+
+  <section class="feature" aria-labelledby="dramatic-action">
+    <div class="doc">
+      <span class="eyebrow">New in Pre-Release 0.1 · Optional</span>
+      <h2 id="dramatic-action">Troy: Dramatic Action</h2>
+      <p>An optional feature for Troy. While Troy performs an action, such as an Atlas query, Dramatic Action shows his process in a terminal as it happens.</p>
     </div>
   </section>
 
