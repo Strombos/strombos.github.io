@@ -197,7 +197,7 @@ mark { background: rgba(111, 179, 204, 0.28); color: inherit; border-radius: 3px
   .topbar { padding: 0 16px; gap: 10px; }
   .topbar .brand { display: none; }
   .topbar .links { gap: 16px; }
-  .topbar .links a:first-child { display: none; }
+  .topbar .links a:not(:last-child) { display: none; }
   .search { flex: 1 1 auto; margin-left: 0; }
   .search kbd { display: none; }
   .content { padding: 24px 16px 72px; }

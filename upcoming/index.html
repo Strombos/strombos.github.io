@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Upcoming — Triton</title>
+<meta name="description" content="What's coming to Triton in Pre-Release 0.1.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../docs/docs.css?v=15">
+<style>
+  /* Upcoming page only. Shared tokens and the top bar come from docs.css. */
+  .up { max-width: 1040px; margin: 0 auto; padding: 72px 32px 112px; }
+  .up-hero { margin-bottom: 72px; }
+  .up-hero h1 { margin: 18px 0 20px; font-size: clamp(40px, 11vw, 104px); font-weight: 800; line-height: 0.95; letter-spacing: -0.05em; color: var(--fg-strong); }
+  .up-hero h1 .dot { color: var(--accent); }
+  .up-hero .lead { margin: 0; max-width: 640px; font-size: 18px; line-height: 1.6; color: var(--fg-body); }
+  .up-hero .page-meta { margin-top: 24px; }
+
+  .feature { max-width: 760px; padding-top: 40px; border-top: 1px solid var(--line-soft); }
+  .feature h2 { margin: 10px 0 14px; font-size: 36px; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: var(--fg-strong); }
+  .feature .doc > p:first-of-type { font-size: 17px; }
+  .feature .doc h3 { margin-top: 36px; }
+
+  .layers { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .layers li { margin: 0; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--card-2); }
+  .layers li b { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--fg-strong); }
+  .layers li span { display: block; margin-top: 4px; padding-left: 18px; font-size: 15px; line-height: 1.55; color: var(--fg-body); }
+  .layers .sub { margin-left: 28px; }
+
+  .dotc { flex: none; width: 8px; height: 8px; border-radius: 50%; }
+  .c-person { background: #3E8EE6; } .c-presence { background: #35C46A; } .c-face { background: #2FC6B0; } .c-action { background: #A77BEA; } .c-violence { background: #E5484D; }
+
+  .peek { margin: 0 0 72px; }
+  .peek a { display: block; margin-top: 14px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4); }
+  .peek a:hover { border-color: var(--accent); }
+  .peek img { display: block; width: 100%; height: auto; }
+  .peek figcaption { margin-top: 14px; max-width: 720px; font-size: 15px; line-height: 1.6; color: var(--fg-dim); }
+
+  .site-footer { max-width: 1040px; margin: 0 auto; }
+  @media (max-width: 640px) {
+    .up { padding: 40px 16px 80px; }
+    .up-hero { margin-bottom: 48px; }
+    .peek { margin-bottom: 48px; }
+    .peek a { border-radius: 12px; }
+    .topbar .brand a + a { display: none; }
+    .topbar .links a:first-child { display: inline-flex; }
+    .topbar .links a[aria-current] { display: none; }
+    .up-hero .lead { font-size: 16px; }
+    .feature h2 { font-size: 28px; }
+    .layers .sub { margin-left: 16px; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="brand" style="display:flex"><a href="../" style="text-decoration:none"><b>Strombos</b></a><a href="./" style="text-decoration:none"><span>Upcoming</span></a></div>
+  <nav class="links" aria-label="Site"><a href="../docs/">Docs</a><a href="./" aria-current="page">Upcoming</a><a href="../#download">Download</a></nav>
+</header>
+
+<main class="up" id="main">
+
+  <div class="up-hero">
+    <span class="eyebrow">Triton · Upcoming</span>
+    <h1>Pre-Release 0.1<span class="dot">.</span></h1>
+    <p class="lead">The next Triton release, after Prototype 155 · Build 8. This is what's coming in it.</p>
+    <div class="page-meta"><span class="pill accent">Next release</span><span class="pill">In development</span></div>
+  </div>
+
+  <figure class="peek">
+    <span class="eyebrow">Sneak peek</span>
+    <a href="sneak-peek.webp"><img src="sneak-peek.webp" width="1919" height="1079" alt="The Triton Media Player playing a video with the Feed Analytic Framework on: people framed and numbered, two of them marked in red for violence, a warning at the bottom of the video, and the layer panel on the right with Person, Presence, Face, Action and Violence switched on"></a>
+    <figcaption>The Media Player in Pre-Release 0.1, with the Feed Analytic Framework switched on. Work in progress: it may still change before the release.</figcaption>
+  </figure>
+
+  <section class="feature" aria-labelledby="feed-analytic-framework">
+    <div class="doc">
+      <span class="eyebrow">Media Player</span>
+      <h2 id="feed-analytic-framework">Feed Analytic Framework</h2>
+      <p>With the Feed Analytic Framework, the Media Player can look at the video while it plays and draw what it sees on top of it: who is in the picture, where their faces are, what each person is doing, and when something turns violent.</p>
+      <p>Everything is drawn on screen only. The video itself is not changed.</p>
+
+      <h3>Five layers, each one on or off</h3>
+      <p>Open the processing layer panel from the player's toolbar and press a layer to switch it on or off.</p>
+      <ul class="layers">
+        <li><b><i class="dotc c-person"></i>Person</b><span>Finds every person in the picture, puts a frame around them and numbers them: Person 1, Person 2 and so on, with how sure it is.</span></li>
+        <li><b><i class="dotc c-presence"></i>Presence</b><span>Counts how many people are here and for how long. It doesn't put names to anyone.</span></li>
+        <li><b><i class="dotc c-face"></i>Face</b><span>Marks each face it finds, with how sure it is and how big the face is.</span></li>
+        <li><b><i class="dotc c-action"></i>Action</b><span>Describes the scene in a sentence and says what each person is doing, like “just watching” or “punching person 1”.</span></li>
+        <li class="sub"><b><i class="dotc c-violence"></i>Violence</b><span>Part of Action. Marks the people involved in red, frames the video in red and shows a warning at the bottom, such as “Possible violence · Person 1”. A beep can go with it, or stay off.</span></li>
+      </ul>
+
+      <h3>On the video</h3>
+      <ul>
+        <li>Each person gets corner brackets and a label with their number and what the layers found.</li>
+        <li>A short summary sits in the top-left corner: how many people are here, the scene, and whether there's violence.</li>
+      </ul>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <span>Triton is a project by Strombos</span>
+  <span>© 2026 Strombos</span>
+</footer>
+</body>
+</html>
