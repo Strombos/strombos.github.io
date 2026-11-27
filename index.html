@@ -12,7 +12,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#0A0E11}
 a{color:#A9CFDB}a:hover{color:#FFFFFF}
@@ -44,33 +44,33 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
     </nav>
   </header>
 
-  <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.24em; text-transform: uppercase; color: #8A9AA4; position: relative">Project E1102 · Desktop Shell</span>
+  <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0; color: #8A9AA4; position: relative">Project E1102 · Desktop Shell</span>
 
   <h1 style="margin: 0; font-size: 200px; font-weight: 800; line-height: 0.9; letter-spacing: -0.045em; color: #F2F6F8; text-align: center; position: relative">TRITON<span style="color: rgb(111, 179, 204)">.</span></h1>
 
   <nav aria-label="Choose your platform" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; position: relative">
 
-    <a href="#download" onClick="{{ pickWindows }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 20px; min-height: 44px; box-sizing: border-box; border-radius: 999px; background: {{ winBg }}; border: 1px solid {{ winBorder }}; font-size: 16px; font-weight: 600; color: #F2F6F8; text-decoration: none">
-      <span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 999px; background: {{accent}}"></span>
+    <a href="#download" onClick="{{ pickWindows }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 20px; min-height: 44px; box-sizing: border-box; border-radius: 10px; background: {{ winBg }}; border: 1px solid {{ winBorder }}; font-size: 15px; font-weight: 600; color: #F2F6F8; text-decoration: none">
+      <span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 2px; background: {{accent}}"></span>
       Windows 11
     </a>
 
-    <a href="#download" onClick="{{ pickLinux }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 12px 12px 20px; min-height: 44px; box-sizing: border-box; border-radius: 999px; background: {{ linBg }}; border: 1px solid {{ linBorder }}; font-size: 16px; font-weight: 600; color: #F2F6F8; text-decoration: none">
-      <span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 999px; border: 1.5px solid {{accent}}; box-sizing: border-box"></span>
+    <a href="#download" onClick="{{ pickLinux }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 12px 12px 20px; min-height: 44px; box-sizing: border-box; border-radius: 10px; background: {{ linBg }}; border: 1px solid {{ linBorder }}; font-size: 15px; font-weight: 600; color: #F2F6F8; text-decoration: none">
+      <span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 2px; border: 1.5px solid {{accent}}; box-sizing: border-box"></span>
       Linux
-      <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; padding: 4px 9px; border-radius: 999px; background: #A9CFDB; color: #0A0E11">BETA</span>
+      <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #8A9AA4">Beta</span>
     </a>
 
-    <a href="#download" onClick="{{ pickMac }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 20px; min-height: 44px; box-sizing: border-box; border-radius: 999px; background: {{ macBg }}; border: 1px dashed {{ macBorder }}; font-size: 16px; font-weight: 300; color: #A3B1BA; text-decoration: none">
-      <span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 999px; background: #3A4A56"></span>
+    <a href="#download" onClick="{{ pickMac }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 20px; min-height: 44px; box-sizing: border-box; border-radius: 10px; background: {{ macBg }}; border: 1px dashed {{ macBorder }}; font-size: 15px; font-weight: 400; color: #A3B1BA; text-decoration: none">
+      <span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 2px; background: #3A4A56"></span>
       macOS
-      <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #8A9AA4">Partial support</span>
+      <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Partial support</span>
     </a>
   </nav>
 
-  <div style="display: flex; align-items: center; gap: 10px; padding: 8px 16px; border-radius: 8px; background: #121B22; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; color: #C9D6DD; position: relative">
+  <div style="display: flex; align-items: center; gap: 10px; padding: 8px 16px; border-radius: 8px; background: #121B22; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #C9D6DD; position: relative">
     <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5V9z"></path><path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16"></path><path d="M8 3c0 1.5 2 1.5 2 3M12 3c0 1.5 2 1.5 2 3"></path></svg>
-    Requires <span style="color: {{accent}}; font-weight: 600">Java 21 or higher</span>
+    Requires <span style="color: #F2F6F8; font-weight: 600">Java 21 or higher</span>
   </div>
 
 </section>
@@ -89,19 +89,19 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
 
     <div style="position: absolute; z-index: 30; left: max(16px, 2%); right: 16px; bottom: 0; box-sizing: border-box; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; text-shadow: 0 2px 24px rgba(10, 14, 17, 0.85)">
       <div aria-live="polite" style="max-width: 100%; min-width: 0; display: flex; flex-direction: column; gap: 6px">
-        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: {{accent}}">{{ current.num }} / 06</span>
-        <h2 style="margin: 0; font-size: clamp(40px, 6vw, 80px); font-weight: 800; line-height: 1; letter-spacing: -0.04em; color: #F2F6F8">{{ current.title }}</h2>
-        <p style="margin: 0; font-size: 16px; line-height: 1.5; color: #A3B1BA">{{ current.desc }}</p>
+        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">{{ current.num }} / 06</span>
+        <h2 style="margin: 0; font-size: clamp(40px, 6vw, 80px); font-weight: 600; line-height: 1; letter-spacing: -0.02em; color: #F2F6F8">{{ current.title }}</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #A3B1BA">{{ current.desc }}</p>
       </div>
       <div role="group" aria-label="Jump to a view" style="display: flex; flex-wrap: wrap; align-items: center; gap: 2px 6px">
         <sc-for list="{{ pages }}" as="page" hint-placeholder-count="6">
-          <button type="button" aria-pressed="{{ page.active }}" onClick="{{ page.go }}" style="min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center"><span style="display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 999px; border: 1px solid {{ page.tabBorder }}; background: rgba(10, 14, 17, 0.55); color: {{ page.tabFg }}; font-family: 'Sora', system-ui, sans-serif; font-size: 12px; font-weight: 600; text-shadow: none">{{ page.label }}</span></button>
+          <button type="button" aria-pressed="{{ page.active }}" onClick="{{ page.go }}" style="min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center"><span style="display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 8px; border: 1px solid {{ page.tabBorder }}; background: rgba(10, 14, 17, 0.55); color: {{ page.tabFg }}; font-family: 'Sora', system-ui, sans-serif; font-size: 12px; font-weight: 600; text-shadow: none">{{ page.label }}</span></button>
         </sc-for>
       </div>
     </div>
     </div>
 
-    <a href="#about" aria-hidden="{{ moreHidden }}" tabIndex="{{ moreTab }}" style="position: absolute; z-index: 31; left: 50%; bottom: 8px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 12px 4px; box-sizing: border-box; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; opacity: {{ moreOpacity }}; pointer-events: {{ morePointer }}; transition: {{ fadeTransition }}">Discover more <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="M6 13l6 6 6-6"></path></svg></a>
+    <a href="#about" aria-hidden="{{ moreHidden }}" tabIndex="{{ moreTab }}" style="position: absolute; z-index: 31; left: 50%; bottom: 8px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 12px 4px; box-sizing: border-box; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0; text-decoration: none; opacity: {{ moreOpacity }}; pointer-events: {{ morePointer }}; transition: {{ fadeTransition }}">Discover more <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="M6 13l6 6 6-6"></path></svg></a>
 
   </div>
 </section>
@@ -109,28 +109,28 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
 <section id="about" style="box-sizing: border-box; display: flex; flex-direction: column; align-items: center; padding: 96px 16px 112px; gap: 56px">
 
   <div style="width: 100%; max-width: 800px; display: flex; flex-direction: column; gap: 24px; text-align: center; align-items: center">
-    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: {{accent}}">What is Triton</span>
-    <h2 style="margin: 0; font-size: 44px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: #F2F6F8">A desktop shell you shape yourself.</h2>
+    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">What is Triton</span>
+    <h2 style="margin: 0; font-size: 44px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; color: #F2F6F8">A desktop shell you shape yourself</h2>
     <p style="margin: 0; max-width: 640px; font-size: 18px; line-height: 1.6; color: #C9D6DD">Triton is a desktop environment that runs on top of your operating system. It replaces the usual desktop with tiles, apps, and widgets you arrange and swap however you like. Bring in the programs you already use, add Triton apps, or change the pieces yourself — most of it is open to you.</p>
   </div>
 
-  <blockquote style="margin: 0; width: 100%; max-width: 800px; box-sizing: border-box; padding: 32px 36px; border-radius: 24px; background: #10181E; border: 1px solid #22303A; border-left: 3px solid {{accent}}; display: flex; flex-direction: column; gap: 12px">
-    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #8A9AA4">The idea</span>
-    <p style="margin: 0; font-size: 26px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; color: #F2F6F8">A vision to create your own space — customize it, play around, and make the space yours.</p>
-    <footer style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.08em; color: #8A9AA4">— Deon</footer>
+  <blockquote style="margin: 0; width: 100%; max-width: 800px; box-sizing: border-box; padding: 32px 36px; border-radius: 16px; background: #10181E; border: 1px solid #22303A; border-left: 3px solid #3A4A56; display: flex; flex-direction: column; gap: 12px">
+    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">The idea</span>
+    <p style="margin: 0; font-size: 22px; font-weight: 600; line-height: 1.3; letter-spacing: 0; color: #F2F6F8">A vision to create your own space — customize it, play around, and make the space yours.</p>
+    <footer style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0; color: #8A9AA4">— Deon</footer>
   </blockquote>
 
   <ul style="list-style: none; margin: 0; padding: 0; width: 100%; max-width: 800px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
-    <li style="box-sizing: border-box; padding: 24px; border-radius: 20px; background: #10181E; border: 1px solid #22303A; display: flex; flex-direction: column; gap: 10px">
-      <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: {{accent}}">Your layout</span>
+    <li style="box-sizing: border-box; padding: 24px; border-radius: 16px; background: #10181E; border: 1px solid #22303A; display: flex; flex-direction: column; gap: 10px">
+      <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Your layout</span>
       <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">Tiles, docks, and widgets you place where you want them, on one screen or many.</p>
     </li>
-    <li style="box-sizing: border-box; padding: 24px; border-radius: 20px; background: #10181E; border: 1px solid #22303A; display: flex; flex-direction: column; gap: 10px">
-      <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: {{accent}}">Your apps</span>
+    <li style="box-sizing: border-box; padding: 24px; border-radius: 16px; background: #10181E; border: 1px solid #22303A; display: flex; flex-direction: column; gap: 10px">
+      <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Your apps</span>
       <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">Launch the programs already on your machine, install Triton apps, or edit and build your own.</p>
     </li>
-    <li style="box-sizing: border-box; padding: 24px; border-radius: 20px; background: #10181E; border: 1px solid #22303A; display: flex; flex-direction: column; gap: 10px">
-      <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: {{accent}}">Goes with you</span>
+    <li style="box-sizing: border-box; padding: 24px; border-radius: 16px; background: #10181E; border: 1px solid #22303A; display: flex; flex-direction: column; gap: 10px">
+      <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Goes with you</span>
       <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">Runs portably from a USB drive with your setup intact, or installs to your machine for speed.</p>
     </li>
   </ul>
@@ -141,27 +141,27 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
 
 <div role="separator" style="display: flex; align-items: center; gap: 20px; width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 16px; box-sizing: border-box">
   <div aria-hidden="true" style="flex: 1 1 0; height: 1px; background: #22303A"></div>
-  <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #8A9AA4">Get Triton</span>
+  <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Get Triton</span>
   <div aria-hidden="true" style="flex: 1 1 0; height: 1px; background: #22303A"></div>
 </div>
 
 <section id="download" style="box-sizing: border-box; display: flex; flex-direction: column; align-items: center; padding: 96px 16px 128px; gap: 48px">
 
   <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center">
-    <h2 style="margin: 0; font-size: 44px; font-weight: 800; letter-spacing: -0.03em; color: #F2F6F8">Prototype 155</h2>
-    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: {{accent}}">Demo Edition · November build 8</span>
+    <h2 style="margin: 0; font-size: 44px; font-weight: 600; letter-spacing: -0.02em; color: #F2F6F8">Prototype 155</h2>
+    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Demo Edition · November build 8</span>
   </div>
 
-  <div style="width: 100%; max-width: 800px; box-sizing: border-box; border-radius: 20px; background: #0E1419; border: 1px solid #22303A">
-    <button type="button" aria-expanded="{{ notesOpen }}" aria-controls="build-notes" onClick="{{ toggleNotes }}" style="width: 100%; min-height: 56px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 24px; border: 0; background: transparent; color: #F2F6F8; cursor: pointer; text-align: left; font-family: 'Sora', system-ui, sans-serif; font-size: 16px; font-weight: 600">
-      <span style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: {{accent}}">Build 8</span>What's new in build 8</span>
+  <div style="width: 100%; max-width: 800px; box-sizing: border-box; border-radius: 16px; background: #0E1419; border: 1px solid #22303A">
+    <button type="button" aria-expanded="{{ notesOpen }}" aria-controls="build-notes" onClick="{{ toggleNotes }}" style="width: 100%; min-height: 56px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 24px; border: 0; background: transparent; color: #F2F6F8; cursor: pointer; text-align: left; font-family: 'Sora', system-ui, sans-serif; font-size: 15px; font-weight: 600">
+      <span style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Build 8</span>What's new in build 8</span>
       <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; transform: {{ notesChevron }}; transition: transform 0.25s ease"><path d="M6 9l6 6 6-6"></path></svg>
     </button>
     <sc-if value="{{ notesOpen }}" hint-placeholder-val="{{ false }}">
       <div id="build-notes" style="padding: 20px 24px 28px; border-top: 1px solid #1C2830; display: flex; flex-direction: column; gap: 28px">
-        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; color: #8A9AA4">November 25, 2026</span>
+        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">November 25, 2026</span>
         <div style="display: flex; flex-direction: column; gap: 12px">
-          <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid #A9CFDB; color: #A9CFDB">Fixed</span>
+          <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #C9D6DD">Fixed</span>
           <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
             <li>Choosing a new per-screen background sometimes kept showing the old picture. The main background picker had the same problem.</li>
             <li>Per-screen wallpapers no longer move to a different monitor when a monitor drops out and comes back (for example over a loose HDMI cable). Your current per-screen setup is carried over automatically on first start.</li>
@@ -172,14 +172,14 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
           </ul>
         </div>
         <div style="display: flex; flex-direction: column; gap: 12px">
-          <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid {{accent}}; color: {{accent}}">Changed</span>
+          <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #C9D6DD">Changed</span>
           <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
             <li>Asking Troy to open an app that's already running now offers to switch to it or open another.</li>
             <li>triton.jar no longer includes Triton's source code, so dev mode and Live reload report that the build has no sources. Build 7, which has them, stays available below.</li>
           </ul>
         </div>
         <div style="display: flex; flex-direction: column; gap: 12px">
-          <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid #8A9AA4; color: #8A9AA4">Known limits</span>
+          <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #8A9AA4">Known limits</span>
           <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
             <li>Troy can't control Windows programs on the dock yet.</li>
             <li>Saying "Troy" while he's still thinking still queues a second request.</li>
@@ -189,18 +189,18 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
       </div>
     </sc-if>
     <div style="border-top: 1px solid #1C2830">
-      <button type="button" aria-expanded="{{ oldNotesOpen }}" aria-controls="build-notes-earlier" onClick="{{ toggleOldNotes }}" style="width: 100%; min-height: 56px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 24px; border: 0; background: transparent; color: #A3B1BA; cursor: pointer; text-align: left; font-family: 'Sora', system-ui, sans-serif; font-size: 14px; font-weight: 600">
-        <span style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A9AA4">Earlier builds</span>Build 7 · 6 · 5</span>
+      <button type="button" aria-expanded="{{ oldNotesOpen }}" aria-controls="build-notes-earlier" onClick="{{ toggleOldNotes }}" style="width: 100%; min-height: 56px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 24px; border: 0; background: transparent; color: #A3B1BA; cursor: pointer; text-align: left; font-family: 'Sora', system-ui, sans-serif; font-size: 15px; font-weight: 600">
+        <span style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Earlier builds</span>Build 7 · 6 · 5</span>
         <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; transform: {{ oldNotesChevron }}; transition: transform 0.25s ease"><path d="M6 9l6 6 6-6"></path></svg>
       </button>
       <sc-if value="{{ oldNotesOpen }}" hint-placeholder-val="{{ false }}">
         <div id="build-notes-earlier">
         <div id="build-notes-7" style="padding: 20px 24px 28px; border-top: 1px solid #1C2830; display: flex; flex-direction: column; gap: 28px">
-          <span style="font-size: 15px; font-weight: 700; color: #F2F6F8">Build 7</span>
-            <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; color: #8A9AA4">Quick patch · November 24, 2026</span>
-          <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #A3B1BA">On build 6, Triton Update offers this build by itself. On build 5, download it from this page.</p>
+          <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Build 7</span>
+            <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Quick patch · November 24, 2026</span>
+          <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #A3B1BA">On build 6, Triton Update offers this build by itself. On build 5, download it from this page.</p>
           <div style="display: flex; flex-direction: column; gap: 12px">
-            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid #A9CFDB; color: #A9CFDB">Fixed</span>
+            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #C9D6DD">Fixed</span>
             <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
               <li>Folder Explorer: open folder windows now reload after a store install, so a newly installed app's red "X" clears without reopening the folder.</li>
               <li>Speech: after a line fails to play, Troy now waits longer before the next one, from 2 s up to 30 s, instead of retrying straight away.</li>
@@ -210,7 +210,7 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
             </ul>
           </div>
           <div style="display: flex; flex-direction: column; gap: 16px">
-            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid {{accent}}; color: {{accent}}">Changed</span>
+            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #C9D6DD">Changed</span>
             <div style="display: flex; flex-direction: column; gap: 8px">
               <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Store</span>
               <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
@@ -231,10 +231,10 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
           </div>
         </div>
         <div id="build-notes-6" style="padding: 20px 24px 28px; border-top: 1px solid #1C2830; display: flex; flex-direction: column; gap: 28px">
-          <span style="font-size: 15px; font-weight: 700; color: #F2F6F8">Build 6</span>
-            <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; color: #8A9AA4">November 23, 2026</span>
+          <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Build 6</span>
+            <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">November 23, 2026</span>
           <div style="display: flex; flex-direction: column; gap: 12px">
-            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: {{accent}}; color: #0A0E11">New</span>
+            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #C9D6DD">New</span>
             <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
               <li>Triton Update: check for, download and install new builds from inside Triton (Settings › System › Triton Update, or the Control Center). If a new build fails to start, Triton goes back to the previous one by itself, and you can go back by hand too.</li>
               <li>The update check in setup is now real: it says whether a newer build is out.</li>
@@ -242,7 +242,7 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
             </ul>
           </div>
           <div style="display: flex; flex-direction: column; gap: 12px">
-            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid #A9CFDB; color: #A9CFDB">Fixed</span>
+            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #C9D6DD">Fixed</span>
             <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
               <li>Fixed the status icon on Security Updates and Triton Update being slightly cut off.</li>
               <li>Folder shortcuts in Folder Explorer now show a folder icon instead of a letter.</li>
@@ -261,7 +261,7 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
             </ul>
           </div>
           <div style="display: flex; flex-direction: column; gap: 16px">
-            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid {{accent}}; color: {{accent}}">Changed</span>
+            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #C9D6DD">Changed</span>
             <div style="display: flex; flex-direction: column; gap: 8px">
               <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Store</span>
               <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
@@ -331,15 +331,15 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
           </div>
         </div>
         <div id="build-notes-5" style="padding: 20px 24px 28px; border-top: 1px solid #1C2830; display: flex; flex-direction: column; gap: 28px">
-          <span style="font-size: 15px; font-weight: 700; color: #F2F6F8">Build 5</span>
+          <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Build 5</span>
           <div style="display: flex; flex-direction: column; gap: 12px">
-            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: {{accent}}; color: #0A0E11">New</span>
+            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #C9D6DD">New</span>
             <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
               <li>Various new features, such as a Windows 95 skin, window snapping, Trash, new apps like Calendar, Contacts and Triton Store, camera person tracking, and signed patch updates.</li>
             </ul>
           </div>
           <div style="display: flex; flex-direction: column; gap: 12px">
-            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid {{accent}}; color: {{accent}}">Improved</span>
+            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #C9D6DD">Improved</span>
             <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
               <li>Task Manager, WatchTower, Talk Center and Control Center are redesigned.</li>
               <li>USB sync is reworked.</li>
@@ -348,7 +348,7 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
             </ul>
           </div>
           <div style="display: flex; flex-direction: column; gap: 12px">
-            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid #A9CFDB; color: #A9CFDB">Fixed</span>
+            <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #C9D6DD">Fixed</span>
             <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #C9D6DD">
               <li>About 50 fixes, including Download Center, the launch engine, embedded windows, the job manager and a Contacts wipe.</li>
               <li>Fixes for using Claude Code as Troy's brain.</li>
@@ -361,85 +361,85 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
     </div>
   </div>
 
-  <div style="width: 100%; max-width: 800px; box-sizing: border-box; border-radius: 24px; background: #10181E; border: 1px solid #22303A; padding: 28px; display: flex; flex-direction: column; gap: 24px">
+  <div style="width: 100%; max-width: 800px; box-sizing: border-box; border-radius: 16px; background: #10181E; border: 1px solid #22303A; padding: 28px; display: flex; flex-direction: column; gap: 24px">
 
     <div style="display: flex; flex-direction: column; gap: 10px">
-      <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A9AA4">Your platform</span>
+      <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Your platform</span>
       <div role="group" aria-label="Platform" style="display: flex; flex-wrap: wrap; gap: 10px">
-        <button type="button" aria-pressed="{{ isWindows }}" onClick="{{ pickWindows }}" style="flex: 1 1 180px; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px; padding: 0 16px; box-sizing: border-box; border: 1px solid {{ winBorder }}; border-radius: 14px; cursor: pointer; text-align: left; font-family: 'Sora', system-ui, sans-serif; font-size: 15px; font-weight: 600; background: {{ winBg }}; color: #F2F6F8">Windows 11 <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; padding: 4px 8px; border-radius: 999px; background: {{accent}}; color: #0A0E11">SUPPORTED</span></button>
-        <button type="button" aria-pressed="{{ isLinux }}" onClick="{{ pickLinux }}" style="flex: 1 1 180px; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px; padding: 0 16px; box-sizing: border-box; border: 1px solid {{ linBorder }}; border-radius: 14px; cursor: pointer; text-align: left; font-family: 'Sora', system-ui, sans-serif; font-size: 15px; font-weight: 600; background: {{ linBg }}; color: #F2F6F8">Linux <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; padding: 4px 8px; border-radius: 999px; background: #A9CFDB; color: #0A0E11">BETA</span></button>
-        <button type="button" aria-pressed="{{ isMac }}" onClick="{{ pickMac }}" style="flex: 1 1 180px; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px; padding: 0 16px; box-sizing: border-box; border: 1px solid {{ macBorder }}; border-radius: 14px; cursor: pointer; text-align: left; font-family: 'Sora', system-ui, sans-serif; font-size: 15px; font-weight: 600; background: {{ macBg }}; color: #F2F6F8">macOS <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; padding: 4px 8px; border-radius: 999px; background: #2A3A46; color: #E8EEF1">PARTIAL</span></button>
+        <button type="button" aria-pressed="{{ isWindows }}" onClick="{{ pickWindows }}" style="flex: 1 1 180px; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px; padding: 0 16px; box-sizing: border-box; border: 1px solid {{ winBorder }}; border-radius: 10px; cursor: pointer; text-align: left; font-family: 'Sora', system-ui, sans-serif; font-size: 15px; font-weight: 600; background: {{ winBg }}; color: #F2F6F8">Windows 11 <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #8A9AA4">Supported</span></button>
+        <button type="button" aria-pressed="{{ isLinux }}" onClick="{{ pickLinux }}" style="flex: 1 1 180px; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px; padding: 0 16px; box-sizing: border-box; border: 1px solid {{ linBorder }}; border-radius: 10px; cursor: pointer; text-align: left; font-family: 'Sora', system-ui, sans-serif; font-size: 15px; font-weight: 600; background: {{ linBg }}; color: #F2F6F8">Linux <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #8A9AA4">Beta</span></button>
+        <button type="button" aria-pressed="{{ isMac }}" onClick="{{ pickMac }}" style="flex: 1 1 180px; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px; padding: 0 16px; box-sizing: border-box; border: 1px solid {{ macBorder }}; border-radius: 10px; cursor: pointer; text-align: left; font-family: 'Sora', system-ui, sans-serif; font-size: 15px; font-weight: 600; background: {{ macBg }}; color: #F2F6F8">macOS <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #8A9AA4">Partial</span></button>
       </div>
-      <sc-if value="{{ isWindows }}" hint-placeholder-val="{{ true }}"><p style="margin: 0; font-size: 14px; line-height: 1.5; color: #C9D6DD">Windows 11 is Triton's primary platform.</p></sc-if>
-      <sc-if value="{{ isLinux }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 14px; line-height: 1.5; color: #C9D6DD">Linux support is still in beta — some features may not work yet.</p></sc-if>
-      <sc-if value="{{ isMac }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 14px; line-height: 1.5; color: #C9D6DD">Triton runs on macOS, but only partly — some features don't work there yet.</p></sc-if>
+      <sc-if value="{{ isWindows }}" hint-placeholder-val="{{ true }}"><p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">Windows 11 is Triton's primary platform.</p></sc-if>
+      <sc-if value="{{ isLinux }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">Linux support is still in beta — some features may not work yet.</p></sc-if>
+      <sc-if value="{{ isMac }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">Triton runs on macOS, but only partly — some features don't work there yet.</p></sc-if>
     </div>
 
     <div style="display: flex; flex-direction: column; gap: 20px">
-      <div style="flex: none; min-width: 0; box-sizing: border-box; border-radius: 18px; background: {{ bundleBg }}; border: 1px solid {{ bundleBorder }}; padding: 24px; display: flex; flex-direction: column; gap: 12px">
-        <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid {{accent}}; color: {{accent}}">Portable app</span>
+      <div style="flex: none; min-width: 0; box-sizing: border-box; border-radius: 12px; background: {{ bundleBg }}; border: 1px solid {{ bundleBorder }}; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <span style="align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #C9D6DD">Portable app</span>
         <div style="display: flex; flex-direction: column; gap: 2px">
-          <span style="font-size: 20px; font-weight: 800; letter-spacing: -0.01em; color: #F2F6F8">Triton</span>
+          <span style="font-size: 18px; font-weight: 600; letter-spacing: 0; color: #F2F6F8">Triton</span>
           <span style="font-size: 13px; color: #8A9AA4">Prototype 155 · Build 8</span>
         </div>
-        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #A3B1BA">The Triton program, one build for every platform. Local AI models aren't included: Triton offers to download and set them up the first time you need them.</p>
+        <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #A3B1BA">The Triton program, one build for every platform. Local AI models aren't included: Triton offers to download and set them up the first time you need them.</p>
         <sc-if value="{{ isMac }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(232, 106, 106, 0.35); background: rgba(232, 106, 106, 0.08); font-size: 13px; line-height: 1.5; color: #F2C4C4"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E86A6A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px"><path d="M12 3l10 18H2z"></path><path d="M12 10v5"></path><path d="M12 18h.01"></path></svg><span><strong style="font-weight: 600; color: #F8DADA">Partial support on macOS.</strong> Triton runs on Apple silicon Macs, but some features don't work there yet.</span></p></sc-if>
         <div style="margin-top: auto; padding-top: 8px; display: flex; flex-direction: column; gap: 16px">
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px">
-            <a href="https://downloads.strombos.dev/p155-b8/triton.jar" download="triton.jar" style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; min-height: 48px; box-sizing: border-box; border-radius: 999px; background: {{accent}}; color: #0A0E11; font-size: 16px; font-weight: 600; text-decoration: none"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg> Download triton.jar</a>
+            <a href="https://downloads.strombos.dev/p155-b8/triton.jar" download="triton.jar" style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; min-height: 48px; box-sizing: border-box; border-radius: 10px; background: {{accent}}; color: #0A0E11; font-size: 15px; font-weight: 600; text-decoration: none"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg> Download triton.jar</a>
             <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; line-height: 1.5; color: #8A9AA4">.jar · 3.4 GB · double-click to open · runs on Java 21 or higher</span>
           </div>
-          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; line-height: 1.6; color: #8A9AA4; overflow-wrap: anywhere">SHA-256 <span style="color: #C9D6DD">7dabc8a68f66c1a5bfa648d656e47ec79f1fcf945b08177e0ed20b649ed2d8d6</span> · <a href="https://downloads.strombos.dev/p155-b8/SHA256SUMS.txt" style="text-decoration: none">SHA256SUMS.txt</a></p>
+          <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; line-height: 1.6; color: #8A9AA4; overflow-wrap: anywhere">SHA-256 <span style="color: #C9D6DD">7dabc8a68f66c1a5bfa648d656e47ec79f1fcf945b08177e0ed20b649ed2d8d6</span> · <a href="https://downloads.strombos.dev/p155-b8/SHA256SUMS.txt" style="text-decoration: none">SHA256SUMS.txt</a></p>
           <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 16px; border-top: 1px solid #1C2830">
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px">
-              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; border: 1px solid #3A4A56; color: #A3B1BA">With source</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #A3B1BA">With source</span>
               <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Build 7</span>
             </div>
-            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #A3B1BA">The previous build, with Triton's source code inside for dev mode and Live reload. Triton Update offers build 8 to it like any other build.</p>
+            <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #A3B1BA">The previous build, with Triton's source code inside for dev mode and Live reload. Triton Update offers build 8 to it like any other build.</p>
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px">
-              <a href="https://downloads.strombos.dev/p155-b7/triton.jar" download="triton.jar" style="display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; min-height: 44px; box-sizing: border-box; border-radius: 999px; border: 1px solid {{accent}}; color: #F2F6F8; font-size: 15px; font-weight: 600; text-decoration: none"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg> Build 7 with source</a>
+              <a href="https://downloads.strombos.dev/p155-b7/triton.jar" download="triton.jar" style="display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; min-height: 44px; box-sizing: border-box; border-radius: 10px; border: 1px solid #3A4A56; color: #F2F6F8; font-size: 15px; font-weight: 600; text-decoration: none"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg> Build 7 with source</a>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; line-height: 1.5; color: #8A9AA4">.jar · 3.4 GB · Prototype 155 · Build 7</span>
             </div>
-            <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; line-height: 1.6; color: #8A9AA4; overflow-wrap: anywhere">SHA-256 <span style="color: #C9D6DD">3d5a23b307fddbb5ec445325aaf214e38ffabf5c3566a5eeeaac61c00f196946</span> · <a href="https://downloads.strombos.dev/p155-b7/SHA256SUMS.txt" style="text-decoration: none">SHA256SUMS.txt</a></p>
+            <p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; line-height: 1.6; color: #8A9AA4; overflow-wrap: anywhere">SHA-256 <span style="color: #C9D6DD">3d5a23b307fddbb5ec445325aaf214e38ffabf5c3566a5eeeaac61c00f196946</span> · <a href="https://downloads.strombos.dev/p155-b7/SHA256SUMS.txt" style="text-decoration: none">SHA256SUMS.txt</a></p>
           </div>
           <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 16px; border-top: 1px solid #1C2830">
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px">
-              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; border: 1px solid #3A4A56; color: #A3B1BA">Optional</span>
+              <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #A3B1BA">Optional</span>
               <span style="font-size: 15px; font-weight: 600; color: #F2F6F8">Demo Bundle</span>
             </div>
-            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #A3B1BA">A sample Triton home folder with the demo setup ready to go, and in future a Java runtime too, so nothing else needs installing. Extract it next to triton.jar before the first launch. Without it, Triton starts with a fresh, empty home folder.</p>
+            <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #A3B1BA">A sample Triton home folder with the demo setup ready to go, and in future a Java runtime too, so nothing else needs installing. Extract it next to triton.jar before the first launch. Without it, Triton starts with a fresh, empty home folder.</p>
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px">
-              <a aria-disabled="true" title="Coming soon" style="opacity: 0.5; cursor: not-allowed; display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; min-height: 44px; box-sizing: border-box; border-radius: 999px; border: 1px solid {{accent}}; color: #F2F6F8; font-size: 15px; font-weight: 600; text-decoration: none"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg> Demo Bundle · Coming soon</a>
+              <a aria-disabled="true" title="Coming soon" style="opacity: 0.5; cursor: not-allowed; display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; min-height: 44px; box-sizing: border-box; border-radius: 10px; border: 1px solid #3A4A56; color: #F2F6F8; font-size: 15px; font-weight: 600; text-decoration: none"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg> Demo Bundle · Coming soon</a>
               <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; line-height: 1.5; color: #8A9AA4">.zip · sample home folder · Java runtime included later</span>
             </div>
           </div>
-          <a href="#run" onClick="{{ startJar }}" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; padding: 12px 0; min-height: 44px; box-sizing: border-box; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none">How to start <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="M6 13l6 6 6-6"></path></svg></a>
+          <a href="#run" onClick="{{ startJar }}" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; padding: 12px 0; min-height: 44px; box-sizing: border-box; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; text-decoration: none">How to start <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="M6 13l6 6 6-6"></path></svg></a>
         </div>
       </div>
       <div aria-hidden="{{ isoHidden }}" style="display: {{ isoDisplay }}; align-items: center; gap: 16px">
         <div style="flex: 1 1 0; height: 1px; background: #22303A"></div>
-        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #E89A4A">Also for Linux · Experimental</span>
+        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #E89A4A">Also for Linux · Experimental</span>
         <div style="flex: 1 1 0; height: 1px; background: #22303A"></div>
       </div>
-      <div aria-hidden="{{ isoHidden }}" style="flex: none; min-width: 0; box-sizing: border-box; border-radius: 18px; background: #15171A; border: 1px solid rgba(232, 154, 74, 0.4); padding: 24px; display: {{ isoDisplay }}; flex-direction: column; gap: 12px">
-        <div style="display: flex; flex-wrap: wrap; gap: 8px"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid #E89A4A; color: #E89A4A">Bootable OS</span><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid #E89A4A; background: #E89A4A; color: #0A0E11">Experimental</span></div>
+      <div aria-hidden="{{ isoHidden }}" style="flex: none; min-width: 0; box-sizing: border-box; border-radius: 12px; background: #15171A; border: 1px solid rgba(232, 154, 74, 0.4); padding: 24px; display: {{ isoDisplay }}; flex-direction: column; gap: 12px">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #E89A4A">Bootable OS</span><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500; letter-spacing: 0; color: #E89A4A">Experimental</span></div>
         <div style="display: flex; flex-direction: column; gap: 2px">
-          <span style="font-size: 20px; font-weight: 800; letter-spacing: -0.01em; color: #F2F6F8">Triton OS Beta 1.0</span>
+          <span style="font-size: 18px; font-weight: 600; letter-spacing: 0; color: #F2F6F8">Triton OS Beta 1.0</span>
           <span style="font-size: 13px; color: #B39A80">Based on Triton Prototype 155, Build 4</span>
         </div>
-        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #D9C3AC">Boots straight into Triton from a USB stick. Nothing to install.</p>
+        <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #D9C3AC">Boots straight into Triton from a USB stick. Nothing to install.</p>
         <p style="margin: 0; display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(232, 154, 74, 0.35); background: rgba(232, 154, 74, 0.08); font-size: 13px; line-height: 1.5; color: #F0C9A0"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E89A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px"><path d="M12 3l10 18H2z"></path><path d="M12 10v5"></path><path d="M12 18h.01"></path></svg><span><strong style="font-weight: 600; color: #F7DCC0">Experimental.</strong> Triton OS is still changing often and has only been tested in VirtualBox. Expect rough edges, and keep important files backed up elsewhere.</span></p>
         <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; line-height: 1.5; color: #B39A80">triton-os-amd64.iso · 5.3 GB · amd64 · 8 GB+ USB stick</span>
         <div style="margin-top: auto; padding-top: 8px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 20px">
-          <a aria-disabled="true" title="Coming soon" style="opacity: 0.5; cursor: not-allowed; display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; min-height: 48px; box-sizing: border-box; border-radius: 999px; background: #E89A4A; color: #1A0F05; font-size: 16px; font-weight: 600; text-decoration: none"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg> ISO · Coming soon</a>
-          <a href="#run" onClick="{{ startIso }}" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 0; min-height: 44px; box-sizing: border-box; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; color: #E89A4A">How to start <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="M6 13l6 6 6-6"></path></svg></a>
+          <a aria-disabled="true" title="Coming soon" style="opacity: 0.5; cursor: not-allowed; display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; min-height: 48px; box-sizing: border-box; border-radius: 10px; background: #E89A4A; color: #1A0F05; font-size: 15px; font-weight: 600; text-decoration: none"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg> ISO · Coming soon</a>
+          <a href="#run" onClick="{{ startIso }}" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 0; min-height: 44px; box-sizing: border-box; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; text-decoration: none; color: #E89A4A">How to start <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="M6 13l6 6 6-6"></path></svg></a>
         </div>
       </div>
     </div>
 
   </div>
 
-    <div style="width: 100%; max-width: 800px; box-sizing: border-box; border-radius: 24px; background: #10181E; border: 1px solid #22303A; padding: 32px; display: flex; flex-direction: column; gap: 20px">
+    <div style="width: 100%; max-width: 800px; box-sizing: border-box; border-radius: 16px; background: #10181E; border: 1px solid #22303A; padding: 32px; display: flex; flex-direction: column; gap: 20px">
       <h2 style="margin: 0; font-size: 22px; font-weight: 600; color: #F2F6F8">System requirements</h2>
 
       <div style="overflow-x: auto">
@@ -448,18 +448,18 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
           <tr>
             <td style="padding: 0 16px 14px 0; width: 26%"></td>
             <th scope="col" style="padding: 0 16px 14px; border-left: 1px solid #2A3A46; text-align: left; vertical-align: bottom; font-weight: 600">
-              <span style="display: block; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #F2F6F8">Base</span>
-              <span style="display: block; font-size: 13px; font-weight: 300; color: #8A9AA4">Core shell</span>
+              <span style="display: block; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0; color: #F2F6F8">Base</span>
+              <span style="display: block; font-size: 13px; font-weight: 400; color: #8A9AA4">Core shell</span>
             </th>
             <th scope="col" style="padding: 0 16px 14px; border-left: 1px solid #2A3A46; text-align: left; vertical-align: bottom; font-weight: 600">
-              <span style="display: block; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: {{accent}}">Max</span>
-              <span style="display: block; font-size: 13px; font-weight: 300; color: #8A9AA4">Local AI &amp; every feature</span>
+              <span style="display: block; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0; color: #8A9AA4">Max</span>
+              <span style="display: block; font-size: 13px; font-weight: 400; color: #8A9AA4">Local AI &amp; every feature</span>
             </th>
           </tr>
         </thead>
         <tbody>
           <tr style="border-top: 1px solid #1C2830">
-            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #8A9AA4">OS</th>
+            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; color: #8A9AA4">OS</th>
             <td colspan="2" style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">
               <sc-if value="{{ isWindows }}" hint-placeholder-val="{{ true }}"><span>Windows 11</span></sc-if>
               <sc-if value="{{ isLinux }}" hint-placeholder-val="{{ false }}"><span>Linux (beta)</span><span style="display: block; font-size: 13px; color: #8A9AA4">Tested on Ubuntu Desktop</span></sc-if>
@@ -467,15 +467,15 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
             </td>
           </tr>
           <tr style="display: {{ linuxRow }}; border-top: 1px solid #1C2830">
-            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #8A9AA4">Headless</th>
+            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; color: #8A9AA4">Headless</th>
             <td colspan="2" style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">Not yet supported<span style="display: block; font-size: 13px; color: #8A9AA4">Ubuntu Server and other no-GUI installs</span></td>
           </tr>
           <tr style="border-top: 1px solid #1C2830">
-            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #8A9AA4">Java</th>
+            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; color: #8A9AA4">Java</th>
             <td colspan="2" style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">Java 21 or higher<sc-if value="{{ isMac }}" hint-placeholder-val="{{ false }}"><span style="display: block; font-size: 13px; color: #8A9AA4">arm64 (Apple silicon) JDK</span></sc-if></td>
           </tr>
           <tr style="border-top: 1px solid #1C2830">
-            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #8A9AA4">Processor</th>
+            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; color: #8A9AA4">Processor</th>
             <td style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">
               <sc-if value="{{ isPc }}" hint-placeholder-val="{{ true }}"><span>64-bit quad-core with AVX2</span><span style="display: block; font-size: 13px; color: #8A9AA4">Core i5 8th gen · Ryzen 5 2000</span></sc-if>
               <sc-if value="{{ isMac }}" hint-placeholder-val="{{ false }}"><span>Apple M1</span><span style="display: block; font-size: 13px; color: #8A9AA4">Apple silicon only · no Intel Macs</span></sc-if>
@@ -486,12 +486,12 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
             </td>
           </tr>
           <tr style="border-top: 1px solid #1C2830">
-            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #8A9AA4">Memory</th>
+            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; color: #8A9AA4">Memory</th>
             <td style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">8 GB RAM<sc-if value="{{ isMac }}" hint-placeholder-val="{{ false }}"><span style="display: block; font-size: 13px; color: #8A9AA4">Unified memory</span></sc-if></td>
             <td style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">16 GB RAM<sc-if value="{{ isMac }}" hint-placeholder-val="{{ false }}"><span style="display: block; font-size: 13px; color: #8A9AA4">Unified memory</span></sc-if></td>
           </tr>
           <tr style="border-top: 1px solid #1C2830">
-            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #8A9AA4">Graphics</th>
+            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; color: #8A9AA4">Graphics</th>
             <td style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">
               <sc-if value="{{ isPc }}" hint-placeholder-val="{{ true }}"><span>DirectX 11 / OpenGL 3.3</span><span style="display: block; font-size: 13px; color: #8A9AA4">Integrated graphics OK</span></sc-if>
               <sc-if value="{{ isMac }}" hint-placeholder-val="{{ false }}"><span>Built-in Apple GPU</span><span style="display: block; font-size: 13px; color: #8A9AA4">Metal</span></sc-if>
@@ -502,11 +502,11 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
             </td>
           </tr>
           <tr style="border-top: 1px solid #1C2830">
-            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #8A9AA4">Storage</th>
+            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; color: #8A9AA4">Storage</th>
             <td colspan="2" style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">3.4 GB<span style="display: block; font-size: 13px; color: #8A9AA4">Program size (triton.jar)</span></td>
           </tr>
           <tr style="border-top: 1px solid #1C2830; border-bottom: 1px solid #1C2830">
-            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #8A9AA4">Additional components<span style="display: block; margin-top: 4px; font-size: 11px; letter-spacing: 0.04em; text-transform: none; color: #8A9AA4">Possibly required</span></th>
+            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; color: #8A9AA4">Additional components<span style="display: block; margin-top: 4px; font-size: 12px; letter-spacing: 0.04em; text-transform: none; color: #8A9AA4">Possibly required</span></th>
             <td colspan="2" style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">Up to ~20 GB<span style="display: block; font-size: 13px; color: #8A9AA4">Local AI models and other components, downloaded and set up from inside Triton when you need them</span></td>
           </tr>
         </tbody>
@@ -515,55 +515,55 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
     </div>
 
     <sc-if value="{{ isLinux }}" hint-placeholder-val="{{ false }}">
-    <div style="width: 100%; max-width: 800px; box-sizing: border-box; border-radius: 24px; background: #10181E; border: 1px solid #22303A; padding: 32px; display: flex; flex-direction: column; gap: 20px">
+    <div style="width: 100%; max-width: 800px; box-sizing: border-box; border-radius: 16px; background: #10181E; border: 1px solid #22303A; padding: 32px; display: flex; flex-direction: column; gap: 20px">
       <div style="display: flex; flex-direction: column; gap: 6px">
-        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: {{accent}}">Triton OS Beta 1.0 · triton-os-amd64.iso</span>
+        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Triton OS Beta 1.0 · triton-os-amd64.iso</span>
         <h2 style="margin: 0; font-size: 22px; font-weight: 600; color: #F2F6F8">Triton OS requirements</h2>
-        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #8A9AA4">Early estimates from one test in VirtualBox (4 cores, 6 GB RAM). Not yet tested on real hardware.</p>
+        <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #8A9AA4">Early estimates from one test in VirtualBox (4 cores, 6 GB RAM). Not yet tested on real hardware.</p>
       </div>
       <div style="overflow-x: auto">
       <table style="width: 100%; min-width: 480px; border-collapse: collapse; font-size: 15px; line-height: 1.45; color: #E8EEF1">
         <thead>
           <tr>
             <td style="padding: 0 16px 14px 0; width: 26%"></td>
-            <th scope="col" style="padding: 0 16px 14px; border-left: 1px solid #2A3A46; text-align: left; vertical-align: bottom; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #F2F6F8">Minimum</th>
-            <th scope="col" style="padding: 0 16px 14px; border-left: 1px solid #2A3A46; text-align: left; vertical-align: bottom; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: {{accent}}">Recommended</th>
+            <th scope="col" style="padding: 0 16px 14px; border-left: 1px solid #2A3A46; text-align: left; vertical-align: bottom; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; font-weight: 600; letter-spacing: 0; color: #F2F6F8">Minimum</th>
+            <th scope="col" style="padding: 0 16px 14px; border-left: 1px solid #2A3A46; text-align: left; vertical-align: bottom; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; font-weight: 600; letter-spacing: 0; color: #8A9AA4">Recommended</th>
           </tr>
         </thead>
         <tbody>
           <tr style="border-top: 1px solid #1C2830">
-            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #8A9AA4">Processor</th>
+            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; color: #8A9AA4">Processor</th>
             <td style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">64-bit x86 (amd64)<span style="display: block; font-size: 13px; color: #8A9AA4">2 cores</span></td>
             <td style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">4 cores</td>
           </tr>
           <tr style="border-top: 1px solid #1C2830">
-            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #8A9AA4">Memory</th>
+            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; color: #8A9AA4">Memory</th>
             <td style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">4 GB RAM<span style="display: block; font-size: 13px; color: #8A9AA4">Tight, see notes</span></td>
             <td style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">8 GB RAM</td>
           </tr>
           <tr style="border-top: 1px solid #1C2830">
-            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #8A9AA4">USB stick or disk</th>
+            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; color: #8A9AA4">USB stick or disk</th>
             <td style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">8 GB<span style="display: block; font-size: 13px; color: #8A9AA4">The ISO is 5.3 GB</span></td>
             <td style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">16 GB or more<span style="display: block; font-size: 13px; color: #8A9AA4">USB 3, with room for persistence</span></td>
           </tr>
           <tr style="border-top: 1px solid #1C2830">
-            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #8A9AA4">Graphics</th>
+            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; color: #8A9AA4">Graphics</th>
             <td colspan="2" style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">Any GPU with a standard Linux driver<span style="display: block; font-size: 13px; color: #8A9AA4">Intel, AMD, nouveau, VirtualBox VMSVGA · no 3D acceleration needed</span></td>
           </tr>
           <tr style="border-top: 1px solid #1C2830">
-            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #8A9AA4">Firmware</th>
+            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; color: #8A9AA4">Firmware</th>
             <td style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">UEFI or legacy BIOS</td>
             <td style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">UEFI</td>
           </tr>
           <tr style="border-top: 1px solid #1C2830; border-bottom: 1px solid #1C2830">
-            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #8A9AA4">Network</th>
+            <th scope="row" style="padding: 14px 16px 14px 0; text-align: left; vertical-align: top; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; color: #8A9AA4">Network</th>
             <td style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">Optional<span style="display: block; font-size: 13px; color: #8A9AA4">Wi-Fi works if the card's firmware is in Debian</span></td>
             <td style="padding: 14px 16px; border-left: 1px solid #2A3A46; vertical-align: top">Ethernet, or common Intel / Atheros Wi-Fi</td>
           </tr>
         </tbody>
       </table>
       </div>
-      <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 1.5; color: #A3B1BA">
+      <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5; color: #A3B1BA">
         <li><strong style="font-weight: 600; color: #E8EEF1">4 GB is the floor.</strong> Triton can use up to 60% of RAM, so on 4 GB it runs but may slow down under heavy use.</li>
         <li><strong style="font-weight: 600; color: #E8EEF1">Long sessions use more memory.</strong> Without persistence, every file Triton writes is held in RAM.</li>
         <li><strong style="font-weight: 600; color: #E8EEF1">Boot time:</strong> about 75 seconds to the setup wizard in a VM. A USB 2 stick will be noticeably slower.</li>
@@ -576,96 +576,96 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
 
 <div role="separator" style="display: flex; align-items: center; gap: 20px; width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 16px; box-sizing: border-box">
   <div aria-hidden="true" style="flex: 1 1 0; height: 1px; background: #22303A"></div>
-  <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #8A9AA4">How to run</span>
+  <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">How to run</span>
   <div aria-hidden="true" style="flex: 1 1 0; height: 1px; background: #22303A"></div>
 </div>
 
 <section id="run" style="box-sizing: border-box; display: flex; flex-direction: column; align-items: center; padding: 96px 16px 128px; gap: 32px">
 
   <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
-    <h2 style="margin: 0; font-size: 36px; font-weight: 800; letter-spacing: -0.03em; color: #F2F6F8">How to start Triton</h2>
-    <sc-if value="{{ rJar }}" hint-placeholder-val="{{ true }}"><p style="margin: 0; max-width: 560px; font-size: 16px; line-height: 1.5; color: #A3B1BA">Triton runs on Java 21 or higher, either installed on the machine or carried in a folder next to triton.jar. triton.jar itself opens with a double-click, even where only Java 8 is installed. Pick whichever way suits you.</p></sc-if>
-    <sc-if value="{{ rIso }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; max-width: 560px; font-size: 16px; line-height: 1.5; color: #A3B1BA">Triton OS is a live system: write the image to a USB stick once, then boot your computer from it.</p></sc-if>
+    <h2 style="margin: 0; font-size: 36px; font-weight: 600; letter-spacing: -0.02em; color: #F2F6F8">How to start Triton</h2>
+    <sc-if value="{{ rJar }}" hint-placeholder-val="{{ true }}"><p style="margin: 0; max-width: 560px; font-size: 15px; line-height: 1.5; color: #A3B1BA">Triton runs on Java 21 or higher, either installed on the machine or carried in a folder next to triton.jar. triton.jar itself opens with a double-click, even where only Java 8 is installed. Pick whichever way suits you.</p></sc-if>
+    <sc-if value="{{ rIso }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; max-width: 560px; font-size: 15px; line-height: 1.5; color: #A3B1BA">Triton OS is a live system: write the image to a USB stick once, then boot your computer from it.</p></sc-if>
   </div>
 
   <div role="group" aria-label="Choose your system" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 8px">
     <sc-for list="{{ runTabs }}" as="tab" hint-placeholder-count="4">
-      <button type="button" aria-pressed="{{ tab.active }}" onClick="{{ tab.pick }}" style="min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center"><span style="display: inline-flex; align-items: center; height: 34px; padding: 0 16px; border-radius: 999px; border: 1px solid {{ tab.border }}; background: {{ tab.bg }}; color: {{ tab.fg }}; font-family: 'Sora', system-ui, sans-serif; font-size: 13px; font-weight: 600">{{ tab.label }}</span></button>
+      <button type="button" aria-pressed="{{ tab.active }}" onClick="{{ tab.pick }}" style="min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer; display: flex; align-items: center"><span style="display: inline-flex; align-items: center; height: 34px; padding: 0 16px; border-radius: 8px; border: 1px solid {{ tab.border }}; background: {{ tab.bg }}; color: {{ tab.fg }}; font-family: 'Sora', system-ui, sans-serif; font-size: 13px; font-weight: 600">{{ tab.label }}</span></button>
     </sc-for>
   </div>
 
   <ol style="list-style: none; margin: 0; padding: 0; width: 100%; max-width: 800px; display: flex; flex-direction: column; gap: 16px">
     <sc-if value="{{ rJar }}" hint-placeholder-val="{{ true }}">
-    <li style="box-sizing: border-box; padding: 28px; border-radius: 24px; background: #10181E; border: 1px solid #22303A; display: flex; flex-wrap: wrap; gap: 14px 40px; align-items: flex-start">
+    <li style="box-sizing: border-box; padding: 28px; border-radius: 16px; background: #10181E; border: 1px solid #22303A; display: flex; flex-wrap: wrap; gap: 14px 40px; align-items: flex-start">
       <div style="flex: 0 1 220px; display: flex; flex-direction: column; gap: 10px">
-        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: {{accent}}">Option 1 · Open it</span>
-        <h3 style="margin: 0; font-size: 20px; font-weight: 600; color: #F2F6F8">Double-click triton.jar</h3>
+        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Option 1 · Open it</span>
+        <h3 style="margin: 0; font-size: 18px; font-weight: 600; color: #F2F6F8">Double-click triton.jar</h3>
       </div>
       <div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 10px">
         <sc-if value="{{ rNotLinux }}" hint-placeholder-val="{{ true }}"><p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">Open the downloaded file like any other program. If it opens in an archive tool instead, right-click it and choose <strong style="font-weight: 600; color: #F2F6F8">Open with → Java</strong>.</p></sc-if>
         <sc-if value="{{ rMac }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">On macOS the first launch may be blocked. Right-click the file, choose Open, then confirm.</p></sc-if>
         <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 12px; border: 1px solid #22303A; background: #0C1318">
-          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: {{accent}}">Only Java 8 on this machine?</span>
-          <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #C9D6DD">The jar still opens. A small Java 8 launcher looks for Java 21 or higher and moves Triton onto it. It checks a <code>jdk…</code> or <code>jre…</code> folder right next to triton.jar first, then any Java 21+ installed on the machine. If it finds none, it tells you what to install.</p>
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 600; letter-spacing: 0; color: #8A9AA4">Only Java 8 on this machine?</span>
+          <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">The jar still opens. A small Java 8 launcher looks for Java 21 or higher and moves Triton onto it. It checks a <code>jdk…</code> or <code>jre…</code> folder right next to triton.jar first, then any Java 21+ installed on the machine. If it finds none, it tells you what to install.</p>
           <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">To fix it, pick one of the three ways under <a href="#java" style="text-decoration: none">Get Java 21 or higher</a> below.</p>
         </div>
         <sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">Right-click triton.jar and choose <strong style="font-weight: 600; color: #F2F6F8">Open With → OpenJDK Java Runtime</strong>. If Java isn't listed, see <a href="#java" style="text-decoration: none">Get Java 21 or higher</a> below.</p><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">Start it from your desktop session: Triton needs a graphical desktop (tested on Ubuntu Desktop).</p></sc-if>
       </div>
     </li>
-    <li style="box-sizing: border-box; padding: 28px; border-radius: 24px; background: #10181E; border: 1px solid #22303A; display: flex; flex-wrap: wrap; gap: 14px 40px; align-items: flex-start">
+    <li style="box-sizing: border-box; padding: 28px; border-radius: 16px; background: #10181E; border: 1px solid #22303A; display: flex; flex-wrap: wrap; gap: 14px 40px; align-items: flex-start">
       <div style="flex: 0 1 220px; display: flex; flex-direction: column; gap: 10px">
-        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: {{accent}}">Option 2 · Command line</span>
-        <h3 style="margin: 0; font-size: 20px; font-weight: 600; color: #F2F6F8">Run it from a terminal</h3>
+        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Option 2 · Command line</span>
+        <h3 style="margin: 0; font-size: 18px; font-weight: 600; color: #F2F6F8">Run it from a terminal</h3>
         <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">Open a terminal in the folder where you saved triton.jar. Handy for seeing startup messages or passing launch options.</p>
       </div>
       <div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
         <div style="display: flex; flex-direction: column; gap: 8px">
-          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #8A9AA4">Java on your PATH</span>
-          <pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>java -jar triton.jar</code></pre>
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Java on your PATH</span>
+          <pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5; color: #E8EEF1"><code>java -jar triton.jar</code></pre>
           <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">This uses whichever <code>java</code> comes first. Check it with <code>java -version</code>: it must say 21 or higher. If it doesn't, use way 3 under <a href="#java" style="text-decoration: none">Get Java 21 or higher</a>.</p>
         </div>
       </div>
     </li>
-    <li id="java" style="box-sizing: border-box; padding: 28px; border-radius: 24px; background: #10181E; border: 1px solid #22303A; display: flex; flex-wrap: wrap; gap: 14px 40px; align-items: flex-start; scroll-margin-top: 24px">
+    <li id="java" style="box-sizing: border-box; padding: 28px; border-radius: 16px; background: #10181E; border: 1px solid #22303A; display: flex; flex-wrap: wrap; gap: 14px 40px; align-items: flex-start; scroll-margin-top: 24px">
       <div style="flex: 0 1 220px; display: flex; flex-direction: column; gap: 10px">
-        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: {{accent}}">Java · three ways</span>
-        <h3 style="margin: 0; font-size: 20px; font-weight: 600; color: #F2F6F8">Get Java 21 or higher</h3>
+        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Java · three ways</span>
+        <h3 style="margin: 0; font-size: 18px; font-weight: 600; color: #F2F6F8">Get Java 21 or higher</h3>
         <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">Triton needs Java 21 or higher. Java 8 or 17 is not enough. Any one of these ways works.</p>
       </div>
       <div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
 
         <div style="display: flex; flex-direction: column; gap: 10px">
-          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #8A9AA4"><span style="color: {{accent}}">1</span> · Simplest</span>
-          <h4 style="margin: 0; font-size: 17px; font-weight: 600; color: #F2F6F8">Install a newer Java</h4>
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4"><span style="color: #F2F6F8">1</span> · Simplest</span>
+          <h4 style="margin: 0; font-size: 18px; font-weight: 600; color: #F2F6F8">Install a newer Java</h4>
           <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">Download and install a JDK 21 or newer from one of these official pages:</p>
           <div style="display: flex; flex-wrap: wrap; gap: 8px">
-            <a href="https://adoptium.net/temurin/releases/?version=21" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; box-sizing: border-box; border-radius: 999px; border: 1px solid #3A4A56; font-size: 14px; font-weight: 600; text-decoration: none">Eclipse Temurin 21 <span style="font-weight: 400; color: #8A9AA4">· Adoptium</span></a>
-            <a href="https://www.oracle.com/java/technologies/downloads/" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; box-sizing: border-box; border-radius: 999px; border: 1px solid #3A4A56; font-size: 14px; font-weight: 600; text-decoration: none">Oracle Java <span style="font-weight: 400; color: #8A9AA4">· JDK 21</span></a>
-            <a href="https://learn.microsoft.com/java/openjdk/download" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; box-sizing: border-box; border-radius: 999px; border: 1px solid #3A4A56; font-size: 14px; font-weight: 600; text-decoration: none">Microsoft Build of OpenJDK</a>
+            <a href="https://adoptium.net/temurin/releases/?version=21" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; box-sizing: border-box; border-radius: 10px; border: 1px solid #3A4A56; font-size: 15px; font-weight: 600; text-decoration: none">Eclipse Temurin 21 <span style="font-weight: 400; color: #8A9AA4">· Adoptium</span></a>
+            <a href="https://www.oracle.com/java/technologies/downloads/" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; box-sizing: border-box; border-radius: 10px; border: 1px solid #3A4A56; font-size: 15px; font-weight: 600; text-decoration: none">Oracle Java <span style="font-weight: 400; color: #8A9AA4">· JDK 21</span></a>
+            <a href="https://learn.microsoft.com/java/openjdk/download" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; box-sizing: border-box; border-radius: 10px; border: 1px solid #3A4A56; font-size: 15px; font-weight: 600; text-decoration: none">Microsoft Build of OpenJDK</a>
           </div>
           <sc-if value="{{ rWin }}" hint-placeholder-val="{{ true }}"><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">On Windows, pick the x64 installer (.msi or .exe).</p></sc-if>
           <sc-if value="{{ rMac }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">On a Mac, pick the <strong style="font-weight: 600; color: #F2F6F8">aarch64 / arm64</strong> (Apple silicon) .pkg. Triton on macOS needs an arm64 JDK; the x64 one won't do.</p></sc-if>
-          <sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">On Ubuntu, the package manager is quicker:</p><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>sudo apt install openjdk-21-jre</code></pre></sc-if>
+          <sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">On Ubuntu, the package manager is quicker:</p><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5; color: #E8EEF1"><code>sudo apt install openjdk-21-jre</code></pre></sc-if>
           <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">Then double-click triton.jar again. It finds the new Java by itself.</p>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 24px; border-top: 1px solid #1C2830">
-          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #8A9AA4"><span style="color: {{accent}}">2</span> · No install</span>
-          <h4 style="margin: 0; font-size: 17px; font-weight: 600; color: #F2F6F8">Put a portable JDK next to triton.jar</h4>
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4"><span style="color: #F2F6F8">2</span> · No install</span>
+          <h4 style="margin: 0; font-size: 18px; font-weight: 600; color: #F2F6F8">Put a portable JDK next to triton.jar</h4>
           <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">From the same pages, download the archive (<sc-if value="{{ rWin }}" hint-placeholder-val="{{ true }}">.zip</sc-if><sc-if value="{{ rNotWin }}" hint-placeholder-val="{{ false }}">.tar.gz</sc-if>) instead of the installer and unpack it into the folder that holds triton.jar:</p>
-          <sc-if value="{{ rWin }}" hint-placeholder-val="{{ true }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>Triton\
+          <sc-if value="{{ rWin }}" hint-placeholder-val="{{ true }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5; color: #E8EEF1"><code>Triton\
 ├─ triton.jar
 └─ jdk-21.0.5+11\
    ├─ release
    └─ bin\
       └─ java.exe</code></pre></sc-if>
-          <sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>Triton/
+          <sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5; color: #E8EEF1"><code>Triton/
 ├─ triton.jar
 └─ jdk-21.0.5+11/
    ├─ release
    └─ bin/
       └─ java</code></pre></sc-if>
-          <sc-if value="{{ rMac }}" hint-placeholder-val="{{ false }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>Triton/
+          <sc-if value="{{ rMac }}" hint-placeholder-val="{{ false }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5; color: #E8EEF1"><code>Triton/
 ├─ triton.jar
 └─ jdk-21.0.5+11/
    └─ Contents/
@@ -673,7 +673,7 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
          ├─ release
          └─ bin/
             └─ java</code></pre></sc-if>
-          <ul style="margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 1.5; color: #C9D6DD">
+          <ul style="margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 6px; font-size: 15px; line-height: 1.5; color: #C9D6DD">
             <li>Put it right next to triton.jar, not in a subfolder.</li>
             <li>Its name must start with <code>jdk</code> or <code>jre</code>. The name it unpacks with is fine.</li>
             <li>This file must exist inside it: <sc-if value="{{ rWin }}" hint-placeholder-val="{{ true }}"><code>bin\java.exe</code></sc-if><sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><code>bin/java</code></sc-if><sc-if value="{{ rMac }}" hint-placeholder-val="{{ false }}"><code>Contents/Home/bin/java</code></sc-if>.</li>
@@ -683,12 +683,12 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 24px; border-top: 1px solid #1C2830">
-          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #8A9AA4"><span style="color: {{accent}}">3</span> · Terminal</span>
-          <h4 style="margin: 0; font-size: 17px; font-weight: 600; color: #F2F6F8">Start it with a specific Java</h4>
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4"><span style="color: #F2F6F8">3</span> · Terminal</span>
+          <h4 style="margin: 0; font-size: 18px; font-weight: 600; color: #F2F6F8">Start it with a specific Java</h4>
           <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9D6DD">Open a terminal in the triton.jar folder and use the full path to that Java's <code>java</code>:</p>
-          <sc-if value="{{ rWin }}" hint-placeholder-val="{{ true }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>&amp; "C:\Program Files\Java\jdk-21\bin\java.exe" -jar triton.jar</code></pre><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">That's PowerShell; in Command Prompt, leave out the <code>&amp;</code>. With the portable folder from way 2:</p><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>.\jdk-21.0.5+11\bin\java.exe -jar triton.jar</code></pre></sc-if>
-          <sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>/usr/lib/jvm/java-21-openjdk-amd64/bin/java -jar triton.jar</code></pre><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">With the portable folder from way 2 (if it came out of a zip, run <code>chmod +x jdk-21.0.5+11/bin/java</code> once first):</p><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>./jdk-21.0.5+11/bin/java -jar triton.jar</code></pre></sc-if>
-          <sc-if value="{{ rMac }}" hint-placeholder-val="{{ false }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home/bin/java -jar triton.jar</code></pre><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">With the portable folder from way 2:</p><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.5; color: #E8EEF1"><code>./jdk-21.0.5+11/Contents/Home/bin/java -jar triton.jar</code></pre></sc-if>
+          <sc-if value="{{ rWin }}" hint-placeholder-val="{{ true }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5; color: #E8EEF1"><code>&amp; "C:\Program Files\Java\jdk-21\bin\java.exe" -jar triton.jar</code></pre><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">That's PowerShell; in Command Prompt, leave out the <code>&amp;</code>. With the portable folder from way 2:</p><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5; color: #E8EEF1"><code>.\jdk-21.0.5+11\bin\java.exe -jar triton.jar</code></pre></sc-if>
+          <sc-if value="{{ rLinux }}" hint-placeholder-val="{{ false }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5; color: #E8EEF1"><code>/usr/lib/jvm/java-21-openjdk-amd64/bin/java -jar triton.jar</code></pre><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">With the portable folder from way 2 (if it came out of a zip, run <code>chmod +x jdk-21.0.5+11/bin/java</code> once first):</p><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5; color: #E8EEF1"><code>./jdk-21.0.5+11/bin/java -jar triton.jar</code></pre></sc-if>
+          <sc-if value="{{ rMac }}" hint-placeholder-val="{{ false }}"><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5; color: #E8EEF1"><code>/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home/bin/java -jar triton.jar</code></pre><p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">With the portable folder from way 2:</p><pre style="margin: 0; padding: 14px 16px; border-radius: 12px; background: #0A0E11; border: 1px solid #22303A; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5; color: #E8EEF1"><code>./jdk-21.0.5+11/Contents/Home/bin/java -jar triton.jar</code></pre></sc-if>
           <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">Swap the path for wherever your Java 21 lives. To see which version a <code>java</code> is, run it with <code>-version</code> instead of <code>-jar triton.jar</code>.</p>
         </div>
 
@@ -696,10 +696,10 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
     </li>
     </sc-if>
     <sc-if value="{{ rIso }}" hint-placeholder-val="{{ false }}">
-    <li style="box-sizing: border-box; padding: 28px; border-radius: 24px; background: #10181E; border: 1px solid #22303A; display: flex; flex-wrap: wrap; gap: 14px 40px; align-items: flex-start">
+    <li style="box-sizing: border-box; padding: 28px; border-radius: 16px; background: #10181E; border: 1px solid #22303A; display: flex; flex-wrap: wrap; gap: 14px 40px; align-items: flex-start">
       <div style="flex: 0 1 220px; display: flex; flex-direction: column; gap: 10px">
-        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: {{accent}}">Option 1 · USB stick</span>
-        <h3 style="margin: 0; font-size: 20px; font-weight: 600; color: #F2F6F8">Boot from a USB stick</h3>
+        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Option 1 · USB stick</span>
+        <h3 style="margin: 0; font-size: 18px; font-weight: 600; color: #F2F6F8">Boot from a USB stick</h3>
         <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">For triton-os-amd64.iso. Writing the image erases everything on the stick.</p>
       </div>
       <ol style="flex: 1 1 320px; min-width: 0; margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.5; color: #C9D6DD">
@@ -708,10 +708,10 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
         <li>Triton OS boots to the setup wizard. If the stick doesn't show up, turn off Secure Boot and try again.</li>
       </ol>
     </li>
-    <li style="box-sizing: border-box; padding: 28px; border-radius: 24px; background: #10181E; border: 1px solid #22303A; display: flex; flex-wrap: wrap; gap: 14px 40px; align-items: flex-start">
+    <li style="box-sizing: border-box; padding: 28px; border-radius: 16px; background: #10181E; border: 1px solid #22303A; display: flex; flex-wrap: wrap; gap: 14px 40px; align-items: flex-start">
       <div style="flex: 0 1 220px; display: flex; flex-direction: column; gap: 10px">
-        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: {{accent}}">Option 2 · Virtual machine</span>
-        <h3 style="margin: 0; font-size: 20px; font-weight: 600; color: #F2F6F8">Try it in VirtualBox</h3>
+        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">Option 2 · Virtual machine</span>
+        <h3 style="margin: 0; font-size: 18px; font-weight: 600; color: #F2F6F8">Try it in VirtualBox</h3>
         <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #8A9AA4">No USB stick or restart needed. This is how Triton OS has been tested so far.</p>
       </div>
       <ol style="flex: 1 1 320px; min-width: 0; margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.5; color: #C9D6DD">
@@ -728,7 +728,7 @@ a{color:#A9CFDB}a:hover{color:#FFFFFF}
 
 </section>
 
-<footer style="border-top: 1px solid #16202A; padding: 32px 16px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; color: #8A9AA4">
+<footer style="border-top: 1px solid #16202A; padding: 32px 16px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: #8A9AA4">
   <span>Triton is a project by {{orgName}}</span>
   <span>© 2026 {{orgName}}</span>
 </footer>
