@@ -122,6 +122,26 @@
   .phone-shot img { display: block; width: 100%; height: auto; }
   .phone-shot figcaption { margin-top: 10px; font-size: 13px; line-height: 1.5; color: var(--fg-dim); }
   @media (max-width: 640px) { .with-phone { grid-template-columns: minmax(0, 1fr); } .phone-shot { max-width: 220px; } }
+  /* HTML phone for the emergency alert (linked to the PC alert demo) */
+  .phone { position: relative; display: flex; flex-direction: column; aspect-ratio: 387 / 991; border-radius: 22px; border: 4px solid #E5373D; background: #0A0B0D; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45); overflow: hidden; transition: border-color 0.3s ease; }
+  .phone.calm { border-color: #2A3038; }
+  .ph-status { display: flex; justify-content: space-between; padding: 6px 12px 0; font-family: var(--sans); font-size: 10px; font-weight: 600; color: #E8EEF1; }
+  .ph-alert { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 0 12px; }
+  .ph-bar { padding: 5px 8px; background: #C8202A; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: #FFFFFF; }
+  .ph-alert b { margin-top: 4px; font-size: 16px; font-weight: 700; line-height: 1.15; color: #F2F2EE; }
+  .ph-sev, .ph-time { font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.1em; color: #9AA3AA; }
+  .ph-alert p { margin: 2px 0; font-size: 10.5px; line-height: 1.6; color: #E8EEF1; }
+  .ph-alert button { width: 100%; min-height: 34px; margin-top: 4px; border-radius: 2px; font-family: var(--mono); letter-spacing: 0.1em; cursor: pointer; }
+  .ph-ack { border: 1px solid #F06060; background: #C8202A; color: #FFFFFF; font-size: 11px; }
+  .ph-ack:hover { background: #DC2B35; }
+  .ph-open { border: 1px solid #2A3038; background: #161A1E; color: #E8EEF1; font-size: 9px; }
+  .ph-open:hover { border-color: var(--accent); }
+  .ph-hint { font-size: 9.5px; color: #9AA3AA; text-align: center; }
+  .ph-lock { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; padding: 0 12px; }
+  .ph-clock { font-size: 40px; font-weight: 300; color: #E8EEF1; }
+  .ph-msg { font-size: 11px; line-height: 1.5; color: #9AA3AA; }
+  .ph-nav { display: flex; justify-content: center; gap: 44px; padding: 8px 0; background: #121518; font-size: 12px; color: #C9D6DD; }
+  @media (prefers-reduced-motion: reduce) { .phone { transition: none; } }
 </style>
 </head>
 <body>
@@ -211,7 +231,24 @@
       <h2 id="emergency-alerts">Emergency alerts</h2>
       <p>Triton works out where the PC actually is, from its network location rather than the operating system&rsquo;s region setting, and watches the official alert feeds for that country: WMO, the US National Weather Service, the Thai Meteorological Department, USGS earthquakes and GDACS. Alerts are checked for relevance, then announced with a plate, a sound, a bubble and Troy&rsquo;s voice.</p>
       <div class="with-phone">
-        <figure class="phone-shot"><a href="phone-emergency-alert.jpg"><img src="phone-emergency-alert.jpg" width="387" height="991" loading="lazy" alt="A phone showing a full-screen Triton emergency alert: Test alert until 19:42, Moderate, the test text, an Acknowledge button and an Open Troy Remote button"></a><figcaption>A test alert on the phone, over the lock screen.</figcaption></figure>
+        <figure class="phone-shot">
+          <div class="phone" id="phone-alert" aria-label="Phone showing the emergency alert">
+            <div class="ph-status" aria-hidden="true"><span>19:30</span><span>5G &#9646; 21%</span></div>
+            <div class="ph-alert">
+              <div class="ph-bar">EMERGENCY ALERT</div>
+              <b>TEST ALERT &mdash; UNTIL 19:40</b>
+              <span class="ph-sev">SEVERE</span>
+              <p>This is a test of Triton&rsquo;s emergency alerts. No action is needed. A real alert shows the issuer&rsquo;s own text here: what is happening and where. This covers your location.</p>
+              <span class="ph-time">TEST &middot; 19:30</span>
+              <button type="button" class="ph-ack">ACKNOWLEDGE</button>
+              <button type="button" class="ph-open">OPEN TROY REMOTE</button>
+              <span class="ph-hint" hidden>In the app this opens Troy Remote.</span>
+            </div>
+            <div class="ph-lock" hidden><span class="ph-clock">19:31</span><span class="ph-msg"></span></div>
+            <div class="ph-nav" aria-hidden="true"><span>&#9711;</span><span>&#8249;</span></div>
+          </div>
+          <figcaption>The same alert on the phone, over the lock screen. Acknowledge it here or on the PC below.</figcaption>
+        </figure>
         <ul>
           <li><strong>The alert plate:</strong> a red banner with the alert&rsquo;s description and an Acknowledge button, on the least busy screen. One plate at a time; the rest wait in line, most serious first.</li>
           <li><strong>Sound by severity:</strong> ordinary alerts beep three times and fold away after 45 seconds. Severe ones sound an alarm until acknowledged.</li>
@@ -221,7 +258,7 @@
         </ul>
       </div>
       <h3>Try the PC alert</h3>
-      <p>This is the plate on the PC. Acknowledging it on any device closes it everywhere. Try the button:</p>
+      <p>This is the plate on the PC. It is linked to the phone above: acknowledge it on either one and it closes on both, as it does in Triton.</p>
       <div class="alert-demo" id="alert-demo">
         <p class="note">A copy of the PC alert, for this page. Nothing is sent.</p>
         <div class="ea" role="alertdialog" aria-labelledby="ea-title" aria-describedby="ea-text">
@@ -445,12 +482,23 @@
 })();
 </script>
 <script>
-// Emergency alert copy: Acknowledge closes it, "Show again" brings it back. Nothing is sent.
+// Emergency alert copies on the PC and the phone, linked: acknowledging on either closes both. Nothing is sent.
 (function () {
-  var box = document.getElementById('alert-demo'); if (!box) return;
-  var alert = box.querySelector('.ea'), done = box.querySelector('.ea-done');
-  alert.querySelector('button').addEventListener('click', function () { alert.hidden = true; done.hidden = false; done.querySelector('button').focus(); });
-  done.querySelector('button').addEventListener('click', function () { done.hidden = true; alert.hidden = false; alert.querySelector('button').focus(); });
+  var pc = document.getElementById('alert-demo'), ph = document.getElementById('phone-alert'); if (!pc || !ph) return;
+  var plate = pc.querySelector('.ea'), done = pc.querySelector('.ea-done'), doneText = done.querySelector('span');
+  var phAlert = ph.querySelector('.ph-alert'), phLock = ph.querySelector('.ph-lock'), phMsg = ph.querySelector('.ph-msg'), hint = ph.querySelector('.ph-hint');
+  var set = function (acked, where) {
+    plate.hidden = acked; done.hidden = !acked;
+    phAlert.hidden = acked; phLock.hidden = !acked; ph.classList.toggle('calm', acked);
+    if (acked) {
+      doneText.innerHTML = '&#10003; Acknowledged on the ' + where + '. The alert closed on the PC and the phone.';
+      phMsg.textContent = where === 'phone' ? 'Alert acknowledged.' : 'Alert acknowledged on the PC.';
+    } else { hint.hidden = true; }
+  };
+  plate.querySelector('button').addEventListener('click', function () { set(true, 'PC'); done.querySelector('button').focus(); });
+  ph.querySelector('.ph-ack').addEventListener('click', function () { set(true, 'phone'); });
+  ph.querySelector('.ph-open').addEventListener('click', function () { hint.hidden = false; });
+  done.querySelector('button').addEventListener('click', function () { set(false); plate.querySelector('button').focus(); });
 })();
 </script>
 <script src="../lightbox.js?v=1" defer></script>
